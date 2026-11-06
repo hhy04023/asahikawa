@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123248">
+  <meta name="description" content="旭川與周邊滑雪、美食、購物地點整理。">
+  <title>旭川地點地圖 | ASAHIKAWA</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #173449;
+      --muted: #627684;
+      --blue: #176a85;
+      --blue-dark: #123248;
+      --ice: #e8f3f5;
+      --paper: #fbfcfa;
+      --line: #dfe8e8;
+      --orange: #e9a867;
+      --shadow: 0 12px 35px rgba(25, 58, 74, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #f1f5f3;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", sans-serif;
+      line-height: 1.5;
+    }
+    button, input { font: inherit; }
+    .shell { width: min(100%, 920px); margin: 0 auto; padding: 16px 16px 48px; }
+    .hero {
+      position: relative;
+      min-height: 235px;
+      overflow: hidden;
+      border-radius: 27px;
+      background: linear-gradient(130deg, #153c54 0%, #23627a 55%, #8ab6be 100%);
+      color: white;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .hero-art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }
+    .hero-copy { position: absolute; inset: auto 24px 23px; z-index: 1; text-shadow: 0 2px 14px rgba(9, 33, 47, .32); }
+    .eyebrow { margin: 0 0 7px; font-size: 11px; font-weight: 800; letter-spacing: .24em; text-transform: uppercase; opacity: .88; }
+    h1 { margin: 0; font-size: clamp(31px, 8vw, 49px); line-height: 1.05; letter-spacing: .04em; }
+    .hero-sub { margin: 9px 0 0; font-size: 14px; color: rgba(255,255,255,.91); }
+    .intro { margin: 17px 3px 16px; color: #536a77; font-size: 14px; }
+    .controls { position: sticky; top: 0; z-index: 5; padding: 8px 0 11px; background: rgba(241,245,243,.94); backdrop-filter: blur(12px); }
+    .search-wrap { position: relative; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #69828e; font-size: 18px; pointer-events: none; }
+    .search {
+      display: block; width: 100%; height: 49px; padding: 0 15px 0 43px; border: 1px solid var(--line);
+      border-radius: 15px; outline: 0; background: white; color: var(--ink); box-shadow: 0 4px 16px rgba(24, 65, 80, .04);
+    }
+    .search:focus { border-color: #68aabb; box-shadow: 0 0 0 3px rgba(55, 144, 165, .12); }
+    .filters { display: flex; gap: 8px; overflow-x: auto; padding: 12px 0 3px; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter {
+      flex: 0 0 auto; border: 1px solid #dbe5e5; border-radius: 999px; padding: 8px 13px; background: #fff;
+      color: #4b6472; font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .filter[aria-pressed="true"] { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
+    .results-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 2px 12px; }
+    .results-head h2 { margin: 0; font-size: 17px; }
+    .count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .card { min-width: 0; padding: 16px; border: 1px solid rgba(214,226,226,.9); border-radius: 19px; background: white; box-shadow: 0 6px 22px rgba(25,58,74,.055); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .category { color: #5e7b88; font-size: 11px; font-weight: 800; letter-spacing: .06em; }
+    .title { margin: 5px 0 0; font-size: 17px; line-height: 1.28; overflow-wrap: anywhere; }
+    .emoji { display: grid; flex: 0 0 37px; width: 37px; height: 37px; place-items: center; border-radius: 12px; background: var(--ice); font-size: 19px; }
+    .cuisine { display: inline-block; margin: 11px 0 0; padding: 4px 8px; border-radius: 999px; background: #f1f6f4; color: #426575; font-size: 11px; font-weight: 800; }
+    .desc { min-height: 40px; margin: 8px 0 0; color: #5f7079; font-size: 13px; }
+    .rating-row { display: flex; align-items: center; gap: 7px; margin-top: 11px; font-size: 12px; }
+    .rating { color: #8a551d; font-weight: 850; text-decoration: none; }
+    .rating:hover { text-decoration: underline; }
+    .rating-star { color: #d99645; }
+    .rating-source { color: #81909a; font-size: 11px; }
+    .code-row { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #edf1ef; }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-weight: 800; letter-spacing: .015em; color: #355967; }
+    .copy { flex: 0 0 auto; border: 0; border-radius: 9px; padding: 6px 9px; background: #edf4f4; color: #315c6a; font-size: 11px; font-weight: 750; cursor: pointer; }
+    .actions { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 11px; }
+    .map-btn { display: flex; min-height: 41px; align-items: center; justify-content: center; gap: 7px; border-radius: 11px; background: var(--blue-dark); color: white; text-decoration: none; font-size: 13px; font-weight: 800; }
+    .map-btn:hover { background: #1e5972; }
+    .empty { grid-column: 1/-1; padding: 32px 18px; border: 1px dashed #cadada; border-radius: 18px; color: var(--muted); text-align: center; }
+    .note { margin: 20px 4px 0; color: #70828b; font-size: 11px; }
+    .footer { margin: 27px 4px 0; padding-top: 15px; border-top: 1px solid #dbe4e2; color: #7a8b92; font-size: 11px; }
+    .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 10; transform: translate(-50%, 14px); opacity: 0; padding: 10px 15px; border-radius: 999px; background: #15384d; color: white; font-size: 13px; box-shadow: var(--shadow); transition: .2s ease; pointer-events: none; }
+    .toast.show { transform: translate(-50%,0); opacity: 1; }
+    @media (max-width: 640px) {
+      .shell { padding: 10px 12px 34px; }
+      .hero { min-height: 212px; border-radius: 22px; }
+      .hero-copy { inset: auto 20px 20px; }
+      .intro { margin: 13px 3px 10px; font-size: 13px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+      .card { padding: 15px; border-radius: 17px; }
+      .title { font-size: 16px; }
+      .desc { min-height: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero" aria-label="旭川冬季雪景封面插畫">
+      <svg class="hero-art" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="旭川雪山、松林與冬日天空插畫">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#14354d"/><stop offset=".56" stop-color="#4f8798"/><stop offset="1" stop-color="#b2d0cc"/></linearGradient>
+          <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f4fbf9"/><stop offset="1" stop-color="#bcd7d7"/></linearGradient>
+          <linearGradient id="shadowSnow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8f5f4"/><stop offset="1" stop-color="#9fc3cb"/></linearGradient>
+        </defs>
+        <rect width="1200" height="420" fill="url(#sky)"/>
+        <circle cx="945" cy="82" r="42" fill="#f2d9aa" opacity=".94"/>
+        <g fill="#fff" opacity=".5"><circle cx="140" cy="72" r="2"/><circle cx="254" cy="132" r="2.5"/><circle cx="390" cy="54" r="1.7"/><circle cx="720" cy="90" r="2"/><circle cx="1090" cy="150" r="2.5"/><circle cx="620" cy="166" r="1.8"/></g>
+        <path d="M0 286 145 144l89 83 112-132 152 180 122-147 96 107 143-164 134 155 119-92 188 168v118H0Z" fill="#d8e9e8" opacity=".8"/>
+        <path d="m244 227 102-132 88 104-54-24-34 20-33-25-39 45Z" fill="#f5fbfa" opacity=".9"/>
+        <path d="m607 235 109-130 92 102-52-20-31 22-34-24-40 39Z" fill="#f8fcf9"/>
+        <path d="m877 217 136-155 115 135-68-25-33 19-38-28-42 42Z" fill="#eaf5f2" opacity=".92"/>
+        <path d="M0 300q156-32 314 5t316-1q188-44 329 9t241-3v110H0Z" fill="url(#snow)"/>
+        <path d="M0 348q203-31 389 12t393-6q232-46 418 6v60H0Z" fill="url(#shadowSnow)"/>
+        <g fill="#174255" opacity=".88">
+          <path d="m770 348 20-82 20 82h-11l22 35h-21l17 25h-54l17-25h-21l22-35Z"/><path d="m835 357 17-67 17 67h-10l19 29h-18l15 22h-46l15-22h-18l19-29Z"/>
+          <path d="m1050 356 19-78 19 78h-11l20 32h-19l16 24h-50l16-24h-19l20-32Z"/><path d="m1110 367 14-57 14 57h-8l15 24h-15l12 19h-37l12-19h-15l15-24Z"/>
+          <path d="m72 355 17-68 17 68h-10l18 29H96l14 22H67l14-22H63l18-29Z"/><path d="m138 364 14-55 14 55h-8l15 24h-14l12 19h-37l12-19h-15l15-24Z"/>
+        </g>
+        <path d="M0 390q230-39 430 4t365-3q205-33 405-1v30H0Z" fill="#fff" opacity=".53"/>
+      </svg>
+      <div class="hero-copy">
+        <p class="eyebrow">HOKKAIDO · WINTER TRIP</p>
+        <h1>旭川地點地圖</h1>
+        <p class="hero-sub">滑雪・美食・購物，一頁收藏</p>
+      </div>
+    </header>
+
+    <p class="intro">挑選地點查看簡介、MapCode 與食べログ評分；點「開啟 Google Maps」即可在手機查看地點或開始導航。</p>
+
+    <section class="controls" aria-label="地點搜尋與分類">
+      <label class="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="search" class="search" type="search" placeholder="搜尋地點、菜系或 MapCode" autocomplete="off" aria-label="搜尋地點、菜系或 MapCode">
+      </label>
+      <nav id="filters" class="filters" aria-label="地點分類"></nav>
+    </section>
+
+    <section aria-labelledby="section-title">
+      <div class="results-head">
+        <h2 id="section-title">旭川與近郊地點</h2>
+        <span id="count" class="count" aria-live="polite"></span>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <p class="note">食べログ分數會更新，點擊分數可查看店家頁面。MapCode 依目前行程資料整理；若地圖搜尋結果不符，請以目的地名稱與地址核對。</p>
+    <footer class="footer">ASAHIKAWA · 個人旅行地點清單</footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const places = [
+      {name:"小樽なると屋 旭川永山店", group:"餐廳", icon:"🍗", cuisine:"日式炸雞・若雞半身揚", intro:"以炸雞與半身炸雞為主，適合安排在永山區用餐。", code:"79 438 589*38", rating:"3.03", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058395/", map:"小樽なると屋 旭川永山店, Asahikawa, Hokkaido"},
+      {name:"KINGBEAR 旭川さんろく店", group:"餐廳", icon:"🍛", cuisine:"湯咖哩", intro:"旭川市區的湯咖哩店，可作為市中心用餐選擇。", code:"79 343 827*32", rating:"3.25", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1077682/", map:"KINGBEAR 旭川さんろく店, Asahikawa, Hokkaido"},
+      {name:"金花郎 一条店", group:"餐廳", icon:"🥩", cuisine:"炭火燒肉", intro:"炭火燒肉店，適合安排晚餐或多人聚餐。", code:"79 342 719*18", rating:"3.23", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1021896/", map:"炭火焼き肉 金花郎 一条店, Asahikawa, Hokkaido"},
+      {name:"ほろ酔い処 味介", group:"餐廳", icon:"🐟", cuisine:"海鮮居酒屋", intro:"以海鮮料理為主的居酒屋，適合晚餐時段前往。", code:"79 343 820*01", rating:"3.10", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1073493/", map:"ほろ酔い処 味介, Asahikawa, Hokkaido"},
+      {name:"回転寿司ちょいす 神楽店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"神樂區的迴轉壽司店，方便自駕途中用餐。", code:"79 312 295*30", rating:"3.07", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1024329/", map:"回転寿司ちょいす 神楽店, Asahikawa, Hokkaido"},
+      {name:"SUSHI HOUSE 鮨六", group:"餐廳", icon:"🍣", cuisine:"壽司・居酒屋", intro:"位於旭川市中心的壽司店，也提供居酒屋餐點。", code:"79 343 766*26", rating:"3.34", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004584/", map:"SUSHI HOUSE 鮨六, Asahikawa, Hokkaido"},
+      {name:"回転寿しトリトン 旭神店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"旭神區的迴轉壽司店，適合自駕安排用餐。", code:"79 227 784*70", rating:"3.53", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000798/", map:"回転寿しトリトン 旭神店, Asahikawa, Hokkaido"},
+      {name:"焼鳥専門 ぎんねこ", group:"餐廳", icon:"🍢", cuisine:"炭火串燒・居酒屋", intro:"旭川市中心的串燒店，可品嚐雞肉與居酒屋料理。", code:"MapCode 待確認", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1006681/", map:"焼鳥専門 ぎんねこ, Asahikawa, Hokkaido"},
+      {name:"味特 本店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"旭川市中心的拉麵店，提供醬油、鹽味與味噌等口味。", code:"79 343 736*42", rating:"3.59", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004362/", map:"味特 本店, Asahikawa, Hokkaido"},
+      {name:"生姜ラーメン みづの", group:"餐廳", icon:"🍜", cuisine:"生薑拉麵", intro:"以生薑風味拉麵為招牌，適合在市區散步時順道造訪。", code:"79 373 686*18", rating:"3.60", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1003673/", map:"生姜ラーメン みづの, Asahikawa, Hokkaido"},
+      {name:"蜂屋 五条創業店", group:"餐廳", icon:"🍜", cuisine:"拉麵・餃子", intro:"旭川老字號拉麵店，菜單以拉麵與餃子為主。", code:"79 373 112*64", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000269/", map:"蜂屋 五条創業店, Asahikawa, Hokkaido"},
+      {name:"ピッツェリア ヨー", group:"餐廳", icon:"🍕", cuisine:"義式・披薩", intro:"旭川市中心的休閒義式餐飲酒吧，可吃披薩與義式料理。", code:"79 343 851*32", rating:"3.06", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058528/", map:"ピッツェリア ヨー, Asahikawa, Hokkaido"},
+      {name:"成吉思汗 大黒屋 五丁目店", group:"餐廳", icon:"🔥", cuisine:"成吉思汗烤羊肉", intro:"以羊肉成吉思汗燒烤為主，是旭川市中心的晚餐選項。", code:"79 373 040*80", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1027848/", map:"成吉思汗 大黒屋 五丁目店, Asahikawa, Hokkaido"},
+      {name:"小西鮨", group:"餐廳", icon:"🍣", cuisine:"壽司・海鮮", intro:"旭川市中心的壽司店，提供壽司、海鮮與居酒屋料理。", code:"79 343 823*86", rating:"3.62", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004739/", map:"小西鮨, Asahikawa, Hokkaido"},
+      {name:"らーめんや天金 四条店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵・餃子", intro:"旭川市中心的老字號拉麵店，醬油拉麵是代表菜色。", code:"79 344 751*18", rating:"3.67", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000090/", map:"らーめんや天金 四条店, Asahikawa, Hokkaido"},
+      {name:"鮨みなと", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"旭川的壽司店，提供以北海道海鮮為主的握壽司料理。", code:"79 343 879*07", rating:"4.27", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1001719/", map:"鮨みなと, Asahikawa, Hokkaido"},
+      {name:"居酒屋 天売", group:"餐廳", icon:"🍶", cuisine:"海鮮居酒屋", intro:"旭川市中心的居酒屋，以海鮮料理與酒類為主。", code:"79 343 859*41", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1015055/", map:"居酒屋 天売, Asahikawa, Hokkaido"},
+
+      {name:"神居滑雪場", group:"滑雪場", icon:"⛷️", intro:"旭川近郊的大型滑雪場，可安排一日滑雪行程。", code:"655 427 297*63", map:"Kamui Ski Links, Asahikawa, Hokkaido"},
+      {name:"比布滑雪場", group:"滑雪場", icon:"🏂", intro:"旭川北側的滑雪場；使用你指定的 MapCode。", code:"470 059 293*21", map:"Pippu Ski Resort, Hokkaido, Japan"},
+      {name:"Canmore 滑雪村", group:"滑雪場", icon:"🏂", intro:"東川町一帶的滑雪地點，可與東川周邊行程一起安排。", code:"389 530 303*41", map:"Canmore Ski Village, Higashikawa, Hokkaido"},
+      {name:"聖誕禮物公園", group:"滑雪場", icon:"🎿", intro:"旭川市區附近的滑雪場，適合安排短程滑雪。", code:"79 336 023*21", map:"Santa Present Park, Asahikawa, Hokkaido"},
+
+      {name:"Super Sports Xebio 旭川永山店", group:"購物", icon:"🛍️", intro:"運動用品店，可查看滑雪與戶外用品。", code:"79 438 379*87", map:"Super Sports Xebio Asahikawa Nagayama, Hokkaido"},
+      {name:"Asahikawa Snow Force 雪具出租", group:"購物", icon:"🎿", intro:"旭川市區的雪具租借點，可安排取還雪具。", code:"79 342 893*38", map:"Asahikawa Snow Force, Asahikawa, Hokkaido"},
+      {name:"Shugakuso Asahikawa", group:"購物", icon:"🎒", intro:"戶外用品店，適合補充滑雪或戶外活動用品。", code:"79 398 063*05", map:"Shugakuso Asahikawa, Hokkaido"},
+      {name:"mont-bell 大雪東川店", group:"購物", icon:"🏔️", intro:"東川町的戶外用品店，可順遊東川近郊。", code:"389 406 317*23", map:"mont-bell Daisetsu Higashikawa, Hokkaido"},
+      {name:"永旺旭川春光購物中心", group:"購物", icon:"🛒", intro:"旭川市區的購物中心，可採買日用品與補給。", code:"79 433 786*00", map:"永旺旭川春光購物中心, Asahikawa, Hokkaido"},
+      {name:"MEGA唐吉訶德旭川店", group:"購物", icon:"🛍️", intro:"大型折扣商店，適合集中採買日用品與旅行補給。", code:"79 465 475*48", map:"MEGA Don Quijote Asahikawa, Hokkaido"},
+
+      {name:"金の湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂，可作為滑雪後放鬆選項。", code:"79 316 383*51", map:"金の湯, Asahikawa, Hokkaido"},
+      {name:"大黒湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂，適合安排在市區行程。", code:"79 345 281*82", map:"大黒湯, Asahikawa, Hokkaido"},
+      {name:"Yuransen Asahikawa", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的澡堂與休閒設施，可在活動後泡湯休息。", code:"79 369 503*83", map:"Yuransen Asahikawa, Hokkaido"},
+      {name:"SPA & SAUNA オスパー", group:"溫泉休閒", icon:"🧖", intro:"旭川市區的溫浴與桑拿設施。", code:"79 314 838*22", map:"SPA & SAUNA オスパー, Asahikawa, Hokkaido"},
+      {name:"天然温泉かぐらの湯", group:"溫泉休閒", icon:"♨️", intro:"神樂一帶的天然溫泉，可安排自駕返市區前後造訪。", code:"79 343 522*34", map:"天然温泉かぐらの湯, Asahikawa, Hokkaido"},
+      {name:"杜のSPA神楽", group:"溫泉休閒", icon:"♨️", intro:"神樂區的溫浴休閒設施，適合滑雪後放鬆。", code:"79 313 109*68", map:"杜のSPA神楽, Asahikawa, Hokkaido"},
+      {name:"旭川高砂台 万葉の湯", group:"溫泉休閒", icon:"♨️", intro:"高砂台一帶的溫浴休閒設施。", code:"79 367 055*25", map:"Asahikawa Takasagodai Manyonoyu, Hokkaido"},
+      {name:"Kitoushi Forest Kitoron", group:"溫泉休閒", icon:"🌲", intro:"東川町近郊的森林休閒與日歸溫泉設施。", code:"389 500 847*31", map:"Kitoushi Forest Kitoron, Higashikawa, Hokkaido"},
+
+      {name:"民宿（Night In Daiya）", group:"住宿", icon:"🏠", intro:"依你的指定，這筆住宿以 Night In Daiya 作為 Google Maps 搜尋名稱。", code:"79 343 751*70", map:"Night In Daiya, Asahikawa, Hokkaido"},
+      {name:"旭川機場", group:"交通", icon:"✈️", intro:"旭川進出與租車行程的機場位置。", code:"79 025 007*16", map:"Asahikawa Airport, Hokkaido, Japan"}
+    ];
+
+    const categories = ["全部", "餐廳", "滑雪場", "購物", "溫泉休閒", "住宿", "交通"];
+    let selected = "全部";
+    const filters = document.querySelector("#filters");
+    const grid = document.querySelector("#grid");
+    const search = document.querySelector("#search");
+    const count = document.querySelector("#count");
+    const toast = document.querySelector("#toast");
+
+    function makeMapsUrl(query) {
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
+    }
+    function drawFilters() {
+      filters.innerHTML = categories.map(c => `<button class="filter" type="button" aria-pressed="${selected === c}" data-category="${c}">${c}</button>`).join("");
+      filters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+        selected = button.dataset.category;
+        drawFilters();
+        drawPlaces();
+      }));
+    }
+    function drawPlaces() {
+      const term = search.value.trim().toLocaleLowerCase();
+      const visible = places.filter(p => (selected === "全部" || p.group === selected) &&
+        [p.name, p.group, p.cuisine || "", p.intro, p.code].join(" ").toLocaleLowerCase().includes(term));
+      count.textContent = `${visible.length} 個地點`;
+      if (!visible.length) {
+        grid.innerHTML = `<div class="empty">沒有找到符合的地點。試試其他名稱或分類。</div>`;
+        return;
+      }
+      grid.innerHTML = visible.map((p, i) => `
+        <article class="card">
+          <div class="card-top">
+            <div><div class="category">${p.group}</div><h3 class="title">${p.name}</h3></div>
+            <span class="emoji" aria-hidden="true">${p.icon}</span>
+          </div>
+          ${p.cuisine ? `<div class="cuisine">${p.cuisine}</div>` : ""}
+          <p class="desc">${p.intro}</p>
+          ${p.rating ? `<div class="rating-row"><span class="rating-star" aria-hidden="true">★</span><a class="rating" href="${p.tabelog}" target="_blank" rel="noopener noreferrer" aria-label="開啟 ${p.name} 的食べログ頁面">食べログ ${p.rating}</a><span class="rating-source">點擊查看店家頁</span></div>` : ""}
+          <div class="code-row"><span class="code">MAPCODE ${p.code}</span><button class="copy" type="button" data-code="${p.code}" aria-label="複製 ${p.name} 的 MapCode">複製</button></div>
+          <div class="actions"><a class="map-btn" href="${makeMapsUrl(p.map)}" target="_blank" rel="noopener noreferrer">↗ 開啟 Google Maps</a></div>
+        </article>`).join("");
+      grid.querySelectorAll(".copy").forEach(button => button.addEventListener("click", () => copyCode(button.dataset.code)));
+    }
+    async function copyCode(code) {
+      try {
+        await navigator.clipboard.writeText(code);
+      } catch {
+        const field = document.createElement("textarea"); field.value = code; field.style.position = "fixed"; field.style.opacity = "0";
+        document.body.appendChild(field); field.select(); document.execCommand("copy"); field.remove();
+      }
+      toast.textContent = "MapCode 已複製";
+      toast.classList.add("show");
+      window.clearTimeout(copyCode.timer);
+      copyCode.timer = window.setTimeout(() => toast.classList.remove("show"), 1700);
+    }
+    search.addEventListener("input", drawPlaces);
+    drawFilters();
+    drawPlaces();
+  </script>
+</body>
+</html>
