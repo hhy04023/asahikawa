@@ -57,7 +57,7 @@
       color: #4b6472; font-size: 13px; font-weight: 700; cursor: pointer;
     }
     .filter[aria-pressed="true"] { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
-    .filter.favorite-filter { width: 42px; padding: 8px; font-size: 17px; line-height: 1; }
+    .filter.favorite-filter { display: grid; width: 42px; place-items: center; padding: 8px; }
     .library-actions { display: flex; gap: 8px; margin-top: 11px; }
     .library-button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #cbdedf; border-radius: 12px; padding: 0 13px; background: white; color: #315c6a; font-size: 13px; font-weight: 800; cursor: pointer; }
     .library-button.primary { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
@@ -92,12 +92,15 @@
     .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-weight: 800; letter-spacing: .015em; color: #355967; }
     .copy { flex: 0 0 auto; border: 0; border-radius: 9px; padding: 6px 9px; background: #edf4f4; color: #315c6a; font-size: 11px; font-weight: 750; cursor: pointer; }
     .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
-    .map-btn { display: flex; min-height: 41px; align-items: center; justify-content: center; gap: 7px; border-radius: 11px; background: var(--blue-dark); color: white; text-decoration: none; font-size: 13px; font-weight: 800; }
+    .map-btn { display: flex; flex: 1 1 150px; min-height: 41px; align-items: center; justify-content: center; gap: 7px; border-radius: 11px; background: var(--blue-dark); color: white; text-decoration: none; font-size: 13px; font-weight: 800; }
     .map-btn:hover { background: #1e5972; }
     .save-btn, .tag-btn, .edit-btn, .delete-btn { min-height: 38px; border: 1px solid #d7e5e5; border-radius: 10px; background: #fff; color: #3d6675; font-size: 12px; font-weight: 800; cursor: pointer; }
     .save-btn.is-saved { border-color: #e4b29a; background: #fff2ea; color: #a25235; }
     .quick-actions { display: flex; gap: 7px; margin-left: auto; }
-    .quick-actions .save-btn, .quick-actions .tag-btn { display: grid; width: 38px; min-height: 38px; place-items: center; padding: 0; font-size: 18px; line-height: 1; }
+    .quick-actions .save-btn, .quick-actions .tag-btn { display: grid; width: 38px; min-height: 38px; place-items: center; padding: 0; }
+    .action-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+    .favorite-filter .action-icon { width: 17px; height: 17px; }
+    .save-btn.is-saved .icon-heart { fill: currentColor; }
     .card-tools { display: flex; gap: 7px; margin-top: 9px; }
     .card-tools button { flex: 1; }
     .empty { grid-column: 1/-1; padding: 32px 18px; border: 1px dashed #cadada; border-radius: 18px; color: var(--muted); text-align: center; }
@@ -151,7 +154,7 @@
       <nav id="tag-filters" class="tag-filters" aria-label="我的標籤"></nav>
       <div class="library-actions">
         <button id="add-place" class="library-button primary" type="button">＋ 新增地點</button>
-        <button id="saved-places" class="library-button" type="button">♡ 我的收藏 <span id="saved-count"></span></button>
+        <button id="saved-places" class="library-button" type="button"><svg class="action-icon icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.3c0 5-8.8 10.1-8.8 10.1S3.2 13.3 3.2 8.3A4.8 4.8 0 0 1 12 5.6a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>我的收藏 <span id="saved-count"></span></button>
       </div>
     </section>
 
@@ -342,6 +345,10 @@
     const iconPaths = {"餐廳":"assets/category-illustrations/restaurant-ramen.png", "景點":"assets/category-illustrations/attractions-zoo.png", "滑雪":"assets/category-illustrations/snowboard.png", "娛樂":"assets/category-illustrations/entertainment-pachinko.png", "購物":"assets/category-illustrations/shopping.png", "溫泉休閒":"assets/category-illustrations/onsen.png", "住宿":"assets/category-illustrations/lodging.png", "交通":"assets/category-illustrations/transport.png"};
     const categoryStyles = {"餐廳":"--card-bg:#fff8ed;--card-border:#f1ddba", "景點":"--card-bg:#f7f6ff;--card-border:#dddaf4", "滑雪":"--card-bg:#eef8ff;--card-border:#cde5f4", "娛樂":"--card-bg:#fff1f2;--card-border:#f1cbd1", "購物":"--card-bg:#fff9ee;--card-border:#f1dfbd", "溫泉休閒":"--card-bg:#effaff;--card-border:#ccebf2", "住宿":"--card-bg:#fff8f0;--card-border:#f0dec5", "交通":"--card-bg:#f1f8ff;--card-border:#d2e3f4"};
     const storageKeys = {custom:"asahikawa-custom-places", saved:"asahikawa-saved-places", tags:"asahikawa-place-tags"};
+    const icons = {
+      heart: '<svg class="action-icon icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.3c0 5-8.8 10.1-8.8 10.1S3.2 13.3 3.2 8.3A4.8 4.8 0 0 1 12 5.6a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>',
+      tag: '<svg class="action-icon icon-tag" viewBox="0 0 24 24" aria-hidden="true"><path d="m20.4 13-7.3 7.3a2.2 2.2 0 0 1-3.1 0L3.7 14V4.5h9.5l7.2 7.2a.9.9 0 0 1 0 1.3Z"/><circle cx="8.2" cy="8.2" r="1.1"/></svg>'
+    };
     places.forEach((place, index) => { place.id = `official-${index}`; place.builtIn = true; });
     let selected = "全部";
     let selectedTag = "全部";
@@ -438,7 +445,7 @@
     function drawFilters() {
       filters.innerHTML = categories.map(c => {
         const favorite = c === "我的收藏";
-        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? "♥" : c}</button>`;
+        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? icons.heart : c}</button>`;
       }).join("");
       filters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
         selected = button.dataset.category;
@@ -488,7 +495,7 @@
           ${p.weatherKey ? weatherMarkup(p.weatherKey) : ""}
           ${p.rating ? `<div class="rating-row"><span class="rating-star" aria-hidden="true">★</span><a class="rating" href="${escapeHtml(p.tabelog)}" target="_blank" rel="noopener noreferrer" aria-label="開啟 ${escapeHtml(p.name)} 的食べログ頁面">食べログ ${escapeHtml(p.rating)}</a><span class="rating-source">點擊查看店家頁</span></div>` : ""}
           <div class="code-row"><span class="code">${p.code ? `MAPCODE ${escapeHtml(p.code)}` : "MapCode 尚未整理"}</span>${p.code ? `<button class="copy" type="button" data-code="${escapeHtml(p.code)}" aria-label="複製 ${escapeHtml(p.name)} 的 MapCode">複製</button>` : ""}</div>
-          <div class="actions">${p.official ? `<a class="map-btn" href="${escapeHtml(p.official)}" target="_blank" rel="noopener noreferrer">↗ 滑雪場官網</a><a class="map-btn" href="${escapeHtml(p.trailMap)}" target="_blank" rel="noopener noreferrer">↗ 雪道地圖</a>` : ""}${p.map || p.name ? `<a class="map-btn" href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer">↗ Google Maps</a>` : ""}<div class="quick-actions"><button class="save-btn ${saved ? "is-saved" : ""}" type="button" data-save="${p.id}" aria-label="${saved ? "從" : "加入"} ${escapeHtml(p.name)} 的收藏" title="${saved ? "移除收藏" : "加入收藏"}">${saved ? "♥" : "♡"}</button><button class="tag-btn" type="button" data-tags="${p.id}" aria-label="管理 ${escapeHtml(p.name)} 的標籤" title="管理標籤">🏷</button></div></div>
+          <div class="actions">${p.official ? `<a class="map-btn" href="${escapeHtml(p.official)}" target="_blank" rel="noopener noreferrer">↗ 滑雪場官網</a><a class="map-btn" href="${escapeHtml(p.trailMap)}" target="_blank" rel="noopener noreferrer">↗ 雪道地圖</a>` : ""}${p.map || p.name ? `<a class="map-btn" href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer">↗ Google Maps</a>` : ""}<div class="quick-actions"><button class="save-btn ${saved ? "is-saved" : ""}" type="button" data-save="${p.id}" aria-label="${saved ? "從" : "加入"} ${escapeHtml(p.name)} 的收藏" title="${saved ? "移除收藏" : "加入收藏"}">${icons.heart}</button><button class="tag-btn" type="button" data-tags="${p.id}" aria-label="管理 ${escapeHtml(p.name)} 的標籤" title="管理標籤">${icons.tag}</button></div></div>
           ${p.builtIn ? "" : `<div class="card-tools"><button class="edit-btn" type="button" data-edit="${p.id}">編輯</button><button class="delete-btn" type="button" data-delete="${p.id}">刪除</button></div>`}
         </article>`;
       }).join("");
