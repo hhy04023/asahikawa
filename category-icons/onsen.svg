@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">溫泉</title>
+  <rect width="160" height="160" rx="28" fill="#DDF2ED"/>
+  <g transform="translate(0 7)" fill="none" stroke="#22665D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M31 81V59m12 16V59m12 12V59m-29 5h34m42 7V59m12 16V59m12 22V59m-29 5h34" stroke-width="3"/>
+    <path d="M29 96q11-9 22-10 15-8 29-4 20-4 30 4 12 0 21 10-6 16-51 16T29 96Z" fill="#82C6B7" stroke="none"/>
+    <path d="M56 70c-12-12 11-15 1-26m23 22c-12-12 11-15 1-26m23 30c-12-12 11-15 1-26"/>
+    <path d="M55 95q6-3 12 0t12 0m8 9q5-3 10 0t10 0" stroke-width="2.5"/>
+    <path d="m24 98 8-12 12 1 6 13-12 6Zm26 10 8-6 12 3 2 9H56Zm63-10 6-11 12 1 6 11-11 6Zm-7 15 6-9 12 1 5 8-13 4Z" fill="#fffaf1" stroke-width="3"/>
+  </g>
+</svg>

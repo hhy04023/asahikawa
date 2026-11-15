@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">住宿｜民宿</title>
+  <rect width="160" height="160" rx="28" fill="#F9E9DF"/>
+  <g transform="translate(0 7)" fill="none" stroke="#884327" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 66h82v45H39z" fill="#fffaf1"/><path d="M27 65q25-7 53-32 28 25 53 32l-10 5H37Z" fill="#EBAB87"/><path d="M48 58h64M33 113h94M47 111V79h24v32m-12-32v32M47 89h24m-24 10h24" stroke-width="3"/><path d="M80 111V80h32v31" fill="#EBAB87"/><path d="M80 93h32m-16-13v13m-5 12h10" stroke-width="3"/><path d="M129 105v-7m-5 0h10l-2-8h-6Z" fill="#EBAB87" stroke-width="2.5"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">交通</title>
+  <rect width="160" height="160" rx="28" fill="#EDF3DE"/>
+  <g transform="translate(0 7)" fill="none" stroke="#416327" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27 92V56m9 33V65m97 27V56m-9 33V65M23 58h19m76 0h19" stroke-width="2.5"/><path d="m64 96-12 16m44-16 12 16m-50-8h44"/><rect x="48" y="34" width="64" height="65" rx="11" fill="#fffaf1"/><path d="M49 75h62v13H49Z" fill="#B2CD87" stroke-width="2.5"/><path d="M57 53h46v18H57Z" fill="#B2CD87" stroke-width="3"/><path d="M80 53v18m-8-28h16" stroke-width="3"/><circle cx="60" cy="82" r="3.5" fill="#fffaf1" stroke-width="2"/><circle cx="100" cy="82" r="3.5" fill="#fffaf1" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">購物</title>
+  <rect width="160" height="160" rx="28" fill="#F0E7FB"/>
+  <g transform="translate(0 7)" fill="none" stroke="#5F4187" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M77 65 57 48q-7-9 2-10 10 0 21 23 10-23 21-23 9 1 2 10L83 65" fill="#fffaf1"/><path d="M80 62q-13-6-27 9L37 91q-7 11 9 17h68q16-6 9-17l-16-20q-14-15-27-9Z" fill="#C6ADEE"/><path d="M72 61q8-6 16 0l-3 8H75Z" fill="#fffaf1" stroke-width="3"/><path d="M48 95a11 11 0 0 1 22 0 11 11 0 0 1 22 0 11 11 0 0 1 22 0m-60 0a5 5 0 0 1 10 0m12 0a5 5 0 0 1 10 0m12 0a5 5 0 0 1 10 0" stroke-width="2.5"/>
+  </g>
+</svg>

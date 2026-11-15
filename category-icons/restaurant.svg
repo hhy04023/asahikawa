@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">餐廳</title>
+  <rect width="160" height="160" rx="28" fill="#FFF0CE"/>
+  <g transform="translate(0 7)" fill="none" stroke="#82500D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M34 55h92v51H34z" fill="#fffaf1"/><path d="M42 105V74h76v31M29 52h102m-94-6h86" stroke-width="3"/><path d="M37 53h86v30H37Z" fill="#F6C76F"/><path d="M65 54v29m30-29v29M64 106V85m32 21V85" stroke-width="3"/>
+    <path d="M45 68h12m-10 0 2 7h4l2-7m19 0h12m-10 0 2 7h4l2-7m19 0h12m-10 0 2 7h4l2-7" stroke-width="2.5"/>
+    <path d="m74 63 10-5" stroke-width="2.5"/>
+  </g>
+</svg>
