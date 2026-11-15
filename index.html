@@ -32,15 +32,15 @@
     .shell { width: min(100%, 920px); margin: 0 auto; padding: 16px 16px 48px; }
     .hero {
       position: relative;
-      min-height: 235px;
+      aspect-ratio: 1672 / 941;
       overflow: hidden;
       border-radius: 27px;
-      background: linear-gradient(130deg, #153c54 0%, #23627a 55%, #8ab6be 100%);
+      background: #fff;
       color: white;
       box-shadow: var(--shadow);
       isolation: isolate;
     }
-    .hero-art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: contain; object-position: center; }
     .intro { margin: 17px 3px 16px; color: #536a77; font-size: 14px; }
     .controls { position: sticky; top: 0; z-index: 5; padding: 8px 0 11px; background: rgba(241,245,243,.94); backdrop-filter: blur(12px); }
     .search-wrap { position: relative; }
@@ -57,6 +57,7 @@
       color: #4b6472; font-size: 13px; font-weight: 700; cursor: pointer;
     }
     .filter[aria-pressed="true"] { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
+    .filter.favorite-filter { width: 42px; padding: 8px; font-size: 17px; line-height: 1; }
     .library-actions { display: flex; gap: 8px; margin-top: 11px; }
     .library-button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #cbdedf; border-radius: 12px; padding: 0 13px; background: white; color: #315c6a; font-size: 13px; font-weight: 800; cursor: pointer; }
     .library-button.primary { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
@@ -90,12 +91,13 @@
     .code-row { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #edf1ef; }
     .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-weight: 800; letter-spacing: .015em; color: #355967; }
     .copy { flex: 0 0 auto; border: 0; border-radius: 9px; padding: 6px 9px; background: #edf4f4; color: #315c6a; font-size: 11px; font-weight: 750; cursor: pointer; }
-    .actions { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-top: 11px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
     .map-btn { display: flex; min-height: 41px; align-items: center; justify-content: center; gap: 7px; border-radius: 11px; background: var(--blue-dark); color: white; text-decoration: none; font-size: 13px; font-weight: 800; }
     .map-btn:hover { background: #1e5972; }
     .save-btn, .tag-btn, .edit-btn, .delete-btn { min-height: 38px; border: 1px solid #d7e5e5; border-radius: 10px; background: #fff; color: #3d6675; font-size: 12px; font-weight: 800; cursor: pointer; }
     .save-btn.is-saved { border-color: #e4b29a; background: #fff2ea; color: #a25235; }
-    .tag-btn { grid-column: span 1; }
+    .quick-actions { display: flex; gap: 7px; margin-left: auto; }
+    .quick-actions .save-btn, .quick-actions .tag-btn { display: grid; width: 38px; min-height: 38px; place-items: center; padding: 0; font-size: 18px; line-height: 1; }
     .card-tools { display: flex; gap: 7px; margin-top: 9px; }
     .card-tools button { flex: 1; }
     .empty { grid-column: 1/-1; padding: 32px 18px; border: 1px dashed #cadada; border-radius: 18px; color: var(--muted); text-align: center; }
@@ -120,7 +122,7 @@
     .dialog-help { margin: -7px 0 15px; color: #70828b; font-size: 12px; }
     @media (max-width: 640px) {
       .shell { padding: 10px 12px 34px; }
-      .hero { min-height: 212px; border-radius: 22px; }
+      .hero { border-radius: 22px; }
       .intro { margin: 13px 3px 10px; font-size: 13px; }
       .grid { grid-template-columns: 1fr; gap: 10px; }
       .card { padding: 15px; border-radius: 17px; }
@@ -434,7 +436,10 @@
       box.querySelector('[data-wx="status"]').textContent = `模型資料時間 ${data.time.replace("T", " ")}（日本時間）`;
     }
     function drawFilters() {
-      filters.innerHTML = categories.map(c => `<button class="filter" type="button" aria-pressed="${selected === c}" data-category="${c}">${c}</button>`).join("");
+      filters.innerHTML = categories.map(c => {
+        const favorite = c === "我的收藏";
+        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? "♥" : c}</button>`;
+      }).join("");
       filters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
         selected = button.dataset.category;
         drawFilters();
@@ -477,13 +482,13 @@
             <img class="category-icon" src="${iconPaths[p.group]}" alt="" aria-hidden="true">
           </div>
           ${(p.builtIn ? "" : `<div class="card-flags"><span class="card-flag">自訂地點</span></div>`)}
-          ${tags.length || saved ? `<div class="card-flags">${saved ? `<span class="card-flag saved">♥ 已儲存</span>` : ""}${tags.map(tag => `<span class="card-flag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${tags.length ? `<div class="card-flags">${tags.map(tag => `<span class="card-flag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
           ${p.group === "餐廳" && p.cuisine ? `<div class="cuisine-tags" role="list" aria-label="料理類別">${p.cuisine.split(/[・/／、]/).map(tag => tag.trim()).filter(Boolean).map(tag => `<span class="cuisine-tag" role="listitem">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
           ${p.intro ? `<p class="desc">${escapeHtml(p.intro)}</p>` : ""}
           ${p.weatherKey ? weatherMarkup(p.weatherKey) : ""}
           ${p.rating ? `<div class="rating-row"><span class="rating-star" aria-hidden="true">★</span><a class="rating" href="${escapeHtml(p.tabelog)}" target="_blank" rel="noopener noreferrer" aria-label="開啟 ${escapeHtml(p.name)} 的食べログ頁面">食べログ ${escapeHtml(p.rating)}</a><span class="rating-source">點擊查看店家頁</span></div>` : ""}
           <div class="code-row"><span class="code">${p.code ? `MAPCODE ${escapeHtml(p.code)}` : "MapCode 尚未整理"}</span>${p.code ? `<button class="copy" type="button" data-code="${escapeHtml(p.code)}" aria-label="複製 ${escapeHtml(p.name)} 的 MapCode">複製</button>` : ""}</div>
-          <div class="actions"><button class="save-btn ${saved ? "is-saved" : ""}" type="button" data-save="${p.id}">${saved ? "♥ 已儲存" : "♡ 儲存"}</button><button class="tag-btn" type="button" data-tags="${p.id}">標籤</button>${p.official ? `<a class="map-btn" href="${escapeHtml(p.official)}" target="_blank" rel="noopener noreferrer">↗ 滑雪場官網</a><a class="map-btn" href="${escapeHtml(p.trailMap)}" target="_blank" rel="noopener noreferrer">↗ 雪道地圖</a>` : ""}${p.map || p.name ? `<a class="map-btn" href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer">↗ Google Maps</a>` : ""}</div>
+          <div class="actions">${p.official ? `<a class="map-btn" href="${escapeHtml(p.official)}" target="_blank" rel="noopener noreferrer">↗ 滑雪場官網</a><a class="map-btn" href="${escapeHtml(p.trailMap)}" target="_blank" rel="noopener noreferrer">↗ 雪道地圖</a>` : ""}${p.map || p.name ? `<a class="map-btn" href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer">↗ Google Maps</a>` : ""}<div class="quick-actions"><button class="save-btn ${saved ? "is-saved" : ""}" type="button" data-save="${p.id}" aria-label="${saved ? "從" : "加入"} ${escapeHtml(p.name)} 的收藏" title="${saved ? "移除收藏" : "加入收藏"}">${saved ? "♥" : "♡"}</button><button class="tag-btn" type="button" data-tags="${p.id}" aria-label="管理 ${escapeHtml(p.name)} 的標籤" title="管理標籤">🏷</button></div></div>
           ${p.builtIn ? "" : `<div class="card-tools"><button class="edit-btn" type="button" data-edit="${p.id}">編輯</button><button class="delete-btn" type="button" data-delete="${p.id}">刪除</button></div>`}
         </article>`;
       }).join("");
