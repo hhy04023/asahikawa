@@ -6,6 +6,9 @@
   <meta name="theme-color" content="#123248">
   <meta name="description" content="旭川與周邊滑雪、美食、購物地點整理。">
   <title>旭川地點清單 | ASAHIKAWA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
@@ -25,7 +28,7 @@
       margin: 0;
       background: #f1f5f3;
       color: var(--ink);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", sans-serif;
+      font-family: "Noto Serif TC", "Source Han Serif TC", "Noto Serif JP", "Source Han Serif", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "PingFang TC", serif;
       line-height: 1.5;
     }
     button, input, textarea, select { font: inherit; }
@@ -41,6 +44,23 @@
       isolation: isolate;
     }
     .hero-art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+    .location-panel { margin-top:14px; padding:17px; border:1px solid #b8d9e7; border-radius:20px; background:linear-gradient(145deg,#f9fdff 0%,#e8f5fc 100%); }
+    .location-panel-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .location-summary { display:flex; min-width:0; align-items:center; gap:11px; }
+    .location-pin { display:grid; flex:0 0 38px; width:38px; height:38px; place-items:center; border-radius:50%; background:#d9edf5; color:#176a85; font-size:19px; }
+    .location-summary strong { display:block; font-size:13px; }
+    .location-summary span { display:block; margin-top:1px; overflow-wrap:anywhere; color:#627684; font-size:11px; }
+    .locate-now { flex:0 0 auto; min-height:37px; border:0; border-radius:10px; padding:0 11px; background:var(--blue-dark); color:#fff; font:inherit; font-size:12px; font-weight:800; cursor:pointer; }
+    .locate-now:disabled { opacity:.65; cursor:wait; }
+    .location-weather { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin-top:13px; }
+    .location-weather[hidden] { display:none; }
+    .location-weather-item { min-width:0; padding:9px; border:1px solid #d1e3e9; border-radius:11px; background:rgba(255,255,255,.82); }
+    .location-weather-label { color:#6f858e; font-size:10px; }
+    .location-weather-value { display:block; margin-top:2px; overflow-wrap:anywhere; color:#1e4d61; font-size:13px; font-weight:850; }
+    .location-road-links { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:11px; }
+    .location-road-link { display:block; padding:10px 11px; border:1px solid #bad9e1; border-radius:11px; background:#fff; color:#255e73; font-size:11px; font-weight:800; text-decoration:none; }
+    .location-road-link small { display:block; margin-top:2px; color:#71858c; font-size:9px; font-weight:500; }
+    .location-note { margin:10px 1px 0; color:#657b85; font-size:10px; }
     .intro { margin: 17px 3px 16px; color: #536a77; font-size: 14px; }
     .controls { position: sticky; top: 0; z-index: 5; padding: 8px 0 11px; background: rgba(241,245,243,.94); backdrop-filter: blur(12px); }
     .search-wrap { position: relative; }
@@ -61,6 +81,7 @@
     .library-actions { display: flex; gap: 8px; margin-top: 11px; }
     .library-button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #cbdedf; border-radius: 12px; padding: 0 13px; background: white; color: #315c6a; font-size: 13px; font-weight: 800; cursor: pointer; }
     .library-button.primary { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
+    .library-button.nearby-link { text-decoration: none; }
     .tag-filters { display: flex; gap: 7px; overflow-x: auto; padding: 9px 0 1px; scrollbar-width: none; }
     .tag-filter { flex: 0 0 auto; border: 1px solid #d8e6e4; border-radius: 999px; padding: 5px 10px; background: #f7fbfa; color: #50707b; font-size: 11px; font-weight: 800; cursor: pointer; }
     .tag-filter[aria-pressed="true"] { border-color: #5c8996; background: #dceef0; color: #214d5d; }
@@ -133,6 +154,12 @@
       .title { font-size: 16px; }
       .desc { min-height: 0; }
       .library-actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .library-button.nearby-link { grid-column: 1 / -1; }
+      .location-panel { padding:14px; border-radius:17px; }
+      .location-panel-top { align-items:flex-start; }
+      .locate-now { min-height:36px; padding:0 9px; }
+      .location-weather { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .location-road-links { grid-template-columns:1fr; }
     }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
   </style>
@@ -142,6 +169,27 @@
     <header class="hero" aria-label="旭川冬季雪景封面插畫">
       <img class="hero-art" src="assets/asahikawa-winter-cover-v2.png" alt="旭川冬季旅遊插畫">
     </header>
+
+    <section class="location-panel" aria-label="目前位置的天氣與道路資訊">
+      <div class="location-panel-top">
+        <div class="location-summary" aria-live="polite">
+          <div class="location-pin" aria-hidden="true">⌖</div>
+          <div><strong id="location-title">目前位置的天氣與路況</strong><span id="location-detail">允許定位後，可查看目前位置的即時天氣與官方道路資訊。</span></div>
+        </div>
+        <button id="locate-now" class="locate-now" type="button">⌖ 使用位置</button>
+      </div>
+      <div id="location-weather" class="location-weather" hidden aria-live="polite">
+        <div class="location-weather-item"><span class="location-weather-label">天氣</span><strong id="location-condition" class="location-weather-value">—</strong></div>
+        <div class="location-weather-item"><span class="location-weather-label">氣溫／體感</span><strong id="location-temperature" class="location-weather-value">—</strong></div>
+        <div class="location-weather-item"><span class="location-weather-label">風速／陣風</span><strong id="location-wind" class="location-weather-value">—</strong></div>
+        <div class="location-weather-item"><span class="location-weather-label">降水／降雪</span><strong id="location-precipitation" class="location-weather-value">—</strong></div>
+      </div>
+      <div class="location-road-links">
+        <a class="location-road-link" href="https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTop_00_0.html" target="_blank" rel="noopener noreferrer">↗ 北海道官方道路資訊<small>通行規制、路面與天氣資訊</small></a>
+        <a class="location-road-link" href="https://www.jartic.or.jp/s/service/internet/" target="_blank" rel="noopener noreferrer">↗ JARTIC 即時路況<small>壅塞、事故與通行止請以官方頁面為準</small></a>
+      </div>
+      <p id="location-note" class="location-note">位置只用於本次查詢，不會儲存在網站。定位功能需使用 HTTPS 網址並由瀏覽器授權。</p>
+    </section>
 
     <p class="intro">將地點儲存到你的收藏，加入行程標籤，或建立自己的地點卡片。資料保存在目前瀏覽器。</p>
 
@@ -155,6 +203,7 @@
       <div class="library-actions">
         <button id="add-place" class="library-button primary" type="button">＋ 新增地點</button>
         <button id="saved-places" class="library-button" type="button"><svg class="action-icon icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.3c0 5-8.8 10.1-8.8 10.1S3.2 13.3 3.2 8.3A4.8 4.8 0 0 1 12 5.6a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>我的收藏 <span id="saved-count"></span></button>
+        <a class="library-button nearby-link" href="nearby.html">⌖ 附近搜尋</a>
       </div>
     </section>
 
@@ -379,6 +428,12 @@
     const tagDialog = document.querySelector("#tag-dialog");
     const tagForm = document.querySelector("#tag-form");
     const tagList = document.querySelector("#tag-list");
+    const locateNow = document.querySelector("#locate-now");
+    const locationTitle = document.querySelector("#location-title");
+    const locationDetail = document.querySelector("#location-detail");
+    const locationWeather = document.querySelector("#location-weather");
+    const locationNote = document.querySelector("#location-note");
+    let currentLocationCoords = null;
 
     function readStorage(key, fallback) {
       try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
@@ -412,6 +467,52 @@
     function tagsFor(placeId) { return Array.isArray(tagsByPlace[placeId]) ? tagsByPlace[placeId] : []; }
     function allTags() { return [...new Set(Object.values(tagsByPlace).flat().filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh-Hant")); }
     const weatherLabels = {0:"晴朗",1:"大致晴朗",2:"多雲時晴",3:"陰天",45:"霧",48:"霧凇",51:"毛毛雨",53:"中度毛毛雨",55:"強毛毛雨",56:"凍毛毛雨",57:"強凍毛毛雨",61:"小雨",63:"中雨",65:"大雨",66:"凍雨",67:"強凍雨",71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"短暫陣雨",81:"中度陣雨",82:"強陣雨",85:"短暫陣雪",86:"強陣雪",95:"雷雨",96:"雷雨伴冰雹",99:"強雷雨伴冰雹"};
+    async function loadCurrentLocationWeather() {
+      const [lat, lng] = currentLocationCoords;
+      locationWeather.hidden = false;
+      locationNote.textContent = "正在讀取目前位置的天氣資料…";
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_gusts_10m,precipitation,snowfall&timezone=Asia%2FTokyo`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("weather request failed");
+        const current = (await response.json()).current || {};
+        document.querySelector("#location-condition").textContent = weatherLabels[current.weather_code] || "天氣資料";
+        document.querySelector("#location-temperature").textContent = `${Math.round(current.temperature_2m)}°C／${Math.round(current.apparent_temperature)}°C`;
+        document.querySelector("#location-wind").textContent = `${Math.round(current.wind_speed_10m)}／${Math.round(current.wind_gusts_10m)} km/h`;
+        document.querySelector("#location-precipitation").textContent = `${current.precipitation || 0}／${current.snowfall || 0} mm`;
+        locationNote.textContent = `天氣資料時間 ${String(current.time || "").replace("T", " ")}（日本時間）。道路封閉、事故與即時路況請以官方頁面為準。`;
+      } catch {
+        locationNote.textContent = "目前無法載入天氣資料，請稍後再試。道路資訊仍可從上方官方連結查看。";
+      }
+    }
+    function showLocationIssue(message) {
+      locationTitle.textContent = "無法取得目前位置";
+      locationDetail.textContent = message;
+      locateNow.disabled = false;
+      locateNow.textContent = "⌖ 再試一次";
+    }
+    function requestCurrentLocation() {
+      if (!navigator.geolocation) {
+        showLocationIssue("此瀏覽器不支援定位功能。");
+        return;
+      }
+      locateNow.disabled = true;
+      locateNow.textContent = "取得位置中…";
+      locationTitle.textContent = "正在取得目前位置";
+      locationDetail.textContent = "請在瀏覽器提示中允許定位。";
+      navigator.geolocation.getCurrentPosition(position => {
+        currentLocationCoords = [position.coords.latitude.toFixed(6), position.coords.longitude.toFixed(6)];
+        locationTitle.textContent = "已使用目前位置";
+        locationDetail.textContent = `北緯 ${currentLocationCoords[0]}，東經 ${currentLocationCoords[1]}。`;
+        locateNow.disabled = false;
+        locateNow.textContent = "⌖ 更新位置";
+        loadCurrentLocationWeather();
+      }, error => {
+        const messages = {1:"你尚未允許定位。可在瀏覽器設定中允許後再試一次。",2:"目前位置暫時無法取得，請確認定位服務是否已開啟。",3:"取得位置逾時，請再試一次。"};
+        showLocationIssue(messages[error.code] || "目前位置暫時無法取得，請稍後再試。");
+      }, {enableHighAccuracy:true, timeout:12000, maximumAge:300000});
+    }
+    locateNow.addEventListener("click", requestCurrentLocation);
     function weatherMarkup(key) {
       return `<div class="weather-box" data-weather="${key}" aria-label="即時天氣資料"><div class="weather-item">天氣<span class="weather-value" data-wx="condition">讀取中</span></div><div class="weather-item">氣溫<span class="weather-value" data-wx="temperature">—</span></div><div class="weather-item">積雪估算<span class="weather-value" data-wx="snow">—</span></div><div class="weather-item">風速<span class="weather-value" data-wx="wind">—</span></div><div class="weather-status" data-wx="status">正在取得最新模式資料…</div></div>`;
     }
