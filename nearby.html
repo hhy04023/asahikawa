@@ -10,21 +10,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --ink:#173449; --muted:#627684; --blue:#176a85; --blue-dark:#123248; --paper:#fbfcfa; --line:#dfe8e8; --shadow:0 12px 35px rgba(25,58,74,.09); }
+    :root { --ink:#263e43; --muted:#62766d; --blue:#476d63; --blue-dark:#2e5553; --paper:#fffdf7; --line:#d7d0c2; --shadow:3px 4px 0 rgba(75,83,65,.08); }
     * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; background:#f1f5f3; color:var(--ink); font-family:"Noto Serif TC","Source Han Serif TC","Noto Serif JP","Source Han Serif",serif; line-height:1.5; }
+    body { margin:0; min-height:100vh; background-color:#f3eee3; background-image:linear-gradient(90deg,rgba(89,75,47,.025) 1px,transparent 1px),linear-gradient(rgba(89,75,47,.02) 1px,transparent 1px); background-size:18px 18px; color:var(--ink); font-family:"Noto Serif TC","Source Han Serif TC","Noto Serif JP","Source Han Serif",serif; line-height:1.5; }
     .shell { width:min(100%,920px); margin:0 auto; padding:16px 16px 48px; }
     .back { display:inline-flex; align-items:center; gap:6px; margin-bottom:18px; color:#315c6a; font-size:13px; font-weight:800; text-decoration:none; }
-    .panel { padding:24px; border:1px solid #cfe1e4; border-radius:24px; background:linear-gradient(145deg,#fff 0%,#eff8f8 100%); box-shadow:var(--shadow); }
-    .eyebrow { margin:0; color:#477486; font-size:12px; font-weight:800; letter-spacing:.08em; }
+    .panel { padding:24px; border:1px solid #d7d0c2; border-radius:16px; background:#fffdf7; box-shadow:var(--shadow); }
+    .eyebrow { margin:0; color:#6b8877; font-size:10px; font-weight:800; letter-spacing:.18em; }
     h1 { margin:5px 0 8px; font-size:clamp(25px,5vw,36px); line-height:1.25; }
     .lead { max-width:620px; margin:0; color:#536a77; font-size:14px; }
-    .location { display:flex; align-items:center; gap:13px; margin:21px 0 15px; padding:15px; border:1px solid #d7e7e7; border-radius:16px; background:rgba(255,255,255,.8); }
-    .pin { display:grid; flex:0 0 40px; width:40px; height:40px; place-items:center; border-radius:50%; background:#e2f1f5; color:#176a85; font-size:20px; }
+    .location { display:flex; align-items:center; gap:13px; margin:21px 0 15px; padding:15px; border:1px solid #cbdacf; border-radius:12px; background:#f2f7f1; }
+    .pin { display:grid; flex:0 0 40px; width:40px; height:40px; place-items:center; border:1px solid rgba(49,89,81,.14); border-radius:10px; background:#d8e0ad; color:#37554a; font-size:20px; }
     .location strong { display:block; font-size:14px; }
     .location span { display:block; margin-top:2px; color:var(--muted); font-size:12px; }
     button { font:inherit; }
-    .locate { width:100%; min-height:48px; border:0; border-radius:14px; background:var(--blue-dark); color:#fff; font-size:14px; font-weight:800; cursor:pointer; }
+    .locate { width:100%; min-height:45px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:#d8e0ad; color:#37554a; box-shadow:2px 3px 0 rgba(69,89,73,.12); font-size:14px; font-weight:800; cursor:pointer; }
     .locate:disabled { opacity:.62; cursor:wait; }
     .notice { margin:12px 0 0; color:#657b85; font-size:11px; }
     .section { margin-top:26px; }
@@ -32,24 +32,21 @@
     h2 { margin:0; font-size:19px; }
     .count { color:var(--muted); font-size:12px; }
     .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:13px; }
-    .nearby-card { display:flex; min-height:56px; align-items:center; gap:9px; padding:10px 12px; border:1px solid #d8e7e8; border-radius:14px; background:var(--paper); color:var(--ink); text-decoration:none; box-shadow:0 4px 12px rgba(25,58,74,.035); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; }
-    .nearby-card:hover { transform:translateY(-2px); border-color:#8fc4d0; box-shadow:0 8px 20px rgba(25,58,74,.1); }
+    .nearby-card { display:flex; min-height:56px; align-items:center; gap:9px; padding:10px 12px; border:1px solid #d7d0c2; border-radius:10px; background:#fffdf7; color:#294656; text-decoration:none; box-shadow:2px 3px 0 rgba(75,83,65,.08); transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease; }
+    .nearby-card:hover { transform:translateY(-2px); border-color:#9cbbb9; box-shadow:3px 5px 0 rgba(68,84,77,.12); }
     .nearby-card[aria-disabled="true"] { opacity:.55; pointer-events:none; }
-    .nearby-icon { display:block; flex:0 0 23px; width:23px; height:23px; color:#2f7187; }
+    .nearby-icon { display:block; flex:0 0 23px; width:23px; height:23px; color:#46756b; }
     .nearby-icon svg { display:block; width:100%; height:100%; fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; stroke-width:1.55; }
     .nearby-name { font-size:14px; font-weight:800; }
-    .conditions { padding:18px; border:1px solid #b8d9e7; border-radius:20px; background:#e8f5fc; }
-    .conditions[hidden] { display:none; }
-    .conditions-note { margin:4px 0 0; color:#56717e; font-size:12px; }
-    .info-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:14px; }
-    .info-card { min-width:0; padding:11px; border:1px solid #d1e3e9; border-radius:12px; background:rgba(255,255,255,.8); }
-    .info-label { color:#6f858e; font-size:10px; }
-    .info-value { display:block; margin-top:3px; overflow-wrap:anywhere; color:#1e4d61; font-size:15px; font-weight:800; }
-    .road-links { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:14px; }
-    .road-link { display:block; padding:12px 13px; border:1px solid #bad9e1; border-radius:12px; background:#fff; color:#255e73; font-size:12px; font-weight:800; text-decoration:none; }
-    .road-link small { display:block; margin-top:2px; color:#71858c; font-size:10px; font-weight:500; }
+    .theme-magazine h2 { color:#264555; letter-spacing:.045em; }
+    .theme-magazine .nearby-card { position:relative; gap:10px; overflow:hidden; border-color:#d8d2c4; border-radius:9px; background:#fffdf7; color:#294656; box-shadow:2px 3px 0 rgba(68,84,77,.08); }
+    .theme-magazine .nearby-card::after { position:absolute; top:10px; right:9px; bottom:10px; width:2px; border-radius:9px; background:#e8ded0; content:""; }
+    .theme-magazine .nearby-card:hover { border-color:#9cbbb9; box-shadow:3px 5px 0 rgba(68,84,77,.12); }
+    .theme-magazine .nearby-icon { display:grid; flex-basis:30px; width:30px; height:30px; place-items:center; border:1px solid #a9c1bc; border-radius:50%; background:#f1f6ef; color:#356d71; }
+    .theme-magazine .nearby-icon svg { width:19px; height:19px; stroke-width:1.45; }
+    .theme-magazine .nearby-name { font-weight:700; letter-spacing:.055em; }
     .footer { margin:30px 4px 0; padding-top:15px; border-top:1px solid #dbe4e2; color:#7a8b92; font-size:11px; }
-    @media (max-width:640px) { .shell { padding:12px 12px 34px; } .panel { padding:20px 16px; border-radius:20px; } .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; } .nearby-card { min-height:54px; padding:9px 11px; } .info-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .road-links { grid-template-columns:1fr; } }
+    @media (max-width:640px) { .shell { padding:12px 12px 34px; } .panel { padding:20px 16px; border-radius:20px; } .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; } .nearby-card { min-height:54px; padding:9px 11px; } .theme-magazine .nearby-card::after { top:9px; bottom:9px; } }
     @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
   </style>
 </head>
@@ -68,21 +65,6 @@
       <p class="notice">位置僅用於本次搜尋，不會儲存在本網站。定位功能需要 HTTPS 網址與瀏覽器授權。</p>
     </section>
 
-    <section id="conditions-section" class="section conditions" aria-labelledby="conditions-title" hidden>
-      <div class="section-head"><h2 id="conditions-title">目前位置的天氣與路況</h2><span id="weather-time" class="count"></span></div>
-      <p id="conditions-note" class="conditions-note">正在讀取目前位置的天氣資料…</p>
-      <div class="info-grid" aria-live="polite">
-        <div class="info-card"><span class="info-label">天氣</span><strong id="weather-condition" class="info-value">—</strong></div>
-        <div class="info-card"><span class="info-label">氣溫／體感</span><strong id="weather-temperature" class="info-value">—</strong></div>
-        <div class="info-card"><span class="info-label">風速／陣風</span><strong id="weather-wind" class="info-value">—</strong></div>
-        <div class="info-card"><span class="info-label">降水／降雪</span><strong id="weather-precipitation" class="info-value">—</strong></div>
-      </div>
-      <div class="road-links">
-        <a class="road-link" href="https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTop_00_0.html" target="_blank" rel="noopener noreferrer">↗ 北海道官方道路資訊<small>通行規制、路面與天氣資訊</small></a>
-        <a class="road-link" href="https://www.jartic.or.jp/s/service/internet/" target="_blank" rel="noopener noreferrer">↗ JARTIC 即時道路交通資訊<small>壅塞、事故與通行止請以官方頁面為準</small></a>
-      </div>
-    </section>
-
     <section class="section" aria-labelledby="category-title">
       <div class="section-head"><h2 id="category-title">附近要找什麼？</h2><span id="category-count" class="count"></span></div>
       <div id="nearby-grid" class="grid"></div>
@@ -90,6 +72,7 @@
     <footer class="footer">ASAHIKAWA · 附近搜尋會在 Google Maps 開啟</footer>
   </main>
   <script>
+    document.body.classList.toggle("theme-magazine", new URLSearchParams(location.search).get("theme") === "magazine");
     const iconPaths = {
       restaurant:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v7M8 3v7M5 6.5h3M6.5 10v11M16 3v18M16 3c2.2 1.1 3.2 3.1 3.2 5.4V12H16"/></svg>',
       ramen:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M5.5 12c.5 5 2.7 7.5 6.5 7.5s6-2.5 6.5-7.5M7 8.5c1.4-1.8 3.1-2.7 5-2.7s3.6.9 5 2.7M3 4l4 3M21 4l-4 3"/></svg>',
@@ -113,8 +96,6 @@
     const locate = document.querySelector("#locate");
     const locationTitle = document.querySelector("#location-title");
     const locationDetail = document.querySelector("#location-detail");
-    const conditions = document.querySelector("#conditions-section");
-    const weatherLabels = {0:"晴朗",1:"大致晴朗",2:"多雲時晴",3:"陰天",45:"霧",48:"霧凇",51:"毛毛雨",53:"中度毛毛雨",55:"強毛毛雨",61:"小雨",63:"中雨",65:"大雨",71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"短暫陣雨",81:"中度陣雨",82:"強陣雨",85:"短暫陣雪",86:"強陣雪",95:"雷雨",96:"雷雨伴冰雹",99:"強雷雨伴冰雹"};
     let coords = null;
 
     function mapsUrl(query) {
@@ -132,26 +113,6 @@
       locate.disabled = false;
       locate.textContent = "⌖ 再試一次";
     }
-    async function loadConditions() {
-      const [lat, lng] = coords;
-      conditions.hidden = false;
-      document.querySelector("#conditions-note").textContent = "正在讀取目前位置的天氣資料…";
-      try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_gusts_10m,precipitation,snowfall&timezone=Asia%2FTokyo`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("weather request failed");
-        const data = await response.json();
-        const current = data.current || {};
-        document.querySelector("#weather-condition").textContent = weatherLabels[current.weather_code] || "天氣資料";
-        document.querySelector("#weather-temperature").textContent = `${Math.round(current.temperature_2m)}°C／${Math.round(current.apparent_temperature)}°C`;
-        document.querySelector("#weather-wind").textContent = `${Math.round(current.wind_speed_10m)}／${Math.round(current.wind_gusts_10m)} km/h`;
-        document.querySelector("#weather-precipitation").textContent = `${current.precipitation || 0}／${current.snowfall || 0} mm`;
-        document.querySelector("#weather-time").textContent = current.time ? `${current.time.replace("T", " ")} 日本時間` : "";
-        document.querySelector("#conditions-note").textContent = "道路封閉、事故與即時路況請開啟下方北海道官方資訊確認。";
-      } catch {
-        document.querySelector("#conditions-note").textContent = "目前無法載入天氣資料，請稍後再試。道路資訊仍可從下方官方連結查看。";
-      }
-    }
     function requestLocation() {
       if (!navigator.geolocation) {
         showLocationError("此瀏覽器不支援定位功能。");
@@ -168,7 +129,6 @@
         locate.disabled = false;
         locate.textContent = "⌖ 更新目前位置";
         renderCategories();
-        loadConditions();
       }, error => {
         const messages = {1:"你尚未允許定位。可在瀏覽器設定中允許後再試一次。",2:"目前位置暫時無法取得，請確認定位服務是否已開啟。",3:"取得位置逾時，請再試一次。"};
         showLocationError(messages[error.code] || "目前位置暫時無法取得，請稍後再試。");
