@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#123248">
   <meta name="description" content="旭川與周邊滑雪、美食、購物地點整理。">
-  <title>旭川地點清單 | ASAHIKAWA</title>
+  <title>旭川地點清單｜小誌風試作版</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -47,7 +47,7 @@
     .location-panel { margin-top:14px; padding:17px; border:1px solid #b8d9e7; border-radius:20px; background:linear-gradient(145deg,#f9fdff 0%,#e8f5fc 100%); }
     .location-panel-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
     .location-summary { display:flex; min-width:0; align-items:center; gap:11px; }
-    .location-pin { display:grid; flex:0 0 38px; width:38px; height:38px; place-items:center; border-radius:50%; background:#d9edf5; color:#176a85; font-size:19px; }
+    .location-pin { display:grid; flex:0 0 38px; width:38px; height:38px; place-items:center; border-radius:10px; background:#d9edf5; color:#176a85; font-size:19px; }
     .location-summary strong { display:block; font-size:13px; }
     .location-summary span { display:block; margin-top:1px; overflow-wrap:anywhere; color:#627684; font-size:11px; }
     .locate-now { flex:0 0 auto; min-height:37px; border:0; border-radius:10px; padding:0 11px; background:var(--blue-dark); color:#fff; font:inherit; font-size:12px; font-weight:800; cursor:pointer; }
@@ -57,9 +57,10 @@
     .location-weather-item { min-width:0; padding:9px; border:1px solid #d1e3e9; border-radius:11px; background:rgba(255,255,255,.82); }
     .location-weather-label { color:#6f858e; font-size:10px; }
     .location-weather-value { display:block; margin-top:2px; overflow-wrap:anywhere; color:#1e4d61; font-size:13px; font-weight:850; }
-    .location-road-links { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:11px; }
-    .location-road-link { display:block; padding:10px 11px; border:1px solid #bad9e1; border-radius:11px; background:#fff; color:#255e73; font-size:11px; font-weight:800; text-decoration:none; }
-    .location-road-link small { display:block; margin-top:2px; color:#71858c; font-size:9px; font-weight:500; }
+    .road-summary { display:grid; grid-template-columns:auto 1fr; gap:9px 11px; align-items:start; margin-top:11px; padding:11px; border:1px solid #cbdacf; background:rgba(255,255,255,.68); }
+    .road-summary-mark { display:grid; width:30px; height:30px; place-items:center; border:1px solid rgba(49,89,81,.14); border-radius:8px; background:#d8e0ad; color:#37554a; font-size:14px; }
+    .road-summary strong { display:block; color:#315951; font-size:12px; }
+    .road-summary span { display:block; margin-top:2px; color:#687c72; font-size:10px; line-height:1.55; }
     .location-note { margin:10px 1px 0; color:#657b85; font-size:10px; }
     .intro { margin: 17px 3px 16px; color: #536a77; font-size: 14px; }
     .controls { position: sticky; top: 0; z-index: 5; padding: 8px 0 11px; background: rgba(241,245,243,.94); backdrop-filter: blur(12px); }
@@ -128,6 +129,73 @@
     .note { margin: 20px 4px 0; color: #70828b; font-size: 11px; }
     .footer { margin: 27px 4px 0; padding-top: 15px; border-top: 1px solid #dbe4e2; color: #7a8b92; font-size: 11px; }
     .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 10; transform: translate(-50%, 14px); opacity: 0; padding: 10px 15px; border-radius: 999px; background: #15384d; color: white; font-size: 13px; box-shadow: var(--shadow); transition: .2s ease; pointer-events: none; }
+    /* 小誌風試作版：使用 ?theme=magazine 開啟，不影響原本版本。 */
+    .theme-magazine { background-color:#f3eee3; background-image:linear-gradient(90deg,rgba(89,75,47,.025) 1px,transparent 1px),linear-gradient(rgba(89,75,47,.02) 1px,transparent 1px); background-size:18px 18px; color:#263e43; }
+    .theme-magazine .shell { width:min(100%,1100px); padding:24px 24px 62px; }
+    .theme-magazine .hero { border:0; border-radius:27px; background:#fff; box-shadow:var(--shadow); }
+    .theme-magazine .location-panel { border-color:#c8d7cf; border-radius:16px; background:#e9f1eb; }
+    .theme-magazine .intro { max-width:620px; margin:22px auto 26px; color:#53665d; font-size:15px; line-height:1.9; text-align:center; }
+    .theme-magazine .controls { position:relative; padding:18px 0 16px; border-top:2px solid #385d56; border-bottom:1px solid #bdb8a9; background:transparent; backdrop-filter:none; }
+    .theme-magazine .search-wrap { border-color:#c9c5b8; border-radius:0; background:#fffdf8; }
+    .theme-magazine .filters { justify-content:center; gap:0; margin-top:13px; border-top:1px solid #d9d3c5; border-bottom:1px solid #d9d3c5; overflow-x:auto; }
+    .theme-magazine .filter { flex:0 0 auto; min-width:75px; border:0; border-right:1px solid #d9d3c5; border-radius:0; padding:10px 13px; background:transparent; color:#4f635f; font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:12px; }
+    .theme-magazine .filter:first-child { border-left:1px solid #d9d3c5; }
+    .theme-magazine .filter[aria-pressed="true"] { background:#2e5553; color:#fffdf7; }
+    .theme-magazine .filter.favorite-filter { width:auto; min-width:51px; }
+    .theme-magazine .library-actions { justify-content:center; margin-top:16px; }
+    .theme-magazine .library-button { border-color:#aebeb4; border-radius:0; background:#fffdf8; color:#315651; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
+    .theme-magazine .library-button.primary { border-color:#2e5553; background:#2e5553; color:#fffdf7; }
+    .theme-magazine .results-head { margin-top:26px; padding-bottom:13px; border-bottom:2px solid #2e5553; }
+    .theme-magazine .results-head h2 { font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:23px; letter-spacing:.08em; }
+    .theme-magazine .grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .theme-magazine .card { --sticker-paper:#dfe9b2; position:relative; padding:18px; border:1px solid #d7d0c2 !important; border-radius:0; background-color:#fffdf7 !important; background-image:repeating-linear-gradient(0deg,rgba(76,66,46,.025) 0,rgba(76,66,46,.025) 1px,transparent 1px,transparent 4px) !important; box-shadow:3px 4px 0 rgba(75,83,65,.08); }
+    .theme-magazine .card.sticker-food { --sticker-paper:#f6c76d; background-color:#fff5dd !important; }
+    .theme-magazine .card.sticker-sight { --sticker-paper:#b9b6e8; background-color:#f4f2ff !important; }
+    .theme-magazine .card.sticker-snow { --sticker-paper:#9ed8ef; background-color:#eaf7fc !important; }
+    .theme-magazine .card.sticker-play { --sticker-paper:#eea0ad; background-color:#fff0f2 !important; }
+    .theme-magazine .card.sticker-shop { --sticker-paper:#f2aa82; background-color:#fff2ea !important; }
+    .theme-magazine .card.sticker-onsen { --sticker-paper:#8ed7c5; background-color:#eaf9f4 !important; }
+    .theme-magazine .card.sticker-stay { --sticker-paper:#ddb68b; background-color:#fff5e9 !important; }
+    .theme-magazine .card.sticker-move { --sticker-paper:#9bc8ef; background-color:#eef7ff !important; }
+    .theme-magazine .card::before { display:block; margin-bottom:12px; color:#6b8877; content:"ASAHIKAWA GUIDE"; font-family:Georgia,serif; font-size:9px; letter-spacing:.18em; }
+    .theme-magazine .card::after { position:absolute; right:11px; bottom:11px; width:11px; height:11px; border-right:1px solid #a5b6aa; border-bottom:1px solid #a5b6aa; content:""; }
+    .theme-magazine .category { color:#54756b; font-family:"Noto Serif TC","Source Han Serif TC",serif; letter-spacing:.12em; }
+    .theme-magazine .title { color:#243f43; font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:18px; line-height:1.45; }
+    .theme-magazine .category-icon { width:108px; height:108px; margin:0 0 10px 14px; border:0; border-radius:0; background:#fffdf7; box-shadow:none; filter:drop-shadow(3px 5px 2px rgba(49,70,58,.18)); mix-blend-mode:normal; opacity:1; }
+    .theme-magazine .sticker-food .category-icon { clip-path:polygon(11% 22%,25% 8%,70% 5%,91% 22%,95% 64%,78% 89%,30% 96%,7% 74%); }
+    .theme-magazine .sticker-sight .category-icon { clip-path:polygon(16% 11%,55% 3%,86% 20%,97% 55%,79% 88%,42% 97%,10% 79%,3% 39%); }
+    .theme-magazine .sticker-snow .category-icon { clip-path:polygon(7% 33%,38% 7%,79% 14%,97% 51%,84% 88%,42% 97%,10% 76%); }
+    .theme-magazine .sticker-snow .category-icon,
+    .theme-magazine .sticker-food .category-icon, .theme-magazine .sticker-sight .category-icon,
+    .theme-magazine .sticker-play .category-icon, .theme-magazine .sticker-shop .category-icon,
+    .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-stay .category-icon, .theme-magazine .sticker-move .category-icon { width:112px; height:112px; margin:-2px 0 4px 10px; background:transparent; object-fit:contain; clip-path:none !important; filter:drop-shadow(4px 6px 3px rgba(49,70,58,.24)); mix-blend-mode:normal; opacity:1; }
+    .theme-magazine .sticker-move .category-icon { width:146px; height:146px; margin:-16px -15px -8px 1px; }
+    .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-play .category-icon { width:90px; height:90px; margin:5px 7px 9px 14px; }
+    .theme-magazine .sticker-shop .category-icon { width:101px; height:101px; margin:1px 4px 6px 12px; }
+    .theme-magazine .sticker-snow .category-icon { width:134px; height:134px; margin:-10px -10px -4px 0; }
+    .theme-magazine .sticker-shop .category-icon { width:91px; height:91px; margin:4px 6px 8px 14px; }
+    .theme-magazine .sticker-move .category-icon { width:161px; height:161px; margin:-22px -21px -12px -6px; }
+    .theme-magazine .sticker-onsen .category-icon { width:99px; height:99px; margin:1px 5px 6px 12px; }
+    .theme-magazine .sticker-play .category-icon { clip-path:polygon(18% 9%,70% 5%,93% 28%,92% 72%,70% 93%,27% 95%,6% 70%,8% 29%); }
+    .theme-magazine .sticker-shop .category-icon { clip-path:polygon(20% 4%,78% 9%,94% 36%,88% 88%,62% 97%,15% 84%,6% 42%); }
+    .theme-magazine .sticker-onsen .category-icon { clip-path:polygon(17% 19%,43% 5%,73% 13%,94% 42%,88% 73%,64% 94%,25% 91%,6% 63%); }
+    .theme-magazine .sticker-stay .category-icon { clip-path:polygon(50% 3%,94% 39%,86% 91%,15% 91%,6% 41%); }
+    .theme-magazine .sticker-move .category-icon { clip-path:polygon(10% 24%,49% 6%,90% 21%,97% 58%,76% 91%,25% 94%,3% 63%); }
+    .theme-magazine .cuisine-tag, .theme-magazine .card-flag { border-color:#c6d4c9; border-radius:7px; background:#eef4ee; color:#3d6257; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
+    .theme-magazine .road-summary { border-radius:11px; }
+    .theme-magazine .desc { color:#5d6e67; font-size:12px; line-height:1.8; }
+    .theme-magazine .weather-box { border-color:#cbdacf; border-radius:0; background:#f2f7f1; }
+    .theme-magazine .weather-item { color:#687c72; }
+    .theme-magazine .weather-value { color:#325b54; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
+    .theme-magazine .code-row { border-top-color:#dcd5c8; }
+    .theme-magazine .map-btn { position:relative; min-height:39px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#37554a; box-shadow:2px 3px 0 rgba(69,89,73,.12); font-family:"Noto Serif TC","Source Han Serif TC",serif; font-weight:800; letter-spacing:.04em; text-shadow:0 1px rgba(255,255,255,.45); }
+    .theme-magazine .map-btn::before { position:absolute; inset:3px; border:1px solid rgba(255,255,255,.42); border-radius:7px; content:""; pointer-events:none; }
+    .theme-magazine .quick-actions .save-btn { width:40px; min-height:40px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#315951; box-shadow:2px 3px 0 rgba(69,89,73,.12); }
+    .theme-magazine .quick-actions .save-btn .action-icon { width:19px; height:19px; stroke-width:1.7; }
+    .theme-magazine .quick-actions .save-btn.is-saved { background:#f2a0a7; color:#fffdf7; }
+    .theme-magazine .quick-actions .tag-btn { width:40px; min-height:40px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#315951; box-shadow:2px 3px 0 rgba(69,89,73,.12); }
+    .theme-magazine .quick-actions .tag-btn .action-icon { width:18px; height:18px; stroke-width:1.65; }
+    .theme-magazine .note, .theme-magazine .footer { color:#697b73; }
     .toast.show { transform: translate(-50%,0); opacity: 1; }
     dialog { width: min(calc(100% - 28px), 520px); border: 0; border-radius: 20px; padding: 0; color: var(--ink); box-shadow: 0 24px 70px rgba(10,34,47,.28); }
     dialog::backdrop { background: rgba(13,35,47,.46); backdrop-filter: blur(3px); }
@@ -159,22 +227,37 @@
       .location-panel-top { align-items:flex-start; }
       .locate-now { min-height:36px; padding:0 9px; }
       .location-weather { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .location-road-links { grid-template-columns:1fr; }
+      .theme-magazine .shell { padding:14px 14px 42px; }
+      .theme-magazine .hero { border-radius:22px; }
+      .theme-magazine .grid { grid-template-columns:1fr; gap:12px; }
+      .theme-magazine .card { padding:16px; }
+      .theme-magazine .sticker-snow .category-icon,
+      .theme-magazine .sticker-food .category-icon, .theme-magazine .sticker-sight .category-icon,
+      .theme-magazine .sticker-play .category-icon, .theme-magazine .sticker-shop .category-icon,
+      .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-stay .category-icon, .theme-magazine .sticker-move .category-icon { width:96px; height:96px; margin:0 0 4px 10px; }
+      .theme-magazine .sticker-move .category-icon { width:125px; height:125px; margin:-12px -12px -7px 0; }
+      .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-play .category-icon { width:77px; height:77px; margin:4px 6px 7px 12px; }
+      .theme-magazine .sticker-shop .category-icon { width:86px; height:86px; margin:2px 4px 6px 11px; }
+      .theme-magazine .sticker-snow .category-icon { width:115px; height:115px; margin:-7px -8px -3px 2px; }
+      .theme-magazine .sticker-shop .category-icon { width:77px; height:77px; margin:5px 6px 7px 12px; }
+      .theme-magazine .sticker-move .category-icon { width:138px; height:138px; margin:-18px -17px -10px -5px; }
+      .theme-magazine .sticker-onsen .category-icon { width:85px; height:85px; margin:2px 5px 5px 11px; }
+      .theme-magazine .filters { justify-content:flex-start; }
     }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
   </style>
 </head>
-<body>
+<body class="theme-magazine">
   <main class="shell">
     <header class="hero" aria-label="旭川冬季雪景封面插畫">
       <img class="hero-art" src="assets/asahikawa-winter-cover-v2.png" alt="旭川冬季旅遊插畫">
     </header>
 
-    <section class="location-panel" aria-label="目前位置的天氣與道路資訊">
+    <section class="location-panel" aria-label="目前位置的天氣與道路摘要">
       <div class="location-panel-top">
         <div class="location-summary" aria-live="polite">
           <div class="location-pin" aria-hidden="true">⌖</div>
-          <div><strong id="location-title">目前位置的天氣與路況</strong><span id="location-detail">允許定位後，可查看目前位置的即時天氣與官方道路資訊。</span></div>
+          <div><strong id="location-title">目前位置的天氣與道路摘要</strong><span id="location-detail">允許定位後，可查看目前位置的即時天氣；道路資訊會整理為旭川地區摘要。</span></div>
         </div>
         <button id="locate-now" class="locate-now" type="button">⌖ 使用位置</button>
       </div>
@@ -184,9 +267,9 @@
         <div class="location-weather-item"><span class="location-weather-label">風速／陣風</span><strong id="location-wind" class="location-weather-value">—</strong></div>
         <div class="location-weather-item"><span class="location-weather-label">降水／降雪</span><strong id="location-precipitation" class="location-weather-value">—</strong></div>
       </div>
-      <div class="location-road-links">
-        <a class="location-road-link" href="https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTop_00_0.html" target="_blank" rel="noopener noreferrer">↗ 北海道官方道路資訊<small>通行規制、路面與天氣資訊</small></a>
-        <a class="location-road-link" href="https://www.jartic.or.jp/s/service/internet/" target="_blank" rel="noopener noreferrer">↗ JARTIC 即時路況<small>壅塞、事故與通行止請以官方頁面為準</small></a>
+      <div class="road-summary" aria-live="polite">
+        <div class="road-summary-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M7 3 5 21M17 3l2 18M12 5v3M12 12v3M12 19v2"/></svg></div>
+        <div><strong id="road-summary-title">旭川地區道路摘要・尚未同步</strong><span id="road-summary-detail">目前尚未串接可公開自動彙整的官方即時通行管制資料，因此不顯示推測的壅塞、事故或封閉資訊。</span></div>
       </div>
       <p id="location-note" class="location-note">位置只用於本次查詢，不會儲存在網站。定位功能需使用 HTTPS 網址並由瀏覽器授權。</p>
     </section>
@@ -243,6 +326,7 @@
   </dialog>
 
   <script type="module">
+    document.body.classList.add("theme-magazine");
     const places = [
       {name:"小樽なると屋 旭川永山店", group:"餐廳", icon:"🍗", cuisine:"日式炸雞・若雞半身揚", intro:"以炸雞與半身炸雞為主，適合安排在永山區用餐。", code:"79 438 589*38", rating:"3.03", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058395/", map:"小樽なると屋 旭川永山店, Asahikawa, Hokkaido"},
       {name:"KINGBEAR 旭川さんろく店", group:"餐廳", icon:"🍛", cuisine:"湯咖哩", intro:"旭川市區的湯咖哩店，可作為市中心用餐選擇。", code:"79 343 820*32", rating:"3.26", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1077682/", map:"KINGBEAR 旭川さんろく店, Asahikawa, Hokkaido"},
@@ -397,7 +481,8 @@
     places.find(p => p.name === "独酌 三四郎").map = "独酌 三四郎, Asahikawa, Hokkaido";
     const categories = ["全部", "我的收藏", "餐廳", "景點", "滑雪", "娛樂", "購物", "溫泉休閒", "住宿", "交通"];
     const placeGroups = categories.slice(2);
-    const iconPaths = {"餐廳":"assets/category-illustrations/restaurant-ramen.png", "景點":"assets/category-illustrations/attractions-zoo.png", "滑雪":"assets/category-illustrations/snowboard.png", "娛樂":"assets/category-illustrations/entertainment-pachinko.png", "購物":"assets/category-illustrations/shopping.png", "溫泉休閒":"assets/category-illustrations/onsen.png", "住宿":"assets/category-illustrations/lodging.png", "交通":"assets/category-illustrations/transport.png"};
+    const iconPaths = {"餐廳":"assets/category-illustrations/restaurant-sticker.png", "景點":"assets/category-illustrations/attractions-sticker.png", "滑雪":"assets/category-illustrations/snowboard-sticker.png", "娛樂":"assets/category-illustrations/entertainment-sticker.png", "購物":"assets/category-illustrations/shopping-sticker.png", "溫泉休閒":"assets/category-illustrations/onsen-sticker.png", "住宿":"assets/category-illustrations/lodging-sticker.png", "交通":"assets/category-illustrations/transport-sticker.png"};
+    const stickerShapes = {"餐廳":"food", "景點":"sight", "滑雪":"snow", "娛樂":"play", "購物":"shop", "溫泉休閒":"onsen", "住宿":"stay", "交通":"move"};
     const categoryStyles = {"餐廳":"--card-bg:#fff8ed;--card-border:#f1ddba", "景點":"--card-bg:#f7f6ff;--card-border:#dddaf4", "滑雪":"--card-bg:#d6ecfa;--card-border:#a8d3eb", "娛樂":"--card-bg:#fff1f2;--card-border:#f1cbd1", "購物":"--card-bg:#fff9ee;--card-border:#f1dfbd", "溫泉休閒":"--card-bg:#effaff;--card-border:#ccebf2", "住宿":"--card-bg:#fff8f0;--card-border:#f0dec5", "交通":"--card-bg:#f1f8ff;--card-border:#d2e3f4"};
     const storageKeys = {custom:"asahikawa-custom-places", saved:"asahikawa-saved-places", tags:"asahikawa-place-tags"};
     const icons = {
@@ -480,7 +565,7 @@
         document.querySelector("#location-temperature").textContent = `${Math.round(current.temperature_2m)}°C／${Math.round(current.apparent_temperature)}°C`;
         document.querySelector("#location-wind").textContent = `${Math.round(current.wind_speed_10m)}／${Math.round(current.wind_gusts_10m)} km/h`;
         document.querySelector("#location-precipitation").textContent = `${current.precipitation || 0}／${current.snowfall || 0} mm`;
-        locationNote.textContent = `天氣資料時間 ${String(current.time || "").replace("T", " ")}（日本時間）。道路封閉、事故與即時路況請以官方頁面為準。`;
+        locationNote.textContent = `天氣資料時間 ${String(current.time || "").replace("T", " ")}（日本時間）。道路摘要僅在取得可驗證的即時資料後才會顯示。`;
       } catch {
         locationNote.textContent = "目前無法載入天氣資料，請稍後再試。道路資訊仍可從上方官方連結查看。";
       }
@@ -608,7 +693,7 @@
         const tags = tagsFor(p.id);
         const googleMapsUrl = escapeHtml(mapUrlOverrides[p.name] || makeMapsUrl(p.map || p.name));
         return `
-        <article class="card" style="${categoryStyles[p.group]}">
+        <article class="card sticker-${stickerShapes[p.group] || "sight"}" style="${categoryStyles[p.group]}">
           <img class="category-icon" src="${iconPaths[p.group]}" alt="" aria-hidden="true">
           <div class="card-top">
             <div class="category">${escapeHtml(p.group)}</div><h3 class="title">${escapeHtml(p.name)}</h3>
