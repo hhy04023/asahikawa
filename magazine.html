@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123248">
+  <meta name="description" content="旭川與周邊滑雪、美食、購物地點整理。">
+  <title>旭川地點清單｜小誌風試作版</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;800&family=Noto+Serif+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #173449;
+      --muted: #627684;
+      --blue: #176a85;
+      --blue-dark: #123248;
+      --ice: #e8f3f5;
+      --paper: #fbfcfa;
+      --line: #dfe8e8;
+      --orange: #e9a867;
+      --shadow: 0 12px 35px rgba(25, 58, 74, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #f1f5f3;
+      color: var(--ink);
+      font-family: "Noto Serif TC", "Source Han Serif TC", "Noto Serif JP", "Source Han Serif", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "PingFang TC", serif;
+      line-height: 1.5;
+    }
+    button, input, textarea, select { font: inherit; }
+    .shell { width: min(100%, 920px); margin: 0 auto; padding: 16px 16px 48px; }
+    .hero {
+      position: relative;
+      aspect-ratio: 1672 / 941;
+      overflow: hidden;
+      border-radius: 27px;
+      background: #fff;
+      color: white;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .hero-art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+    .location-panel { margin-top:14px; padding:17px; border:1px solid #b8d9e7; border-radius:20px; background:linear-gradient(145deg,#f9fdff 0%,#e8f5fc 100%); }
+    .location-panel-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .location-summary { display:flex; min-width:0; align-items:center; gap:11px; }
+    .location-pin { display:grid; flex:0 0 38px; width:38px; height:38px; place-items:center; border-radius:10px; background:#d9edf5; color:#176a85; font-size:19px; }
+    .location-summary strong { display:block; font-size:13px; }
+    .location-summary span { display:block; margin-top:1px; overflow-wrap:anywhere; color:#627684; font-size:11px; }
+    .locate-now { flex:0 0 auto; min-height:37px; border:0; border-radius:10px; padding:0 11px; background:var(--blue-dark); color:#fff; font:inherit; font-size:12px; font-weight:800; cursor:pointer; }
+    .locate-now:disabled { opacity:.65; cursor:wait; }
+    .location-weather { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; margin-top:13px; }
+    .location-weather[hidden] { display:none; }
+    .location-weather-item { min-width:0; padding:9px; border:1px solid #d1e3e9; border-radius:11px; background:rgba(255,255,255,.82); }
+    .location-weather-label { color:#6f858e; font-size:10px; }
+    .location-weather-value { display:block; margin-top:2px; overflow-wrap:anywhere; color:#1e4d61; font-size:13px; font-weight:850; }
+    .road-summary { display:grid; grid-template-columns:auto 1fr; gap:9px 11px; align-items:start; margin-top:11px; padding:11px; border:1px solid #cbdacf; background:rgba(255,255,255,.68); }
+    .road-summary-mark { display:grid; width:30px; height:30px; place-items:center; border:1px solid rgba(49,89,81,.14); border-radius:8px; background:#d8e0ad; color:#37554a; font-size:14px; }
+    .road-summary strong { display:block; color:#315951; font-size:12px; }
+    .road-summary span { display:block; margin-top:2px; color:#687c72; font-size:10px; line-height:1.55; }
+    .location-note { margin:10px 1px 0; color:#657b85; font-size:10px; }
+    .intro { margin: 17px 3px 16px; color: #536a77; font-size: 14px; }
+    .controls { position: sticky; top: 0; z-index: 5; padding: 8px 0 11px; background: rgba(241,245,243,.94); backdrop-filter: blur(12px); }
+    .search-wrap { position: relative; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #69828e; font-size: 18px; pointer-events: none; }
+    .search {
+      display: block; width: 100%; height: 49px; padding: 0 15px 0 43px; border: 1px solid var(--line);
+      border-radius: 15px; outline: 0; background: white; color: var(--ink); box-shadow: 0 4px 16px rgba(24, 65, 80, .04);
+    }
+    .search:focus { border-color: #68aabb; box-shadow: 0 0 0 3px rgba(55, 144, 165, .12); }
+    .filters { display: flex; gap: 8px; overflow-x: auto; padding: 12px 0 3px; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter {
+      flex: 0 0 auto; border: 1px solid #dbe5e5; border-radius: 999px; padding: 8px 13px; background: #fff;
+      color: #4b6472; font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .filter[aria-pressed="true"] { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
+    .filter.favorite-filter { display: grid; width: 42px; place-items: center; padding: 8px; }
+    .library-actions { display: flex; gap: 8px; margin-top: 11px; }
+    .library-button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #cbdedf; border-radius: 12px; padding: 0 13px; background: white; color: #315c6a; font-size: 13px; font-weight: 800; cursor: pointer; }
+    .library-button.primary { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
+    .library-button.nearby-link { text-decoration: none; }
+    .tag-filters { display: flex; gap: 7px; overflow-x: auto; padding: 9px 0 1px; scrollbar-width: none; }
+    .tag-filter { flex: 0 0 auto; border: 1px solid #d8e6e4; border-radius: 999px; padding: 5px 10px; background: #f7fbfa; color: #50707b; font-size: 11px; font-weight: 800; cursor: pointer; }
+    .tag-filter[aria-pressed="true"] { border-color: #5c8996; background: #dceef0; color: #214d5d; }
+    .results-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 2px 12px; }
+    .results-head h2 { margin: 0; font-size: 17px; }
+    .count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .card { min-width: 0; padding: 16px; border: 1px solid var(--card-border, rgba(214,226,226,.9)); border-radius: 19px; background: var(--card-bg, white); box-shadow: 0 6px 22px rgba(25,58,74,.055); }
+    .card-top { min-width: 0; }
+    .category { color: #5e7b88; font-size: 11px; font-weight: 800; letter-spacing: .06em; }
+    .title { margin: 5px 0 0; font-size: 17px; line-height: 1.28; overflow-wrap: anywhere; }
+    .category-icon { float: right; width: 103px; height: 103px; margin: 0 0 8px 12px; border-radius: 18px; object-fit: cover; box-shadow: 0 4px 14px rgba(31,58,74,.08); }
+    .card-flags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+    .card-flag { padding: 3px 7px; border-radius: 999px; background: #edf5f2; color: #477062; font-size: 10px; font-weight: 850; }
+    .card-flag.saved { background: #fceadf; color: #9b5436; }
+    .cuisine-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+    .cuisine-tag { display: inline-flex; align-items: center; padding: 4px 8px; border: 1px solid #dcebe7; border-radius: 999px; background: #f1f6f4; color: #426575; font-size: 11px; font-weight: 800; }
+    .desc { min-height: 40px; margin: 8px 0 0; color: #5f7079; font-size: 13px; }
+    .weather-box { clear: both; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 7px; margin-top: 11px; padding: 10px; border: 1px solid #e2ecea; border-radius: 12px; background: #f6faf8; }
+    .weather-item { min-width: 0; color: #71838a; font-size: 10px; }
+    .weather-value { display: block; margin-top: 3px; color: #254d5e; font-size: 13px; font-weight: 850; overflow-wrap: anywhere; }
+    .weather-status { grid-column: 1/-1; color: #829198; font-size: 10px; }
+    .rating-row { display: flex; align-items: center; gap: 7px; margin-top: 11px; font-size: 12px; }
+    .rating { color: #8a551d; font-weight: 850; text-decoration: none; }
+    .rating:hover { text-decoration: underline; }
+    .rating-star { color: #d99645; }
+    .rating-source { color: #81909a; font-size: 11px; }
+    .code-row { clear: both; display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #edf1ef; }
+    .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-weight: 800; letter-spacing: .015em; color: #355967; }
+    .copy { flex: 0 0 auto; border: 0; border-radius: 9px; padding: 6px 9px; background: #edf4f4; color: #315c6a; font-size: 11px; font-weight: 750; cursor: pointer; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
+    .map-btn { display: flex; flex: 1 1 150px; min-height: 41px; align-items: center; justify-content: center; gap: 7px; border-radius: 11px; background: var(--blue-dark); color: white; text-decoration: none; font-size: 13px; font-weight: 800; }
+    .map-btn:hover { background: #1e5972; }
+    .save-btn, .tag-btn, .edit-btn, .delete-btn { min-height: 38px; border: 1px solid #d7e5e5; border-radius: 10px; background: #fff; color: #3d6675; font-size: 12px; font-weight: 800; cursor: pointer; }
+    .save-btn.is-saved { border-color: #e4b29a; background: #fff2ea; color: #a25235; }
+    .quick-actions { display: flex; gap: 7px; margin-left: auto; }
+    .quick-actions .save-btn, .quick-actions .tag-btn { display: grid; width: 38px; min-height: 38px; place-items: center; padding: 0; }
+    .action-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+    .favorite-filter .action-icon { width: 17px; height: 17px; }
+    .save-btn.is-saved .icon-heart { fill: currentColor; }
+    .card-tools { display: flex; gap: 7px; margin-top: 9px; }
+    .card-tools button { flex: 1; }
+    .empty { grid-column: 1/-1; padding: 32px 18px; border: 1px dashed #cadada; border-radius: 18px; color: var(--muted); text-align: center; }
+    .note { margin: 20px 4px 0; color: #70828b; font-size: 11px; }
+    .footer { margin: 27px 4px 0; padding-top: 15px; border-top: 1px solid #dbe4e2; color: #7a8b92; font-size: 11px; }
+    .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 10; transform: translate(-50%, 14px); opacity: 0; padding: 10px 15px; border-radius: 999px; background: #15384d; color: white; font-size: 13px; box-shadow: var(--shadow); transition: .2s ease; pointer-events: none; }
+    /* 小誌風試作版：使用 ?theme=magazine 開啟，不影響原本版本。 */
+    .theme-magazine { background-color:#f3eee3; background-image:linear-gradient(90deg,rgba(89,75,47,.025) 1px,transparent 1px),linear-gradient(rgba(89,75,47,.02) 1px,transparent 1px); background-size:18px 18px; color:#263e43; }
+    .theme-magazine .shell { width:min(100%,1100px); padding:24px 24px 62px; }
+    .theme-magazine .hero { border:0; border-radius:27px; background:#fff; box-shadow:var(--shadow); }
+    .theme-magazine .location-panel { border-color:#c8d7cf; border-radius:16px; background:#e9f1eb; }
+    .theme-magazine .intro { max-width:620px; margin:22px auto 26px; color:#53665d; font-size:15px; line-height:1.9; text-align:center; }
+    .theme-magazine .controls { position:relative; padding:18px 0 16px; border-top:2px solid #385d56; border-bottom:1px solid #bdb8a9; background:transparent; backdrop-filter:none; }
+    .theme-magazine .search-wrap { border-color:#c9c5b8; border-radius:0; background:#fffdf8; }
+    .theme-magazine .filters { justify-content:center; gap:0; margin-top:13px; border-top:1px solid #d9d3c5; border-bottom:1px solid #d9d3c5; overflow-x:auto; }
+    .theme-magazine .filter { flex:0 0 auto; min-width:75px; border:0; border-right:1px solid #d9d3c5; border-radius:0; padding:10px 13px; background:transparent; color:#4f635f; font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:12px; }
+    .theme-magazine .filter:first-child { border-left:1px solid #d9d3c5; }
+    .theme-magazine .filter[aria-pressed="true"] { background:#2e5553; color:#fffdf7; }
+    .theme-magazine .filter.favorite-filter { width:auto; min-width:51px; }
+    .theme-magazine .library-actions { justify-content:center; margin-top:16px; }
+    .theme-magazine .library-button { border-color:#aebeb4; border-radius:0; background:#fffdf8; color:#315651; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
+    .theme-magazine .library-button.primary { border-color:#2e5553; background:#2e5553; color:#fffdf7; }
+    .theme-magazine .results-head { margin-top:26px; padding-bottom:13px; border-bottom:2px solid #2e5553; }
+    .theme-magazine .results-head h2 { font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:23px; letter-spacing:.08em; }
+    .theme-magazine .grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+    .theme-magazine .card { --sticker-paper:#dfe9b2; position:relative; padding:18px; border:1px solid #d7d0c2 !important; border-radius:0; background-color:#fffdf7 !important; background-image:repeating-linear-gradient(0deg,rgba(76,66,46,.025) 0,rgba(76,66,46,.025) 1px,transparent 1px,transparent 4px) !important; box-shadow:3px 4px 0 rgba(75,83,65,.08); }
+    .theme-magazine .card.sticker-food { --sticker-paper:#f6c76d; background-color:#fff5dd !important; }
+    .theme-magazine .card.sticker-sight { --sticker-paper:#b9b6e8; background-color:#f4f2ff !important; }
+    .theme-magazine .card.sticker-snow { --sticker-paper:#9ed8ef; background-color:#eaf7fc !important; }
+    .theme-magazine .card.sticker-play { --sticker-paper:#eea0ad; background-color:#fff0f2 !important; }
+    .theme-magazine .card.sticker-shop { --sticker-paper:#f2aa82; background-color:#fff2ea !important; }
+    .theme-magazine .card.sticker-onsen { --sticker-paper:#8ed7c5; background-color:#eaf9f4 !important; }
+    .theme-magazine .card.sticker-stay { --sticker-paper:#ddb68b; background-color:#fff5e9 !important; }
+    .theme-magazine .card.sticker-move { --sticker-paper:#9bc8ef; background-color:#eef7ff !important; }
+    .theme-magazine .card::before { display:block; margin-bottom:12px; color:#6b8877; content:"ASAHIKAWA GUIDE"; font-family:Georgia,serif; font-size:9px; letter-spacing:.18em; }
+    .theme-magazine .card::after { position:absolute; right:11px; bottom:11px; width:11px; height:11px; border-right:1px solid #a5b6aa; border-bottom:1px solid #a5b6aa; content:""; }
+    .theme-magazine .category { color:#54756b; font-family:"Noto Serif TC","Source Han Serif TC",serif; letter-spacing:.12em; }
+    .theme-magazine .title { color:#243f43; font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:18px; line-height:1.45; }
+    .theme-magazine .category-icon { width:108px; height:108px; margin:0 0 10px 14px; border:0; border-radius:0; background:#fffdf7; box-shadow:none; filter:drop-shadow(3px 5px 2px rgba(49,70,58,.18)); mix-blend-mode:normal; opacity:1; }
+    .theme-magazine .sticker-food .category-icon { clip-path:polygon(11% 22%,25% 8%,70% 5%,91% 22%,95% 64%,78% 89%,30% 96%,7% 74%); }
+    .theme-magazine .sticker-sight .category-icon { clip-path:polygon(16% 11%,55% 3%,86% 20%,97% 55%,79% 88%,42% 97%,10% 79%,3% 39%); }
+    .theme-magazine .sticker-snow .category-icon { clip-path:polygon(7% 33%,38% 7%,79% 14%,97% 51%,84% 88%,42% 97%,10% 76%); }
+    .theme-magazine .sticker-snow .category-icon,
+    .theme-magazine .sticker-food .category-icon, .theme-magazine .sticker-sight .category-icon,
+    .theme-magazine .sticker-play .category-icon, .theme-magazine .sticker-shop .category-icon,
+    .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-stay .category-icon, .theme-magazine .sticker-move .category-icon { width:112px; height:112px; margin:-2px 0 4px 10px; background:transparent; object-fit:contain; clip-path:none !important; filter:drop-shadow(4px 6px 3px rgba(49,70,58,.24)); mix-blend-mode:normal; opacity:1; }
+    .theme-magazine .sticker-move .category-icon { width:146px; height:146px; margin:-16px -15px -8px 1px; }
+    .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-play .category-icon { width:90px; height:90px; margin:5px 7px 9px 14px; }
+    .theme-magazine .sticker-shop .category-icon { width:101px; height:101px; margin:1px 4px 6px 12px; }
+    .theme-magazine .sticker-play .category-icon { clip-path:polygon(18% 9%,70% 5%,93% 28%,92% 72%,70% 93%,27% 95%,6% 70%,8% 29%); }
+    .theme-magazine .sticker-shop .category-icon { clip-path:polygon(20% 4%,78% 9%,94% 36%,88% 88%,62% 97%,15% 84%,6% 42%); }
+    .theme-magazine .sticker-onsen .category-icon { clip-path:polygon(17% 19%,43% 5%,73% 13%,94% 42%,88% 73%,64% 94%,25% 91%,6% 63%); }
+    .theme-magazine .sticker-stay .category-icon { clip-path:polygon(50% 3%,94% 39%,86% 91%,15% 91%,6% 41%); }
+    .theme-magazine .sticker-move .category-icon { clip-path:polygon(10% 24%,49% 6%,90% 21%,97% 58%,76% 91%,25% 94%,3% 63%); }
+    .theme-magazine .cuisine-tag, .theme-magazine .card-flag { border-color:#c6d4c9; border-radius:7px; background:#eef4ee; color:#3d6257; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
+    .theme-magazine .road-summary { border-radius:11px; }
+    .theme-magazine .desc { color:#5d6e67; font-size:12px; line-height:1.8; }
+    .theme-magazine .weather-box { border-color:#cbdacf; border-radius:0; background:#f2f7f1; }
+    .theme-magazine .weather-item { color:#687c72; }
+    .theme-magazine .weather-value { color:#325b54; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
+    .theme-magazine .code-row { border-top-color:#dcd5c8; }
+    .theme-magazine .map-btn { position:relative; min-height:39px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#37554a; box-shadow:2px 3px 0 rgba(69,89,73,.12); font-family:"Noto Serif TC","Source Han Serif TC",serif; font-weight:800; letter-spacing:.04em; text-shadow:0 1px rgba(255,255,255,.45); }
+    .theme-magazine .map-btn::before { position:absolute; inset:3px; border:1px solid rgba(255,255,255,.42); border-radius:7px; content:""; pointer-events:none; }
+    .theme-magazine .quick-actions .save-btn { width:40px; min-height:40px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#315951; box-shadow:2px 3px 0 rgba(69,89,73,.12); }
+    .theme-magazine .quick-actions .save-btn .action-icon { width:19px; height:19px; stroke-width:1.7; }
+    .theme-magazine .quick-actions .save-btn.is-saved { background:#f2a0a7; color:#fffdf7; }
+    .theme-magazine .quick-actions .tag-btn { width:40px; min-height:40px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#315951; box-shadow:2px 3px 0 rgba(69,89,73,.12); }
+    .theme-magazine .quick-actions .tag-btn .action-icon { width:18px; height:18px; stroke-width:1.65; }
+    .theme-magazine .note, .theme-magazine .footer { color:#697b73; }
+    .toast.show { transform: translate(-50%,0); opacity: 1; }
+    dialog { width: min(calc(100% - 28px), 520px); border: 0; border-radius: 20px; padding: 0; color: var(--ink); box-shadow: 0 24px 70px rgba(10,34,47,.28); }
+    dialog::backdrop { background: rgba(13,35,47,.46); backdrop-filter: blur(3px); }
+    .dialog-form { padding: 20px; }
+    .dialog-form h2 { margin: 0 0 15px; font-size: 20px; }
+    .form-grid { display: grid; gap: 12px; }
+    .form-field { display: grid; gap: 5px; color: #4a6570; font-size: 12px; font-weight: 800; }
+    .form-field input, .form-field select, .form-field textarea { width: 100%; border: 1px solid #d6e2e2; border-radius: 10px; padding: 10px; color: var(--ink); background: #fff; font-size: 14px; font-weight: 500; }
+    .form-field textarea { min-height: 90px; resize: vertical; }
+    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+    .dialog-actions button { min-height: 39px; border: 1px solid #cbdedf; border-radius: 10px; padding: 0 13px; background: white; color: #315c6a; font-weight: 800; cursor: pointer; }
+    .dialog-actions .submit { border-color: var(--blue-dark); background: var(--blue-dark); color: white; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin: 4px 0 14px; }
+    .tag-chip { border: 1px solid #cfe1e0; border-radius: 999px; padding: 5px 9px; background: #f3f9f7; color: #426573; font-size: 12px; font-weight: 800; cursor: pointer; }
+    .tag-chip::after { content: " ×"; color: #7e969d; }
+    .dialog-help { margin: -7px 0 15px; color: #70828b; font-size: 12px; }
+    @media (max-width: 640px) {
+      .shell { padding: 10px 12px 34px; }
+      .hero { border-radius: 22px; }
+      .intro { margin: 13px 3px 10px; font-size: 13px; }
+      .grid { grid-template-columns: 1fr; gap: 10px; }
+      .card { padding: 15px; border-radius: 17px; }
+      .category-icon { width: 89px; height: 89px; border-radius: 16px; }
+      .title { font-size: 16px; }
+      .desc { min-height: 0; }
+      .library-actions { display: grid; grid-template-columns: 1fr 1fr; }
+      .library-button.nearby-link { grid-column: 1 / -1; }
+      .location-panel { padding:14px; border-radius:17px; }
+      .location-panel-top { align-items:flex-start; }
+      .locate-now { min-height:36px; padding:0 9px; }
+      .location-weather { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .theme-magazine .shell { padding:14px 14px 42px; }
+      .theme-magazine .hero { border-radius:22px; }
+      .theme-magazine .grid { grid-template-columns:1fr; gap:12px; }
+      .theme-magazine .card { padding:16px; }
+      .theme-magazine .sticker-snow .category-icon,
+      .theme-magazine .sticker-food .category-icon, .theme-magazine .sticker-sight .category-icon,
+      .theme-magazine .sticker-play .category-icon, .theme-magazine .sticker-shop .category-icon,
+      .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-stay .category-icon, .theme-magazine .sticker-move .category-icon { width:96px; height:96px; margin:0 0 4px 10px; }
+      .theme-magazine .sticker-move .category-icon { width:125px; height:125px; margin:-12px -12px -7px 0; }
+      .theme-magazine .sticker-onsen .category-icon, .theme-magazine .sticker-play .category-icon { width:77px; height:77px; margin:4px 6px 7px 12px; }
+      .theme-magazine .sticker-shop .category-icon { width:86px; height:86px; margin:2px 4px 6px 11px; }
+      .theme-magazine .filters { justify-content:flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body class="theme-magazine">
+  <main class="shell">
+    <header class="hero" aria-label="旭川冬季雪景封面插畫">
+      <img class="hero-art" src="assets/asahikawa-winter-cover-v2.png" alt="旭川冬季旅遊插畫">
+    </header>
+
+    <section class="location-panel" aria-label="目前位置的天氣與道路摘要">
+      <div class="location-panel-top">
+        <div class="location-summary" aria-live="polite">
+          <div class="location-pin" aria-hidden="true">⌖</div>
+          <div><strong id="location-title">目前位置的天氣與道路摘要</strong><span id="location-detail">允許定位後，可查看目前位置的即時天氣；道路資訊會整理為旭川地區摘要。</span></div>
+        </div>
+        <button id="locate-now" class="locate-now" type="button">⌖ 使用位置</button>
+      </div>
+      <div id="location-weather" class="location-weather" hidden aria-live="polite">
+        <div class="location-weather-item"><span class="location-weather-label">天氣</span><strong id="location-condition" class="location-weather-value">—</strong></div>
+        <div class="location-weather-item"><span class="location-weather-label">氣溫／體感</span><strong id="location-temperature" class="location-weather-value">—</strong></div>
+        <div class="location-weather-item"><span class="location-weather-label">風速／陣風</span><strong id="location-wind" class="location-weather-value">—</strong></div>
+        <div class="location-weather-item"><span class="location-weather-label">降水／降雪</span><strong id="location-precipitation" class="location-weather-value">—</strong></div>
+      </div>
+      <div class="road-summary" aria-live="polite">
+        <div class="road-summary-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M7 3 5 21M17 3l2 18M12 5v3M12 12v3M12 19v2"/></svg></div>
+        <div><strong id="road-summary-title">旭川地區道路摘要・尚未同步</strong><span id="road-summary-detail">目前尚未串接可公開自動彙整的官方即時通行管制資料，因此不顯示推測的壅塞、事故或封閉資訊。</span></div>
+      </div>
+      <p id="location-note" class="location-note">位置只用於本次查詢，不會儲存在網站。定位功能需使用 HTTPS 網址並由瀏覽器授權。</p>
+    </section>
+
+    <p class="intro">將地點儲存到你的收藏，加入行程標籤，或建立自己的地點卡片。資料保存在目前瀏覽器。</p>
+
+    <section class="controls" aria-label="地點搜尋與分類">
+      <label class="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="search" class="search" type="search" placeholder="搜尋地點、菜系或 MapCode" autocomplete="off" aria-label="搜尋地點、菜系或 MapCode">
+      </label>
+      <nav id="filters" class="filters" aria-label="地點分類"></nav>
+      <nav id="tag-filters" class="tag-filters" aria-label="我的標籤"></nav>
+      <div class="library-actions">
+        <button id="add-place" class="library-button primary" type="button">＋ 新增地點</button>
+        <button id="saved-places" class="library-button" type="button"><svg class="action-icon icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.3c0 5-8.8 10.1-8.8 10.1S3.2 13.3 3.2 8.3A4.8 4.8 0 0 1 12 5.6a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>我的收藏 <span id="saved-count"></span></button>
+        <a class="library-button nearby-link" href="nearby.html">⌖ 附近搜尋</a>
+      </div>
+    </section>
+
+    <section id="results-section" aria-labelledby="section-title">
+      <div class="results-head">
+        <h2 id="section-title">旭川與近郊地點</h2>
+        <span id="count" class="count" aria-live="polite"></span>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <p class="note">滑雪場卡片的天氣與氣溫為天氣模型資料，積雪深度為模型估算，非滑雪場現場實測；頁面開啟期間每 30 分鐘更新。資料來源：<a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>。食べログ分數會更新，點擊分數可查看店家頁面。MapCode 依目前行程資料整理；若地圖搜尋結果不符，請以目的地名稱與地址核對。</p>
+    <footer class="footer">ASAHIKAWA · 個人旅行地點清單 · Weather data by Open-Meteo</footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="place-dialog" aria-labelledby="place-dialog-title">
+    <form id="place-form" class="dialog-form">
+      <h2 id="place-dialog-title">新增地點</h2>
+      <div class="form-grid">
+        <label class="form-field">地點名稱<input name="name" required maxlength="80" autocomplete="off"></label>
+        <label class="form-field">分類<select name="group"></select></label>
+        <label class="form-field">簡介<textarea name="intro" maxlength="300" placeholder="例如想吃的料理、適合安排的行程。"></textarea></label>
+        <label class="form-field">MapCode<input name="code" maxlength="40" autocomplete="off"></label>
+        <label class="form-field">Google Maps 連結或搜尋名稱<input name="map" maxlength="300" autocomplete="off"></label>
+      </div>
+      <div class="dialog-actions"><button type="button" data-close-dialog>取消</button><button class="submit" type="submit">儲存地點</button></div>
+    </form>
+  </dialog>
+  <dialog id="tag-dialog" aria-labelledby="tag-dialog-title">
+    <form id="tag-form" class="dialog-form">
+      <h2 id="tag-dialog-title">管理標籤</h2>
+      <p class="dialog-help">點擊標籤即可移除。</p>
+      <div id="tag-list" class="tag-list"></div>
+      <label class="form-field">新增標籤<input name="tag" maxlength="24" placeholder="例如 必吃、第一天、已去過" autocomplete="off"></label>
+      <div class="dialog-actions"><button type="button" data-close-dialog>完成</button><button class="submit" type="submit">加入標籤</button></div>
+    </form>
+  </dialog>
+
+  <script type="module">
+    document.body.classList.add("theme-magazine");
+    const places = [
+      {name:"小樽なると屋 旭川永山店", group:"餐廳", icon:"🍗", cuisine:"日式炸雞・若雞半身揚", intro:"以炸雞與半身炸雞為主，適合安排在永山區用餐。", code:"79 438 589*38", rating:"3.03", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058395/", map:"小樽なると屋 旭川永山店, Asahikawa, Hokkaido"},
+      {name:"KINGBEAR 旭川さんろく店", group:"餐廳", icon:"🍛", cuisine:"湯咖哩", intro:"旭川市區的湯咖哩店，可作為市中心用餐選擇。", code:"79 343 820*32", rating:"3.26", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1077682/", map:"KINGBEAR 旭川さんろく店, Asahikawa, Hokkaido"},
+      {name:"金花郎 一条店", group:"餐廳", icon:"🥩", cuisine:"炭火燒肉", intro:"炭火燒肉店，適合安排晚餐或多人聚餐。", code:"79 342 719*18", rating:"3.31", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1021896/", map:"炭火焼き肉 金花郎 一条店, Asahikawa, Hokkaido"},
+      {name:"ほろ酔い処 味介", group:"餐廳", icon:"🐟", cuisine:"海鮮居酒屋", intro:"以海鮮料理為主的居酒屋，適合晚餐時段前往。", code:"79 343 820*01", rating:"3.11", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1073493/", map:"ほろ酔い処 味介, Asahikawa, Hokkaido"},
+      {name:"回転寿司ちょいす 神楽店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"神樂區的迴轉壽司店，方便自駕途中用餐。", code:"79 312 295*30", rating:"3.13", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1024329/", map:"回転寿司ちょいす 神楽店, Asahikawa, Hokkaido"},
+      {name:"SUSHI HOUSE 鮨六", group:"餐廳", icon:"🍣", cuisine:"壽司・居酒屋", intro:"位於旭川市中心的壽司店，也提供居酒屋餐點。", code:"79 343 766*26", rating:"3.26", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004584/", map:"SUSHI HOUSE 鮨六, Asahikawa, Hokkaido"},
+      {name:"回転寿しトリトン 旭神店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"旭神區的迴轉壽司店，適合自駕安排用餐。", code:"79 227 784*70", rating:"3.53", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000798/", map:"回転寿しトリトン 旭神店, Asahikawa, Hokkaido", coords:[43.7346199,142.3891095]},
+      {name:"焼鳥専門 ぎんねこ", group:"餐廳", icon:"🍢", cuisine:"炭火串燒・居酒屋", intro:"旭川市中心的串燒店，可品嚐雞肉與居酒屋料理。", code:"79 373 141*73", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1006681/", map:"焼鳥専門 ぎんねこ, Asahikawa, Hokkaido"},
+      {name:"味特 本店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"旭川市中心的拉麵店，提供醬油、鹽味與味噌等口味。", code:"79 343 736*42", rating:"3.59", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004362/", map:"味特 本店, Asahikawa, Hokkaido"},
+      {name:"生姜ラーメン みづの", group:"餐廳", icon:"🍜", cuisine:"生薑拉麵", intro:"以生薑風味拉麵為招牌，適合在市區散步時順道造訪。", code:"79 373 686*18", rating:"3.60", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1003673/", map:"生姜ラーメン みづの, Asahikawa, Hokkaido", coords:[43.775316,142.361885]},
+      {name:"蜂屋 五条創業店", group:"餐廳", icon:"🍜", cuisine:"拉麵・餃子", intro:"旭川老字號拉麵店，菜單以拉麵與餃子為主。", code:"79 373 112*64", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000269/", map:"蜂屋 五条創業店, Asahikawa, Hokkaido"},
+      {name:"ピッツェリア ヨー", group:"餐廳", icon:"🍕", cuisine:"義式・披薩", intro:"旭川市中心的休閒義式餐飲酒吧，可吃披薩與義式料理。", code:"79 343 851*32", rating:"3.05", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058528/", map:"ピッツェリア ヨー, Asahikawa, Hokkaido"},
+      {name:"成吉思汗 大黒屋 五丁目店", group:"餐廳", icon:"🔥", cuisine:"成吉思汗烤羊肉", intro:"以羊肉成吉思汗燒烤為主，是旭川市中心的晚餐選項。", code:"79 373 040*80", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1027848/", map:"成吉思汗 大黒屋 五丁目店, Asahikawa, Hokkaido"},
+      {name:"小西鮨", group:"餐廳", icon:"🍣", cuisine:"壽司・海鮮", intro:"旭川市中心的壽司店，提供壽司、海鮮與居酒屋料理。", code:"79 343 823*86", rating:"3.62", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004739/", map:"小西鮨, Asahikawa, Hokkaido"},
+      {name:"らーめんや天金 四条店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵・餃子", intro:"旭川市中心的老字號拉麵店，醬油拉麵是代表菜色。", code:"79 344 751*18", rating:"3.67", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000090/", map:"らーめんや天金 四条店, Asahikawa, Hokkaido", coords:[43.7678111,142.3632329]},
+      {name:"鮨みなと", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"旭川的壽司店，提供以北海道海鮮為主的握壽司料理。", code:"79 343 879*07", rating:"4.27", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1001719/", map:"鮨みなと, Asahikawa, Hokkaido"},
+      {name:"居酒屋 天売", group:"餐廳", icon:"🍶", cuisine:"海鮮居酒屋", intro:"旭川市中心的居酒屋，以海鮮料理與酒類為主。", code:"79 343 859*41", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1015055/", map:"居酒屋 天売, Asahikawa, Hokkaido"},
+      {name:"山頭火 旭川本店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"旭川拉麵名店，位於旭川市中心。", code:"79 343 470*56", rating:"3.32", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1065091/", map:"山頭火 旭川本店, Asahikawa, Hokkaido"},
+      {name:"Tsutamori", group:"餐廳", icon:"🍱", cuisine:"日式料理", intro:"旭川的日式料理店", code:"79 403 840*60", map:"Tsutamori, Asahikawa, Hokkaido"},
+      {name:"Onoki", group:"餐廳", icon:"🍗", cuisine:"雞肉料理", intro:"旭川的雞肉料理店", code:"79 383 200*62", map:"Onoki, Asahikawa, Hokkaido"},
+      {name:"そば源 本店", group:"餐廳", icon:"🍜", cuisine:"蕎麥麵", intro:"旭川在地蕎麥麵店", code:"79 371 275*58", rating:"3.31", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1014580/", map:"そば源 本店, Asahikawa, Hokkaido"},
+      {name:"七輪焼肉 安安 旭川川端店", group:"餐廳", icon:"🥩", cuisine:"燒肉・內臟燒肉・成吉思汗", intro:"川端一帶的平價燒肉店。", code:"79 401 512*33", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1071178/", map:"Shichirinyakiniku Anan Asahikawa Kawabataten, Hokkaido"},
+      {name:"たま 買物公園通り店", group:"餐廳", icon:"🍢", cuisine:"居酒屋・燒鳥・串炸", intro:"買物公園通附近的居酒屋，提供燒鳥與串炸料理。", code:"79 343 741*56", rating:"3.08", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1070293/", map:"たま 買物公園通り店, Asahikawa, Hokkaido"},
+      {name:"一途屋", group:"餐廳", icon:"🍶", cuisine:"居酒屋・餐酒館・海鮮", intro:"提供海鮮料理的居酒屋與餐酒館。", code:"79 373 055*35", rating:"3.20", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1008155/", map:"一途屋, Asahikawa, Hokkaido"},
+      {name:"北海道さかな一途 直営魚問屋", group:"餐廳", icon:"🐟", cuisine:"居酒屋・海鮮・鍋物", intro:"以北海道海鮮與魚料理為主，亦有鍋物。", code:"79 343 858*80", rating:"3.43", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1053508/", map:"北海道さかな一途 直営魚問屋, Asahikawa, Hokkaido"},
+      {name:"ぎんざ貴舟", group:"餐廳", icon:"🍱", cuisine:"日本料理・海鮮", intro:"提供日本料理與海鮮料理。", code:"79 343 736*24", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1085791/", map:"ぎんざ貴舟, Asahikawa, Hokkaido"},
+      {name:"炭焼あぶりや 一期一会", group:"餐廳", icon:"🔥", cuisine:"居酒屋・海鮮・爐端燒", intro:"炭火炙燒與海鮮料理為主的居酒屋。", code:"79 343 852*04", rating:"3.17", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1042610/", map:"炭焼あぶりや 一期一会, Asahikawa, Hokkaido"},
+      {name:"北の酔り処", group:"餐廳", icon:"🍶", cuisine:"居酒屋・海鮮・成吉思汗", intro:"提供海鮮與成吉思汗烤羊肉的居酒屋。", code:"79 373 140*10", rating:"3.19", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1029764/", map:"北の酔り処, Asahikawa, Hokkaido"},
+      {name:"旭川 居酒屋 ふくろう亭", group:"餐廳", icon:"🍶", cuisine:"居酒屋", intro:"旭川市區居酒屋，可作為晚餐選擇。", code:"79 373 083*20", rating:"3.32", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004903/", map:"旭川 居酒屋 ふくろう亭, Asahikawa, Hokkaido"},
+      {name:"別家", group:"餐廳", icon:"🍣", cuisine:"居酒屋・海鮮・壽司", intro:"提供壽司與海鮮料理的居酒屋。", code:"79 343 828*03", rating:"3.16", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1046014/", map:"別家, Asahikawa, Hokkaido"},
+      {name:"炭火居酒屋 炎 旭川買物公園通店", group:"餐廳", icon:"🔥", cuisine:"居酒屋・燒鳥・鍋物", intro:"連鎖炭火居酒屋，提供燒鳥與鍋物。", code:"79 343 619*31", rating:"3.06", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1052243/", map:"炭火居酒屋 炎 旭川買物公園通店, Asahikawa, Hokkaido"},
+      {name:"居酒屋 紅あかり", group:"餐廳", icon:"🍗", cuisine:"居酒屋・雞肉・串炸", intro:"以雞肉料理與串炸為主的居酒屋。", code:"79 317 370*00", rating:"3.13", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1043793/", map:"居酒屋 紅あかり, Asahikawa, Hokkaido"},
+      {name:"焼肉 わじま", group:"餐廳", icon:"🥩", cuisine:"燒肉・冷麵・內臟燒肉", intro:"提供燒肉、冷麵與內臟燒肉。", code:"79 343 678*73", rating:"3.30", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1075450/", map:"焼肉 わじま, Asahikawa, Hokkaido"},
+      {name:"和心洋才 睦月", group:"餐廳", icon:"🍱", cuisine:"居酒屋・海鮮・炸物", intro:"融合和風與洋風料理，提供海鮮與炸物。", code:"79 343 774*55", rating:"3.33", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1057663/", map:"和心洋才 睦月, Asahikawa, Hokkaido"},
+      {name:"蝦夷前やきとりism", group:"餐廳", icon:"🍢", cuisine:"燒鳥・居酒屋", intro:"以燒鳥為主的居酒屋。", code:"79 343 736*33", rating:"3.15", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1080121/", map:"蝦夷前やきとりism, Asahikawa, Hokkaido"},
+      {name:"Cafe ジビエ工業", group:"餐廳", icon:"☕", cuisine:"咖啡・野味料理", intro:"咖啡店風格的餐廳，提供野味料理。", code:"79 560 850*30", rating:"3.20", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1080077/", map:"Cafe ジビエ工業, Asahikawa, Hokkaido"},
+      {name:"旭川ジンギスカンと北海道和牛 肉ビストロ ユキトニクト", group:"餐廳", icon:"🥩", cuisine:"成吉思汗・北海道和牛・肉料理", intro:"以成吉思汗烤羊肉、北海道和牛與肉料理為主。", code:"79 343 794*78", rating:"3.11", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1079966/", map:"旭川ジンギスカンと北海道和牛 肉ビストロ ユキトニクト, Asahikawa, Hokkaido"},
+      {name:"やきにくのチャンプ", group:"餐廳", icon:"🥩", cuisine:"燒肉・內臟燒肉", intro:"提供燒肉與內臟燒肉。", code:"79 497 428*84", rating:"3.34", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1041554/", map:"やきにくのチャンプ, Asahikawa, Hokkaido"},
+      {name:"四季彩 別邸 旭川店", group:"餐廳", icon:"🍲", cuisine:"居酒屋・海鮮・壽喜燒", intro:"提供海鮮與壽喜燒的居酒屋。", code:"79 343 800*05", rating:"3.08", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1072842/", map:"四季彩 別邸 旭川店, Asahikawa, Hokkaido"},
+      {name:"創作和風 個室居酒屋 萬屋 旭川店", group:"餐廳", icon:"🍶", cuisine:"居酒屋・海鮮・燒鳥", intro:"創作和風料理居酒屋，設有包廂。", code:"79 343 800*05", rating:"3.08", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1059606/", map:"創作和風 個室居酒屋 萬屋 旭川店, Asahikawa, Hokkaido"},
+      {name:"髭 北海道居酒屋 酔い処", group:"餐廳", icon:"🍶", cuisine:"海鮮・居酒屋・燒鳥", intro:"提供牡蠣、海鮮燒烤與居酒屋料理。食べログ 3.16。", rating:"3.16", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%AB%AD%20%E5%8C%97%E6%B5%B7%E9%81%93%E5%B1%85%E9%85%92%E5%B1%8B%20%E9%85%94%E3%81%84%E5%87%A6", map:"髭 北海道居酒屋 酔い処, Asahikawa, Hokkaido"},
+      {name:"おいしい美術館eight", group:"餐廳", icon:"🍽️", cuisine:"義式・餐酒館・法式", intro:"以義式與法式料理為主的餐酒館。食べログ 3.04。", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E3%81%8A%E3%81%84%E3%81%97%E3%81%84%E7%BE%8E%E8%A1%93%E9%A4%A8eight", map:"おいしい美術館eight, Asahikawa, Hokkaido"},
+      {name:"鮨とつまみと朧月", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"提供壽司與當季料理，鄰近旭川車站。食べログ 3.22。", rating:"3.22", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%AE%A8%E3%81%A8%E3%81%A4%E3%81%BE%E3%81%BF%E3%81%A8%E6%9C%A7%E6%9C%88", map:"鮨とつまみと朧月, Asahikawa, Hokkaido"},
+      {name:"七輪焼肉 安安 旭川末広店", group:"餐廳", icon:"🥩", cuisine:"燒肉・內臟燒肉・成吉思汗", intro:"末廣一帶的平價燒肉店。食べログ 3.04。", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E4%B8%83%E8%BC%AA%E7%84%BC%E8%82%89%20%E5%AE%89%E5%AE%89%20%E6%97%AD%E5%B7%9D%E6%9C%AB%E5%BA%83%E5%BA%97", map:"七輪焼肉 安安 旭川末広店, Asahikawa, Hokkaido"},
+      {name:"炉端と地酒 まる文 すが原", group:"餐廳", icon:"🔥", cuisine:"居酒屋・海鮮・爐端燒", intro:"提供季節海鮮、爐端燒與日本酒。食べログ 3.30。", code:"79 343 764*27", rating:"3.30", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E7%82%89%E7%AB%AF%E3%81%A8%E5%9C%B0%E9%85%92%20%E3%81%BE%E3%82%8B%E6%96%87%20%E3%81%99%E3%81%8C%E5%8E%9F", map:"炉端と地酒 まる文 すが原, Asahikawa, Hokkaido"},
+      {name:"鰻・旬魚旬菜 柳光亭", group:"餐廳", icon:"🍱", cuisine:"鰻魚・海鮮・日本料理", intro:"以鰻魚與當季魚鮮料理為主。食べログ 3.10。", code:"79 343 822*81", rating:"3.10", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%B0%BB%20%E6%97%AC%E9%AD%9A%E6%97%AC%E8%8F%9C%20%E6%9F%B3%E5%85%89%E4%BA%AD", map:"鰻・旬魚旬菜 柳光亭, Asahikawa, Hokkaido"},
+      {name:"居酒屋 かつぎ屋", group:"餐廳", icon:"🍶", cuisine:"居酒屋・海鮮", intro:"提供炭火燒烤、生魚片與多樣居酒屋料理。食べログ 3.34。", code:"79 343 855*76", rating:"3.34", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1066040/", map:"居酒屋 かつぎ屋, Asahikawa, Hokkaido"},
+      {name:"我家", group:"餐廳", icon:"🍢", cuisine:"居酒屋・串燒・海鮮", intro:"提供串物、蒸物與海鮮料理。食べログ 3.02。", code:"79 374 188*82", rating:"3.02", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E6%88%91%E5%AE%B6", map:"我家, Asahikawa, Hokkaido"},
+      {name:"BELLOWS BURGER", group:"餐廳", icon:"🍔", cuisine:"漢堡", intro:"旭川的漢堡店，適合安排簡餐。", code:"79 401 727*52", rating:"3.42", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1039689/", map:"BELLOWS BURGER Asahikawa, Hokkaido"},
+      {name:"松屋 旭川大町店（松のや併設）", group:"餐廳", icon:"🍱", cuisine:"日式定食・牛丼", intro:"大町一帶的連鎖定食店，附設松のや。", code:"79 403 804*43", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1076162/", map:"松屋 旭川大町店, Hokkaido"},
+      {name:"はま寿司 旭川旭町店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"旭町一帶的迴轉壽司店。", code:"79 403 671*20", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1040199/", map:"HAMA-ZUSHI Asahikawa Asahimachi, Hokkaido"},
+      {name:"アジア金星堂", group:"餐廳", icon:"🍛", cuisine:"咖哩", intro:"旭川的咖哩餐廳。", code:"79 436 248*67", rating:"3.54", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1001167/", map:"アジア金星堂, Asahikawa, Hokkaido"},
+      {name:"梅光軒 南店 創業店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"梅光軒在旭川的創業店。", code:"79 316 153*76", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000786/", map:"梅光軒 南店 創業店, Asahikawa, Hokkaido"},
+      {name:"Tenkin 居酒屋", group:"餐廳", icon:"🍶", cuisine:"居酒屋", intro:"旭川市區居酒屋。", code:"79 343 798*13", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1002688/", map:"Tenkin Izakaya, Asahikawa, Hokkaido"},
+      {name:"maze", group:"餐廳", icon:"🍶", cuisine:"居酒屋", intro:"旭川市區居酒屋", map:"maze izakaya, Asahikawa, Hokkaido"},
+      {name:"炭火と酒 金木犀", group:"餐廳", icon:"🍢", cuisine:"炭火串燒・居酒屋", intro:"旭川市區的炭火串燒與居酒屋。", map:"炭火と酒 金木犀, Asahikawa, Hokkaido"},
+      {name:"萬屋 Maiki", group:"餐廳", icon:"🍱", cuisine:"日式料理", intro:"旭川市區日式餐廳", map:"萬屋 Maiki, Asahikawa, Hokkaido"},
+      {name:"まごころ食堂", group:"餐廳", icon:"🍱", cuisine:"食堂・定食", intro:"旭川的家常食堂，提供定食料理。", map:"まごころ食堂, Asahikawa, Hokkaido"},
+      {name:"串あげ 太郎", group:"餐廳", icon:"🍢", cuisine:"串炸・居酒屋", intro:"旭川市區的串炸居酒屋。", code:"79 343 820*75", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1021795/", map:"串あげ 太郎, Asahikawa, Hokkaido"},
+      {name:"地場産ショップ", group:"購物", icon:"🎁", intro:"旭川在地特產與伴手禮商店。", code:"79 312 789*50", map:"地場産ショップ, Asahikawa, Hokkaido"},
+      {name:"ASAHI FLOW 旭川雪具租借店", group:"滑雪", icon:"🎿", intro:"旭川市區的滑雪與單板裝備租借店。", code:"79 343 461*88", map:"ASAHI FLOW 旭川雪具租借店, Asahikawa, Hokkaido"},
+      {name:"Sports Depo 旭川永山店", group:"購物", icon:"🛍️", intro:"運動用品店，可查看滑雪與戶外裝備。", code:"79 469 078*20", map:"Sports Depo Asahikawa Nagayama, Hokkaido"},
+      {name:"Spray", group:"購物", icon:"🏂", intro:"旭川的戶外與滑雪用品店。", code:"79 377 099*33", map:"Spray outdoor sports shop, Asahikawa, Hokkaido"},
+      {name:"Workman Plus 旭川旭町店", group:"購物", icon:"🧤", intro:"戶外與工作服用品店，可補充冬季衣物。", code:"79 432 517*62", map:"Workman Plus 旭川旭町店, Asahikawa, Hokkaido"},
+      {name:"PRONO 旭川本店", group:"購物", icon:"🧤", intro:"工作服與戶外用品店，可查看冬季衣物。", code:"79 349 029*02", map:"プロノ 旭川本店, Hokkaido"},
+      {name:"DON-DON!! 大町店", group:"購物", icon:"♻️", intro:"大町一帶的二手商店。", code:"79 433 025*28", map:"DON-DON!! 大町店, Asahikawa, Hokkaido"},
+      {name:"Yamada Denki Tecc LIFE SELECT 旭川店", group:"購物", icon:"🔌", intro:"旭川的家電量販店。", code:"79 400 682*42", map:"Yamada Denki Tecc LIFE SELECT Asahikawa, Hokkaido"},
+      {name:"Hard Off Asahikawa Pulp Town", group:"購物", icon:"♻️", intro:"旭川 Pulp Town 的二手用品店。", code:"79 376 617*08", map:"Hard Off Asahikawa Pulp Town, Hokkaido"},
+      {name:"Recycle Shop Bigban Asahikawa Miyamae", group:"購物", icon:"♻️", intro:"宮前一帶的二手用品店。", code:"79 315 665*81", map:"Recycle Shop Bigban Asahikawa Miyamae, Hokkaido"},
+      {name:"旭山動物園", group:"景點", icon:"🦁", intro:"旭川代表性動物園", code:"79 358 871*52", map:"旭山動物園, Asahikawa, Hokkaido"},
+      {name:"Feeeal Asahikawa", group:"購物", icon:"🏬", intro:"旭川車站周邊的購物商場。", code:"79 343 558*56", map:"Feeeal Asahikawa, Hokkaido"},
+      {name:"AEON Asahikawa Ekimae", group:"購物", icon:"🛒", intro:"旭川車站旁的購物中心，可採買日用品與補給。", code:"79 343 339*64", map:"AEON Asahikawa Ekimae, Hokkaido"},
+      {name:"永旺旭川西店", group:"購物", icon:"🛒", intro:"永旺夢樂城（AEON MALL）旭川西是北海道北部和東部地區最大的購物中心", code:"79 459 018*88", map:"AEON Asahikawa-Nishi Store, Hokkaido"},
+      {name:"SuperCenter TRIAL 神樂店", group:"購物", icon:"🛒", intro:"神樂一帶的大型折扣超市。", code:"79 283 582*82", map:"SuperCenter TRIAL KAGURA, Asahikawa, Hokkaido"},
+      {name:"MegaCenter TRIAL Asahikawa", group:"購物", icon:"🛒", intro:"旭川的大型折扣超市，可採買旅行補給。", code:"79 345 875*55", map:"MegaCenter TRIAL ASAHIKAWA, Hokkaido"},
+      {name:"Tsuruha Drug 旭川4条店", group:"購物", icon:"💊", intro:"鶴羽藥妝店 旭川4条店", code:"79 345 546*38", map:"Tsuruha Drug 旭川4条店, Asahikawa, Hokkaido"},
+
+      {name:"Alpha Asahimachi", group:"娛樂", icon:"🎰", intro:"旭川市內柏青哥店", code:"79 432 117*62", map:"Alpha Asahimachi, Asahikawa, Hokkaido"},
+      {name:"Paratoeasshuten", group:"娛樂", icon:"🎰", intro:"旭川市內柏青哥店", code:"79 343 584*72", map:"Paratoeasshuten, Asahikawa, Hokkaido"},
+      {name:"パーラートーエー3条本店", group:"娛樂", icon:"🎰", intro:"旭川市中心柏青哥店", code:"79 343 767*56", map:"パーラートーエー3条本店, Asahikawa, Hokkaido"},
+      {name:"Dynam Asahikawa Chikabumi", group:"娛樂", icon:"🎰", intro:"近文一帶柏青哥店", code:"79 400 477*04", map:"Dynam Asahikawa Chikabumi, Hokkaido"},
+
+      {name:"神居滑雪場", group:"滑雪", icon:"⛷️", intro:"旭川近郊的大型滑雪場，雪質乾爽、景色優美！", code:"655 427 297*63", map:"Kamui Ski Links, Asahikawa, Hokkaido", official:"https://www.kamui-skilinks.com/", trailMap:"https://www.kamui-skilinks.com/pdf_data/coursemap2024.pdf", coords:[43.7009,142.199], weatherKey:"kamui", skiResort:true},
+      {name:"比布滑雪場", group:"滑雪", icon:"🏂", intro:"旭川北側的滑雪場，雪場擁有寬敞且平緩的雪道，整體環境舒適、人潮相對較少，非常適合希望專心練習基本技巧的滑雪者。", code:"470 059 293*21", map:"Pippu Ski Resort, Hokkaido, Japan", official:"https://pippu.ski/", trailMap:"https://pippu.ski/course/", coords:[43.9340,142.5015], weatherKey:"pippu", skiResort:true},
+      {name:"Canmore 滑雪村", group:"滑雪", icon:"🏂", intro:"東川町一帶的滑雪地點，可與東川周邊行程一起安排。場地規模適中、雪道寬敞。\n\n天天開放夜滑，而且夜滑票價只要¥500，CP值極高", code:"389 530 303*41", map:"Canmore Ski Village, Higashikawa, Hokkaido", official:"https://www.canmore-ski.jp/", trailMap:"https://www.canmore-ski.jp/guide/", coords:[43.7303,142.5389], weatherKey:"canmore", skiResort:true},
+      {name:"聖誕禮物公園", group:"滑雪", icon:"🎿", intro:"旭川市區附近的滑雪場，適合安排短程滑雪，可以夜滑看旭川市夜景。", code:"79 336 023*21", map:"Santa Present Park, Asahikawa, Hokkaido", official:"https://www.asahikawasantapresentpark.com/", trailMap:"https://www.asahikawasantapresentpark.com/cont1/main.html", coords:[43.7584513,142.2991737], weatherKey:"santa", skiResort:true},
+
+      {name:"Super Sports Xebio 旭川永山店", group:"購物", icon:"🛍️", intro:"運動用品店，可查看滑雪與戶外用品。", code:"79 438 379*87", map:"Super Sports Xebio Asahikawa Nagayama, Hokkaido"},
+      {name:"Asahikawa Snow Force 雪具出租", group:"滑雪", icon:"🎿", intro:"旭川市區的雪具租借點，可安排取還雪具。", code:"79 342 893*38", map:"Asahikawa Snow Force, Asahikawa, Hokkaido"},
+      {name:"Shugakuso Asahikawa", group:"購物", icon:"🎒", intro:"秀岳荘 旭川店戶外用品店，適合補充滑雪或戶外活動用品。", code:"79 398 063*08", map:"Shugakuso Asahikawa, Hokkaido"},
+      {name:"mont-bell 大雪東川店", group:"購物", icon:"🏔️", intro:"東川町的戶外用品店，可順遊東川近郊。", code:"389 406 347*56", map:"mont-bell Daisetsu Higashikawa, Hokkaido"},
+      {name:"永旺旭川春光購物中心", group:"購物", icon:"🛒", intro:"旭川市區的購物中心，可採買日用品與補給。", code:"79 433 754*81", map:"永旺旭川春光購物中心, Asahikawa, Hokkaido", coords:[43.7929675,142.3559362]},
+      {name:"MEGA唐吉訶德旭川店", group:"購物", icon:"🛍️", intro:"大型折扣商店，適合集中採買日用品與旅行補給。", code:"79 465 475*34", map:"MEGA Don Quijote Asahikawa, Hokkaido", coords:[43.7984701,142.3781781]},
+
+      {name:"旭川市博物館", group:"景點", icon:"🏛️", intro:"位於大雪クリスタルホール內，展示旭川與北北海道的歷史、文化及自然。", code:"79 312 736*40", map:"旭川市博物館, Asahikawa, Hokkaido"},
+
+      {name:"金の湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂，可作為滑雪後放鬆選項。", code:"79 316 383*51", map:"金の湯, Asahikawa, Hokkaido"},
+      {name:"大黒湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂，適合安排在市區行程。", code:"79 345 281*82", map:"大黒湯, Asahikawa, Hokkaido"},
+      {name:"Yuransen Asahikawa", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的澡堂與休閒設施，錢湯大人/550円  有家族風呂 平日：大人/1,000円(60分)", code:"79 369 503*83", map:"Yuransen Asahikawa, Hokkaido"},
+      {name:"SPA & SAUNA オスパー", group:"溫泉休閒", icon:"🧖", intro:"旭川市區的溫浴與桑拿設施。80分內 980円 ", code:"79 314 838*22", map:"SPA & SAUNA オスパー, Asahikawa, Hokkaido"},
+      {name:"天然温泉かぐらの湯", group:"溫泉休閒", icon:"♨️", intro:"Premier Hotel Cabin內的天然溫泉，可安排自駕返市區前後造訪。成人（含毛巾）：1,200日圓（含稅）　，（不含毛巾）：1,000日圓（含稅）", code:"79 343 522*34", map:"天然温泉かぐらの湯, Asahikawa, Hokkaido"},
+      {name:"杜のSPA神楽", group:"溫泉休閒", icon:"♨️", intro:"神樂區的溫浴休閒設施，適合滑雪後放鬆。", code:"79 313 109*68", map:"杜のSPA神楽, Asahikawa, Hokkaido", coords:[43.7533023,142.3597985]},
+      {name:"旭川高砂台 万葉の湯", group:"溫泉休閒", icon:"♨️", intro:"高砂台一帶的溫浴休閒設施。", code:"79 367 055*25", map:"Asahikawa Takasagodai Manyonoyu, Hokkaido", coords:[43.7692995,142.3115008]},
+      {name:"Kitoushi Forest Kitoron", group:"溫泉休閒", icon:"🌲", intro:"東川町近郊的森林休閒與日歸溫泉設施。", code:"389 500 847*31", map:"Kitoushi Forest Kitoron, Higashikawa, Hokkaido"},
+
+      {name:"Grandeur 北之森", group:"住宿", icon:"🏠", intro:"旭川市區的住宿選項。", code:"79 343 751*70", map:"Night In Daiya, Asahikawa, Hokkaido"},
+      {name:"旭川 JR 站", group:"交通", icon:"🚉", intro:"旭川市區主要鐵路車站，串接 JR 北海道路線。", code:"79 343 255*87", map:"JR Asahikawa Station, Hokkaido, Japan"},
+      {name:"旭川機場", group:"交通", icon:"✈️", intro:"旭川進出與租車行程的機場位置。", code:"79 025 007*16", map:"Asahikawa Airport, Hokkaido, Japan", coords:[43.6686785,142.4513869]},
+
+      {name:"旭川神社", group:"景點", icon:"⛩️", intro:"旭川市內的神社。", code:"79 383 021*32", map:"旭川神社, Asahikawa, Hokkaido"},
+      {name:"上川神社", group:"景點", icon:"⛩️", intro:"旭川代表性的神社，可安排市區散步時造訪。", code:"79 284 876*40", map:"上川神社, Asahikawa, Hokkaido"},
+      {name:"金比羅神社", group:"景點", icon:"⛩️", intro:"旭川市內的神社。", code:"79 432 659*24", map:"金比羅神社, Asahikawa, Hokkaido"},
+      {name:"北海道護國神社", group:"景點", icon:"⛩️", intro:"旭川市內的神社。", code:"79 434 284*66", map:"北海道護國神社, Asahikawa, Hokkaido"},
+      {name:"上川神社頓宮", group:"景點", icon:"⛩️", intro:"上川神社的頓宮。", code:"79 373 676*73", map:"上川神社頓宮, Asahikawa, Hokkaido"},
+      {name:"CONEY ISLAND ASAHIKAWA / コニーアイランド 旭川", group:"購物", icon:"🛍️", intro:"旭川的時裝店。", code:"79 344 176*88", map:"CONEY ISLAND ASAHIKAWA, Hokkaido"},
+      {name:"RESTAURANT IPEAYPEA", group:"餐廳", icon:"🍽️", intro:"旭川的餐廳。", code:"79 343 208*70", rating:"3.22", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1050555/", map:"RESTAURANT IPEAYPEA, Asahikawa, Hokkaido"},
+      {name:"北海道カムイテラス ビアピリカ", group:"餐廳", icon:"🍺", intro:"旭川的季節限定啤酒花園。", code:"79 343 206*28", rating:"3.13", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1078624/", map:"北海道カムイテラス ビアピリカ, Asahikawa, Hokkaido"},
+      {name:"Hard Off Asahikawa Nishi", group:"購物", icon:"♻️", intro:"旭川西側的二手用品店。", code:"79 430 422*56", map:"Hard Off Asahikawa Nishi, Hokkaido"},
+      {name:"Gyomu Supermarket 綠町店", group:"購物", icon:"🛒", intro:"旭川綠町的平價超市。", code:"79 403 834*80", map:"Gyomu Supermarket Midorimachi, Asahikawa, Hokkaido"},
+      {name:"ゲームフィールド旭川春光店", group:"娛樂", icon:"🕹️", intro:"旭川春光地區的遊戲機中心。", code:"79 433 754*81", map:"ゲームフィールド旭川春光店, Hokkaido"},
+      {name:"GiGO メガセンタートライアル旭川", group:"娛樂", icon:"🕹️", intro:"旭川的遊戲機中心。", code:"79 345 844*42", map:"GiGO メガセンタートライアル旭川, Hokkaido"},
+      {name:"SOYU GAME FIELD 旭川站前店", group:"娛樂", icon:"🕹️", intro:"旭川站前的遊戲機中心。", code:"79 343 372*87", map:"SOYU GAME FIELD 旭川駅前店, Hokkaido"},
+      {name:"日產租車 旭川機場店", group:"交通", icon:"🚗", intro:"旭川機場附近的租車選項。", code:"389 280 883*51", map:"日産レンタカー 旭川空港店, Hokkaido"},
+      {name:"日產租車 旭川車站前店", group:"交通", icon:"🚗", intro:"旭川站前的租車選項。", code:"79 343 468*76", map:"日産レンタカー 旭川駅前店, Hokkaido"},
+      {name:"DCM", group:"購物", icon:"🛠️", intro:"旭川的大型家居與工具用品店。", code:"79 285 811*04", map:"DCM, Asahikawa, Hokkaido"},
+      {name:"アッシュA.s.h", group:"購物", icon:"🏪", intro:"旭川市內的店家。", code:"79 343 556*33", map:"アッシュA.s.h, Asahikawa, Hokkaido"},
+      {name:"Workman Colors イオンモール旭川西店", group:"購物", icon:"🧤", intro:"永旺旭川西店內的服飾與戶外用品店。", code:"79 429 864*54", map:"Workman Colors イオンモール旭川西店, Hokkaido"},
+      {name:"Workman plus", group:"購物", icon:"🧤", intro:"旭川的工作服與戶外用品店。", code:"79 376 072*38", map:"Workman plus, Asahikawa, Hokkaido"},
+      {name:"Workman Plus 旭川豊岡店", group:"購物", icon:"🧤", intro:"旭川豊岡地區的工作服與戶外用品店。", code:"79 432 517*62", map:"Workman Plus Asahikawa Toko, Hokkaido"},
+      {name:"Workman Plus", group:"購物", icon:"🧤", intro:"旭川的工作服與戶外用品店。", code:"79 376 072*20", map:"Workman Plus 10 N Okyakusama Parking Lot, Asahikawa, Hokkaido"},
+      {name:"FUJIYA Asahikawa Taisetsudori Store", group:"餐廳", icon:"🍰", intro:"旭川大雪通的甜點店。", code:"79 376 890*76", map:"FUJIYA Asahikawa Taisetsudori Store, Hokkaido"},
+      {name:"炭火兜 成吉思汗羊肉", group:"餐廳", icon:"🥩", cuisine:"成吉思汗烤羊肉", intro:"旭川的成吉思汗烤羊肉餐廳。", map:"炭火兜 成吉思汗羊肉, Asahikawa, Hokkaido"},
+      {name:"鮨の福長", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"旭川的壽司店。", map:"鮨の福長, Asahikawa, Hokkaido"},
+      {name:"GELATERIA La Giostra", group:"餐廳", icon:"🍨", cuisine:"義式冰淇淋", intro:"旭川的義式冰淇淋店。", map:"GELATERIA La Giostra, Asahikawa, Hokkaido"},
+      {name:"菊水湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂。", code:"79 371 797*50", map:"菊水湯, Asahikawa, Hokkaido"},
+      {name:"KONA", group:"購物", icon:"🛍️", intro:"旭川的滑雪板用品店。", code:"79 373 145*84", map:"KONA, Asahikawa, Hokkaido"},
+      {name:"Hitsujiya", group:"餐廳", icon:"🥩", cuisine:"成吉思汗・燒肉", intro:"旭川的成吉思汗與燒肉餐廳。", code:"79 343 884*07", rating:"3.46", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1054053/", map:"Hitsujiya, Asahikawa, Hokkaido"},
+      {name:"Asahikawa Isen 2-jo Store", group:"餐廳", icon:"🍱", cuisine:"日式炸豬排", intro:"旭川二條通的日式炸豬排餐廳。", code:"79 343 615*22", rating:"3.46", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1073068/", map:"Asahikawa Isen 2-jo Store, Hokkaido"},
+      {name:"燒肉King 旭川永山店", group:"餐廳", icon:"🥩", cuisine:"燒肉", intro:"旭川永山地區的燒肉店。", code:"79 470 364*24", rating:"3.03", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1054509/", map:"燒肉King 旭川永山店, Hokkaido"},
+      {name:"Korokoro 橡子 麵包店", group:"餐廳", icon:"🍞", cuisine:"麵包", intro:"位於平和通買物公園ONE SEVEN的商場。札幌知名麵包店「橡子(どんぐり)」最受歡迎的是在竹輪中放入鮪魚沙拉的「竹輪麵包(ちくわパン)」，\n旭川分店還推出許多限定商品：「奶油爆漿鹽麵包（じゅわっと塩パン）」、「醬油炸雞麵包（醤油ザンギ）」、「咖哩魚肉腸麵包（カリーソーセージ）」，另外波蘿麵包、奶油麵包也好吃，更和旭川烤雞老店「銀貓(ぎんねこ)」聯名推出放入二大塊沾了銀貓特色醬汁炸雞", code:"79 343 495*24", map:"https://maps.app.goo.gl/kT51ikbN312eqZdN7"},
+      {name:"富良野滑雪場", group:"滑雪", icon:"⛷️", intro:"富良野的滑雪場，可安排一日行程。", map:"富良野滑雪場, Hokkaido", official:"https://www.princehotels.co.jp/ski/furano/winter/", trailMap:"https://www.princehotels.co.jp/ski/furano/winter/coursemap/", coords:[43.3167,142.3833], weatherKey:"furano", skiResort:true},
+      {name:"Daiichi", group:"購物", icon:"🛒", intro:"旭川的超級市場。", code:"79 381 341*30", map:"Daiichi, Asahikawa, Hokkaido"},
+      {name:"独酌 三四郎", group:"餐廳", icon:"🍶", code:"79 343 787*24", rating:"3.56", tabelog:"https://tabelog.com/tw/hokkaido/A0104/A010401/1014057/", map:"https://www.google.com/maps/place/%E7%8B%AC%E9%85%8C+%E4%B8%89%E5%9B%9B%E9%83%8E/@43.7681378,142.3550842,19z/data=!3m1!5s0x5f0ce60e6db3905f:0x9ea313d2472f0d84!4m6!3m5!1s0x5f0ce60e6dad38e7:0x8a7108752f677b9!8m2!3d43.7681884!4d142.356459!16s%2Fg%2F1v3kmw8n?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D"}
+    ];
+
+    const mapUrlOverrides = {
+      "Korokoro 橡子 麵包店": "https://maps.app.goo.gl/kT51ikbN312eqZdN7",
+      "独酌 三四郎": "https://www.google.com/maps/place/%E7%8B%AC%E9%85%8C+%E4%B8%89%E5%9B%9B%E9%83%8E/@43.7681378,142.3550842,19z/data=!3m1!5s0x5f0ce60e6db3905f:0x9ea313d2472f0d84!4m6!3m5!1s0x5f0ce60e6dad38e7:0x8a7108752f677b9!8m2!3d43.7681884!4d142.356459!16s%2Fg%2F1v3kmw8n?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D"
+    };
+    places.find(p => p.name === "Korokoro 橡子 麵包店").map = "Korokoro Neighborhood Bakery";
+    places.find(p => p.name === "独酌 三四郎").map = "独酌 三四郎, Asahikawa, Hokkaido";
+    const categories = ["全部", "我的收藏", "餐廳", "景點", "滑雪", "娛樂", "購物", "溫泉休閒", "住宿", "交通"];
+    const placeGroups = categories.slice(2);
+    const iconPaths = {"餐廳":"assets/category-illustrations/restaurant-sticker.png", "景點":"assets/category-illustrations/attractions-sticker.png", "滑雪":"assets/category-illustrations/snowboard-sticker.png", "娛樂":"assets/category-illustrations/entertainment-sticker.png", "購物":"assets/category-illustrations/shopping-sticker.png", "溫泉休閒":"assets/category-illustrations/onsen-sticker.png", "住宿":"assets/category-illustrations/lodging-sticker.png", "交通":"assets/category-illustrations/transport-sticker.png"};
+    const stickerShapes = {"餐廳":"food", "景點":"sight", "滑雪":"snow", "娛樂":"play", "購物":"shop", "溫泉休閒":"onsen", "住宿":"stay", "交通":"move"};
+    const categoryStyles = {"餐廳":"--card-bg:#fff8ed;--card-border:#f1ddba", "景點":"--card-bg:#f7f6ff;--card-border:#dddaf4", "滑雪":"--card-bg:#d6ecfa;--card-border:#a8d3eb", "娛樂":"--card-bg:#fff1f2;--card-border:#f1cbd1", "購物":"--card-bg:#fff9ee;--card-border:#f1dfbd", "溫泉休閒":"--card-bg:#effaff;--card-border:#ccebf2", "住宿":"--card-bg:#fff8f0;--card-border:#f0dec5", "交通":"--card-bg:#f1f8ff;--card-border:#d2e3f4"};
+    const storageKeys = {custom:"asahikawa-custom-places", saved:"asahikawa-saved-places", tags:"asahikawa-place-tags"};
+    const icons = {
+      heart: '<svg class="action-icon icon-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.3c0 5-8.8 10.1-8.8 10.1S3.2 13.3 3.2 8.3A4.8 4.8 0 0 1 12 5.6a4.8 4.8 0 0 1 8.8 2.7Z"/></svg>',
+      tag: '<svg class="action-icon icon-tag" viewBox="0 0 24 24" aria-hidden="true"><path d="m20.4 13-7.3 7.3a2.2 2.2 0 0 1-3.1 0L3.7 14V4.5h9.5l7.2 7.2a.9.9 0 0 1 0 1.3Z"/><circle cx="8.2" cy="8.2" r="1.1"/></svg>'
+    };
+    places.forEach((place, index) => { place.id = `official-${index}`; place.builtIn = true; });
+    let selected = "全部";
+    let selectedTag = "全部";
+    let customPlaces = readStorage(storageKeys.custom, []);
+    if (!Array.isArray(customPlaces)) customPlaces = [];
+    const storedSavedPlaceIds = readStorage(storageKeys.saved, []);
+    let savedPlaceIds = new Set(Array.isArray(storedSavedPlaceIds) ? storedSavedPlaceIds : []);
+    let tagsByPlace = readStorage(storageKeys.tags, {});
+    if (!tagsByPlace || Array.isArray(tagsByPlace) || typeof tagsByPlace !== "object") tagsByPlace = {};
+    let editingPlaceId = null;
+    let taggingPlaceId = null;
+    const weatherCache = new Map();
+    const filters = document.querySelector("#filters");
+    const tagFilters = document.querySelector("#tag-filters");
+    const grid = document.querySelector("#grid");
+    const search = document.querySelector("#search");
+    const count = document.querySelector("#count");
+    const toast = document.querySelector("#toast");
+    const savedCount = document.querySelector("#saved-count");
+    const placeDialog = document.querySelector("#place-dialog");
+    const placeForm = document.querySelector("#place-form");
+    const tagDialog = document.querySelector("#tag-dialog");
+    const tagForm = document.querySelector("#tag-form");
+    const tagList = document.querySelector("#tag-list");
+    const locateNow = document.querySelector("#locate-now");
+    const locationTitle = document.querySelector("#location-title");
+    const locationDetail = document.querySelector("#location-detail");
+    const locationWeather = document.querySelector("#location-weather");
+    const locationNote = document.querySelector("#location-note");
+    let currentLocationCoords = null;
+
+    function readStorage(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+      catch { return fallback; }
+    }
+    function writeStorage(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+    function makeMapsUrl(query) {
+      if (/^https?:\/\//i.test(query || "")) return query;
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query || "");
+    }
+    function cardIntro(place) {
+      const base = String(place.intro || "").replace(/\s+/g, " ").trim();
+      const additions = {
+        "餐廳": "適合安排在旭川行程中用餐。",
+        "購物": "適合補充旅途中用品與伴手禮。",
+        "滑雪": "出發前可依雪況與程度確認安排。",
+        "溫泉休閒": "適合滑雪或市區行程後放鬆。",
+        "景點": "適合安排在市區或近郊半日行程。",
+        "娛樂": "可依當天行程與營業時間安排。",
+        "住宿": "適合作為旭川行程中的住宿據點。",
+        "交通": "可作為旭川自駕與移動的交通節點。"
+      };
+      let text = base || `${place.name}是旭川行程中的${place.group || "推薦地點"}。`;
+      if (text.length < 20) text = `${text}${additions[place.group] || "可依行程安排造訪。"}`;
+      return text.length > 40 ? `${text.slice(0, 39)}…` : text;
+    }
+    function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"}[char])); }
+    function allPlaces() { return [...places, ...customPlaces]; }
+    function tagsFor(placeId) { return Array.isArray(tagsByPlace[placeId]) ? tagsByPlace[placeId] : []; }
+    function allTags() { return [...new Set(Object.values(tagsByPlace).flat().filter(Boolean))].sort((a, b) => a.localeCompare(b, "zh-Hant")); }
+    const weatherLabels = {0:"晴朗",1:"大致晴朗",2:"多雲時晴",3:"陰天",45:"霧",48:"霧凇",51:"毛毛雨",53:"中度毛毛雨",55:"強毛毛雨",56:"凍毛毛雨",57:"強凍毛毛雨",61:"小雨",63:"中雨",65:"大雨",66:"凍雨",67:"強凍雨",71:"小雪",73:"中雪",75:"大雪",77:"雪粒",80:"短暫陣雨",81:"中度陣雨",82:"強陣雨",85:"短暫陣雪",86:"強陣雪",95:"雷雨",96:"雷雨伴冰雹",99:"強雷雨伴冰雹"};
+    async function loadCurrentLocationWeather() {
+      const [lat, lng] = currentLocationCoords;
+      locationWeather.hidden = false;
+      locationNote.textContent = "正在讀取目前位置的天氣資料…";
+      try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_gusts_10m,precipitation,snowfall&timezone=Asia%2FTokyo`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("weather request failed");
+        const current = (await response.json()).current || {};
+        document.querySelector("#location-condition").textContent = weatherLabels[current.weather_code] || "天氣資料";
+        document.querySelector("#location-temperature").textContent = `${Math.round(current.temperature_2m)}°C／${Math.round(current.apparent_temperature)}°C`;
+        document.querySelector("#location-wind").textContent = `${Math.round(current.wind_speed_10m)}／${Math.round(current.wind_gusts_10m)} km/h`;
+        document.querySelector("#location-precipitation").textContent = `${current.precipitation || 0}／${current.snowfall || 0} mm`;
+        locationNote.textContent = `天氣資料時間 ${String(current.time || "").replace("T", " ")}（日本時間）。道路摘要僅在取得可驗證的即時資料後才會顯示。`;
+      } catch {
+        locationNote.textContent = "目前無法載入天氣資料，請稍後再試。道路資訊仍可從上方官方連結查看。";
+      }
+    }
+    function showLocationIssue(message) {
+      locationTitle.textContent = "無法取得目前位置";
+      locationDetail.textContent = message;
+      locateNow.disabled = false;
+      locateNow.textContent = "⌖ 再試一次";
+    }
+    function requestCurrentLocation() {
+      if (!navigator.geolocation) {
+        showLocationIssue("此瀏覽器不支援定位功能。");
+        return;
+      }
+      locateNow.disabled = true;
+      locateNow.textContent = "取得位置中…";
+      locationTitle.textContent = "正在取得目前位置";
+      locationDetail.textContent = "請在瀏覽器提示中允許定位。";
+      navigator.geolocation.getCurrentPosition(position => {
+        currentLocationCoords = [position.coords.latitude.toFixed(6), position.coords.longitude.toFixed(6)];
+        locationTitle.textContent = "已使用目前位置";
+        locationDetail.textContent = `北緯 ${currentLocationCoords[0]}，東經 ${currentLocationCoords[1]}。`;
+        locateNow.disabled = false;
+        locateNow.textContent = "⌖ 更新位置";
+        loadCurrentLocationWeather();
+      }, error => {
+        const messages = {1:"你尚未允許定位。可在瀏覽器設定中允許後再試一次。",2:"目前位置暫時無法取得，請確認定位服務是否已開啟。",3:"取得位置逾時，請再試一次。"};
+        showLocationIssue(messages[error.code] || "目前位置暫時無法取得，請稍後再試。");
+      }, {enableHighAccuracy:true, timeout:12000, maximumAge:300000});
+    }
+    locateNow.addEventListener("click", requestCurrentLocation);
+    function weatherMarkup(key) {
+      return `<div class="weather-box" data-weather="${key}" aria-label="即時天氣資料"><div class="weather-item">天氣<span class="weather-value" data-wx="condition">讀取中</span></div><div class="weather-item">氣溫<span class="weather-value" data-wx="temperature">—</span></div><div class="weather-item">積雪估算<span class="weather-value" data-wx="snow">—</span></div><div class="weather-item">風速<span class="weather-value" data-wx="wind">—</span></div><div class="weather-status" data-wx="status">正在取得最新模式資料…</div></div>`;
+    }
+    async function fetchWeather(place) {
+      const cached = weatherCache.get(place.weatherKey);
+      if (cached?.promise) return cached.promise;
+      if (cached?.data && Date.now() - cached.fetchedAt < 30 * 60 * 1000) return cached.data;
+      const [latitude, longitude] = place.coords;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m&hourly=snow_depth&forecast_hours=1&past_hours=1&timezone=Asia%2FTokyo`;
+      const promise = fetch(url).then(response => {
+        if (!response.ok) throw new Error("weather request failed");
+        return response.json();
+      }).then(data => {
+        const times = data.hourly?.time || [];
+        let hourIndex = times.indexOf(data.current?.time);
+        if (hourIndex < 0 && times.length) hourIndex = times.findIndex(t => t.slice(0, 13) === data.current?.time?.slice(0, 13));
+        const snow = data.hourly?.snow_depth?.[hourIndex];
+        const result = {
+          condition: weatherLabels[data.current?.weather_code] || "天氣資料",
+          temperature: Number.isFinite(data.current?.temperature_2m) ? `${Math.round(data.current.temperature_2m)}°C` : "暫無資料",
+          snow: Number.isFinite(snow) ? `${Math.round(snow * 100)} cm` : "暫無資料",
+          wind: Number.isFinite(data.current?.wind_speed_10m) ? `${Math.round(data.current.wind_speed_10m)} km/h` : "暫無資料",
+          time: data.current?.time || ""
+        };
+        weatherCache.set(place.weatherKey, {data:result, fetchedAt:Date.now()});
+        return result;
+      }).catch(error => {
+        weatherCache.delete(place.weatherKey);
+        throw error;
+      });
+      weatherCache.set(place.weatherKey, {promise});
+      return promise;
+    }
+    function updateWeather(visible) {
+      visible.filter(p => p.weatherKey).forEach(async place => {
+        const box = grid.querySelector(`[data-weather="${place.weatherKey}"]`);
+        if (!box) return;
+        const cached = weatherCache.get(place.weatherKey);
+        if (cached?.data && Date.now() - cached.fetchedAt < 30 * 60 * 1000) {
+          showWeather(box, cached.data);
+          return;
+        }
+        try { showWeather(box, await fetchWeather(place)); }
+        catch { box.querySelector('[data-wx="status"]').textContent = "目前無法載入；稍後可重新整理頁面"; }
+      });
+    }
+    function showWeather(box, data) {
+      if (!box.isConnected) return;
+      box.querySelector('[data-wx="condition"]').textContent = data.condition;
+      box.querySelector('[data-wx="temperature"]').textContent = data.temperature;
+      box.querySelector('[data-wx="snow"]').textContent = data.snow;
+      box.querySelector('[data-wx="wind"]').textContent = data.wind;
+      box.querySelector('[data-wx="status"]').textContent = `模型資料時間 ${data.time.replace("T", " ")}（日本時間）`;
+    }
+    function drawFilters() {
+      filters.innerHTML = categories.map(c => {
+        const favorite = c === "我的收藏";
+        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? icons.heart : c}</button>`;
+      }).join("");
+      filters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+        selected = button.dataset.category;
+        drawFilters();
+        drawPlaces();
+      }));
+    }
+    function drawTagFilters() {
+      const tags = allTags();
+      if (selectedTag !== "全部" && !tags.includes(selectedTag)) selectedTag = "全部";
+      tagFilters.innerHTML = tags.length ? [`<button class="tag-filter" type="button" aria-pressed="${selectedTag === "全部"}" data-tag="全部">所有標籤</button>`, ...tags.map(tag => `<button class="tag-filter" type="button" aria-pressed="${selectedTag === tag}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`)].join("") : "";
+      tagFilters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+        selectedTag = button.dataset.tag;
+        drawTagFilters();
+        drawPlaces();
+      }));
+    }
+    function drawPlaces() {
+      const term = search.value.trim().toLocaleLowerCase();
+      const visible = allPlaces().filter(place => {
+        const hasSelectedCategory = selected === "全部" || (selected === "我的收藏" ? savedPlaceIds.has(place.id) : place.group === selected);
+        const hasSelectedTag = selectedTag === "全部" || tagsFor(place.id).includes(selectedTag);
+        const matchesSearch = [place.name, place.group, place.cuisine || "", place.intro, place.code, ...tagsFor(place.id)].join(" ").toLocaleLowerCase().includes(term);
+        return hasSelectedCategory && hasSelectedTag && matchesSearch;
+      });
+      if (selected === "滑雪") visible.sort((a,b) => Number(Boolean(b.skiResort)) - Number(Boolean(a.skiResort)));
+      count.textContent = `${visible.length} 個地點`;
+      savedCount.textContent = savedPlaceIds.size ? `(${savedPlaceIds.size})` : "";
+      if (!visible.length) {
+        grid.innerHTML = `<div class="empty">沒有符合的地點。試試其他分類、標籤或搜尋字詞。</div>`;
+        return;
+      }
+      grid.innerHTML = visible.map(p => {
+        const saved = savedPlaceIds.has(p.id);
+        const tags = tagsFor(p.id);
+        const googleMapsUrl = escapeHtml(mapUrlOverrides[p.name] || makeMapsUrl(p.map || p.name));
+        return `
+        <article class="card sticker-${stickerShapes[p.group] || "sight"}" style="${categoryStyles[p.group]}">
+          <img class="category-icon" src="${iconPaths[p.group]}" alt="" aria-hidden="true">
+          <div class="card-top">
+            <div class="category">${escapeHtml(p.group)}</div><h3 class="title">${escapeHtml(p.name)}</h3>
+          </div>
+          ${(p.builtIn ? "" : `<div class="card-flags"><span class="card-flag">自訂地點</span></div>`)}
+          ${tags.length ? `<div class="card-flags">${tags.map(tag => `<span class="card-flag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${p.group === "餐廳" && p.cuisine ? `<div class="cuisine-tags" role="list" aria-label="料理類別">${p.cuisine.split(/[・/／、]/).map(tag => tag.trim()).filter(Boolean).map(tag => `<span class="cuisine-tag" role="listitem">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${p.intro || p.name ? `<p class="desc">${escapeHtml(cardIntro(p))}</p>` : ""}
+          ${p.weatherKey ? weatherMarkup(p.weatherKey) : ""}
+          ${p.rating ? `<div class="rating-row"><span class="rating-star" aria-hidden="true">★</span><a class="rating" href="${escapeHtml(p.tabelog)}" target="_blank" rel="noopener noreferrer" aria-label="開啟 ${escapeHtml(p.name)} 的食べログ頁面">食べログ ${escapeHtml(p.rating)}</a><span class="rating-source">點擊查看店家頁</span></div>` : ""}
+          <div class="code-row"><span class="code">${p.code ? `MAPCODE ${escapeHtml(p.code)}` : "MapCode 尚未整理"}</span>${p.code ? `<button class="copy" type="button" data-code="${escapeHtml(p.code)}" aria-label="複製 ${escapeHtml(p.name)} 的 MapCode">複製</button>` : ""}</div>
+          <div class="actions">${p.official ? `<a class="map-btn" href="${escapeHtml(p.official)}" target="_blank" rel="noopener noreferrer">↗ 滑雪場官網</a><a class="map-btn" href="${escapeHtml(p.trailMap)}" target="_blank" rel="noopener noreferrer">↗ 雪道地圖</a>` : ""}${p.map || p.name ? `<a class="map-btn" href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer">↗ Google Maps</a>` : ""}<div class="quick-actions"><button class="save-btn ${saved ? "is-saved" : ""}" type="button" data-save="${p.id}" aria-label="${saved ? "從" : "加入"} ${escapeHtml(p.name)} 的收藏" title="${saved ? "移除收藏" : "加入收藏"}">${icons.heart}</button><button class="tag-btn" type="button" data-tags="${p.id}" aria-label="管理 ${escapeHtml(p.name)} 的標籤" title="管理標籤">${icons.tag}</button></div></div>
+          ${p.builtIn ? "" : `<div class="card-tools"><button class="edit-btn" type="button" data-edit="${p.id}">編輯</button><button class="delete-btn" type="button" data-delete="${p.id}">刪除</button></div>`}
+        </article>`;
+      }).join("");
+      grid.querySelectorAll(".copy").forEach(button => button.addEventListener("click", () => copyCode(button.dataset.code)));
+      grid.querySelectorAll("[data-save]").forEach(button => button.addEventListener("click", () => toggleSaved(button.dataset.save)));
+      grid.querySelectorAll("[data-tags]").forEach(button => button.addEventListener("click", () => openTagDialog(button.dataset.tags)));
+      grid.querySelectorAll("[data-edit]").forEach(button => button.addEventListener("click", () => openPlaceDialog(button.dataset.edit)));
+      grid.querySelectorAll("[data-delete]").forEach(button => button.addEventListener("click", () => deletePlace(button.dataset.delete)));
+      updateWeather(visible);
+    }
+    async function copyCode(code) {
+      try {
+        await navigator.clipboard.writeText(code);
+      } catch {
+        const field = document.createElement("textarea"); field.value = code; field.style.position = "fixed"; field.style.opacity = "0";
+        document.body.appendChild(field); field.select(); document.execCommand("copy"); field.remove();
+      }
+      toast.textContent = "MapCode 已複製";
+      toast.classList.add("show");
+      window.clearTimeout(copyCode.timer);
+      copyCode.timer = window.setTimeout(() => toast.classList.remove("show"), 1700);
+    }
+    function announce(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(announce.timer);
+      announce.timer = window.setTimeout(() => toast.classList.remove("show"), 1700);
+    }
+    function toggleSaved(placeId) {
+      if (savedPlaceIds.has(placeId)) {
+        savedPlaceIds.delete(placeId);
+        announce("已從收藏移除");
+      } else {
+        savedPlaceIds.add(placeId);
+        announce("已儲存到我的收藏");
+      }
+      writeStorage(storageKeys.saved, [...savedPlaceIds]);
+      drawPlaces();
+    }
+    function openPlaceDialog(placeId) {
+      const select = placeForm.elements.group;
+      select.innerHTML = placeGroups.map(group => `<option value="${group}">${group}</option>`).join("");
+      editingPlaceId = placeId || null;
+      const place = placeId ? customPlaces.find(item => item.id === placeId) : null;
+      document.querySelector("#place-dialog-title").textContent = place ? "編輯自訂地點" : "新增地點";
+      placeForm.elements.name.value = place?.name || "";
+      placeForm.elements.group.value = place?.group || "餐廳";
+      placeForm.elements.intro.value = place?.intro || "";
+      placeForm.elements.code.value = place?.code || "";
+      placeForm.elements.map.value = place?.map || "";
+      placeDialog.showModal();
+      placeForm.elements.name.focus();
+    }
+    function savePlace(event) {
+      event.preventDefault();
+      const fields = placeForm.elements;
+      const name = fields.name.value.trim();
+      if (!name) return;
+      const place = {name, group:fields.group.value, intro:fields.intro.value.trim(), code:fields.code.value.trim(), map:fields.map.value.trim() || name, builtIn:false};
+      if (editingPlaceId) {
+        const index = customPlaces.findIndex(item => item.id === editingPlaceId);
+        if (index >= 0) customPlaces[index] = {...customPlaces[index], ...place};
+        announce("自訂地點已更新");
+      } else {
+        place.id = crypto.randomUUID?.() || `custom-${Date.now()}`;
+        customPlaces.push(place);
+        savedPlaceIds.add(place.id);
+        writeStorage(storageKeys.saved, [...savedPlaceIds]);
+        announce("已新增並儲存地點");
+      }
+      writeStorage(storageKeys.custom, customPlaces);
+      placeDialog.close();
+      drawPlaces();
+    }
+    function deletePlace(placeId) {
+      const place = customPlaces.find(item => item.id === placeId);
+      if (!place || !window.confirm(`要刪除「${place.name}」嗎？`)) return;
+      customPlaces = customPlaces.filter(item => item.id !== placeId);
+      savedPlaceIds.delete(placeId);
+      delete tagsByPlace[placeId];
+      writeStorage(storageKeys.custom, customPlaces);
+      writeStorage(storageKeys.saved, [...savedPlaceIds]);
+      writeStorage(storageKeys.tags, tagsByPlace);
+      drawTagFilters();
+      drawPlaces();
+      announce("自訂地點已刪除");
+    }
+    function openTagDialog(placeId) {
+      taggingPlaceId = placeId;
+      tagForm.elements.tag.value = "";
+      renderTagList();
+      tagDialog.showModal();
+      tagForm.elements.tag.focus();
+    }
+    function renderTagList() {
+      const tags = tagsFor(taggingPlaceId);
+      tagList.innerHTML = tags.length ? tags.map(tag => `<button class="tag-chip" type="button" data-remove-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("") : "<span class=\"dialog-help\">尚未加入標籤。</span>";
+      tagList.querySelectorAll("[data-remove-tag]").forEach(button => button.addEventListener("click", () => {
+        tagsByPlace[taggingPlaceId] = tagsFor(taggingPlaceId).filter(tag => tag !== button.dataset.removeTag);
+        writeStorage(storageKeys.tags, tagsByPlace);
+        renderTagList();
+        drawTagFilters();
+        drawPlaces();
+      }));
+    }
+    function saveTag(event) {
+      event.preventDefault();
+      const tag = tagForm.elements.tag.value.trim();
+      if (!tag || !taggingPlaceId) return;
+      const tags = tagsFor(taggingPlaceId);
+      if (!tags.includes(tag)) tagsByPlace[taggingPlaceId] = [...tags, tag];
+      writeStorage(storageKeys.tags, tagsByPlace);
+      tagForm.elements.tag.value = "";
+      renderTagList();
+      drawTagFilters();
+      drawPlaces();
+    }
+    search.addEventListener("input", drawPlaces);
+    document.querySelector("#add-place").addEventListener("click", () => openPlaceDialog());
+    document.querySelector("#saved-places").addEventListener("click", () => {
+      selected = "我的收藏";
+      drawFilters();
+      drawPlaces();
+    });
+    placeForm.addEventListener("submit", savePlace);
+    tagForm.addEventListener("submit", saveTag);
+    document.querySelectorAll("[data-close-dialog]").forEach(button => button.addEventListener("click", () => button.closest("dialog").close()));
+    drawFilters();
+    drawTagFilters();
+    drawPlaces();
+    setInterval(() => {
+      const activeKeys = [...grid.querySelectorAll("[data-weather]")].map(box => box.dataset.weather);
+      const activePlaces = allPlaces().filter(place => activeKeys.includes(place.weatherKey));
+      activePlaces.forEach(place => weatherCache.delete(place.weatherKey));
+      updateWeather(activePlaces);
+    }, 30 * 60 * 1000);
+  </script>
+</body>
+</html>
