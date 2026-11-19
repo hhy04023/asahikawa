@@ -333,149 +333,130 @@
   <script type="module">
     document.body.classList.add("theme-magazine");
     const places = [
-      {name:"小樽なると屋 旭川永山店", group:"餐廳", icon:"🍗", cuisine:"日式炸雞・若雞半身揚", intro:"以炸雞與半身炸雞為主，適合安排在永山區用餐。", code:"79 438 589*38", rating:"3.03", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058395/", map:"小樽なると屋 旭川永山店, Asahikawa, Hokkaido"},
-      {name:"KINGBEAR 旭川さんろく店", group:"餐廳", icon:"🍛", cuisine:"湯咖哩", intro:"旭川市區的湯咖哩店，可作為市中心用餐選擇。", code:"79 343 820*32", rating:"3.26", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1077682/", map:"KINGBEAR 旭川さんろく店, Asahikawa, Hokkaido"},
-      {name:"金花郎 一条店", group:"餐廳", icon:"🥩", cuisine:"炭火燒肉", intro:"炭火燒肉店，適合安排晚餐或多人聚餐。", code:"79 342 719*18", rating:"3.31", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1021896/", map:"炭火焼き肉 金花郎 一条店, Asahikawa, Hokkaido"},
-      {name:"ほろ酔い処 味介", group:"餐廳", icon:"🐟", cuisine:"海鮮居酒屋", intro:"以海鮮料理為主的居酒屋，適合晚餐時段前往。", code:"79 343 820*01", rating:"3.11", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1073493/", map:"ほろ酔い処 味介, Asahikawa, Hokkaido"},
-      {name:"回転寿司ちょいす 神楽店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"神樂區的迴轉壽司店，方便自駕途中用餐。", code:"79 312 295*30", rating:"3.13", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1024329/", map:"回転寿司ちょいす 神楽店, Asahikawa, Hokkaido"},
-      {name:"SUSHI HOUSE 鮨六", group:"餐廳", icon:"🍣", cuisine:"壽司・居酒屋", intro:"位於旭川市中心的壽司店，也提供居酒屋餐點。", code:"79 343 766*26", rating:"3.26", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004584/", map:"SUSHI HOUSE 鮨六, Asahikawa, Hokkaido"},
-      {name:"回転寿しトリトン 旭神店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"旭神區的迴轉壽司店，適合自駕安排用餐。", code:"79 227 784*70", rating:"3.53", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000798/", map:"回転寿しトリトン 旭神店, Asahikawa, Hokkaido", coords:[43.7346199,142.3891095]},
-      {name:"焼鳥専門 ぎんねこ", group:"餐廳", icon:"🍢", cuisine:"炭火串燒・居酒屋", intro:"旭川市中心的串燒店，可品嚐雞肉與居酒屋料理。", code:"79 373 141*73", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1006681/", map:"焼鳥専門 ぎんねこ, Asahikawa, Hokkaido"},
-      {name:"味特 本店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"旭川市中心的拉麵店，提供醬油、鹽味與味噌等口味。", code:"79 343 736*42", rating:"3.59", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004362/", map:"味特 本店, Asahikawa, Hokkaido"},
-      {name:"生姜ラーメン みづの", group:"餐廳", icon:"🍜", cuisine:"生薑拉麵", intro:"以生薑風味拉麵為招牌，適合在市區散步時順道造訪。", code:"79 373 686*18", rating:"3.60", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1003673/", map:"生姜ラーメン みづの, Asahikawa, Hokkaido", coords:[43.775316,142.361885]},
-      {name:"蜂屋 五条創業店", group:"餐廳", icon:"🍜", cuisine:"拉麵・餃子", intro:"旭川老字號拉麵店，菜單以拉麵與餃子為主。", code:"79 373 112*64", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000269/", map:"蜂屋 五条創業店, Asahikawa, Hokkaido"},
-      {name:"ピッツェリア ヨー", group:"餐廳", icon:"🍕", cuisine:"義式・披薩", intro:"旭川市中心的休閒義式餐飲酒吧，可吃披薩與義式料理。", code:"79 343 851*32", rating:"3.05", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1058528/", map:"ピッツェリア ヨー, Asahikawa, Hokkaido"},
-      {name:"成吉思汗 大黒屋 五丁目店", group:"餐廳", icon:"🔥", cuisine:"成吉思汗烤羊肉", intro:"以羊肉成吉思汗燒烤為主，是旭川市中心的晚餐選項。", code:"79 373 040*80", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1027848/", map:"成吉思汗 大黒屋 五丁目店, Asahikawa, Hokkaido"},
-      {name:"小西鮨", group:"餐廳", icon:"🍣", cuisine:"壽司・海鮮", intro:"旭川市中心的壽司店，提供壽司、海鮮與居酒屋料理。", code:"79 343 823*86", rating:"3.62", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004739/", map:"小西鮨, Asahikawa, Hokkaido"},
-      {name:"らーめんや天金 四条店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵・餃子", intro:"旭川市中心的老字號拉麵店，醬油拉麵是代表菜色。", code:"79 344 751*18", rating:"3.67", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000090/", map:"らーめんや天金 四条店, Asahikawa, Hokkaido", coords:[43.7678111,142.3632329]},
-      {name:"鮨みなと", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"旭川的壽司店，提供以北海道海鮮為主的握壽司料理。", code:"79 343 879*07", rating:"4.27", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1001719/", map:"鮨みなと, Asahikawa, Hokkaido"},
-      {name:"居酒屋 天売", group:"餐廳", icon:"🍶", cuisine:"海鮮居酒屋", intro:"旭川市中心的居酒屋，以海鮮料理與酒類為主。", code:"79 343 859*41", rating:"3.63", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1015055/", map:"居酒屋 天売, Asahikawa, Hokkaido"},
-      {name:"山頭火 旭川本店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"旭川拉麵名店，位於旭川市中心。", code:"79 343 470*56", rating:"3.32", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1065091/", map:"山頭火 旭川本店, Asahikawa, Hokkaido"},
-      {name:"Tsutamori", group:"餐廳", icon:"🍱", cuisine:"日式料理", intro:"旭川的日式料理店", code:"79 403 840*60", map:"Tsutamori, Asahikawa, Hokkaido"},
-      {name:"Onoki", group:"餐廳", icon:"🍗", cuisine:"雞肉料理", intro:"旭川的雞肉料理店", code:"79 383 200*62", map:"Onoki, Asahikawa, Hokkaido"},
-      {name:"そば源 本店", group:"餐廳", icon:"🍜", cuisine:"蕎麥麵", intro:"旭川在地蕎麥麵店", code:"79 371 275*58", rating:"3.31", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1014580/", map:"そば源 本店, Asahikawa, Hokkaido"},
-      {name:"七輪焼肉 安安 旭川川端店", group:"餐廳", icon:"🥩", cuisine:"燒肉・內臟燒肉・成吉思汗", intro:"川端一帶的平價燒肉店。", code:"79 401 512*33", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1071178/", map:"Shichirinyakiniku Anan Asahikawa Kawabataten, Hokkaido"},
-      {name:"たま 買物公園通り店", group:"餐廳", icon:"🍢", cuisine:"居酒屋・燒鳥・串炸", intro:"買物公園通附近的居酒屋，提供燒鳥與串炸料理。", code:"79 343 741*56", rating:"3.08", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1070293/", map:"たま 買物公園通り店, Asahikawa, Hokkaido"},
-      {name:"一途屋", group:"餐廳", icon:"🍶", cuisine:"居酒屋・餐酒館・海鮮", intro:"提供海鮮料理的居酒屋與餐酒館。", code:"79 373 055*35", rating:"3.20", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1008155/", map:"一途屋, Asahikawa, Hokkaido"},
-      {name:"北海道さかな一途 直営魚問屋", group:"餐廳", icon:"🐟", cuisine:"居酒屋・海鮮・鍋物", intro:"以北海道海鮮與魚料理為主，亦有鍋物。", code:"79 343 858*80", rating:"3.43", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1053508/", map:"北海道さかな一途 直営魚問屋, Asahikawa, Hokkaido"},
-      {name:"ぎんざ貴舟", group:"餐廳", icon:"🍱", cuisine:"日本料理・海鮮", intro:"提供日本料理與海鮮料理。", code:"79 343 736*24", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1085791/", map:"ぎんざ貴舟, Asahikawa, Hokkaido"},
-      {name:"炭焼あぶりや 一期一会", group:"餐廳", icon:"🔥", cuisine:"居酒屋・海鮮・爐端燒", intro:"炭火炙燒與海鮮料理為主的居酒屋。", code:"79 343 852*04", rating:"3.17", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1042610/", map:"炭焼あぶりや 一期一会, Asahikawa, Hokkaido"},
-      {name:"北の酔り処", group:"餐廳", icon:"🍶", cuisine:"居酒屋・海鮮・成吉思汗", intro:"提供海鮮與成吉思汗烤羊肉的居酒屋。", code:"79 373 140*10", rating:"3.19", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1029764/", map:"北の酔り処, Asahikawa, Hokkaido"},
-      {name:"旭川 居酒屋 ふくろう亭", group:"餐廳", icon:"🍶", cuisine:"居酒屋", intro:"旭川市區居酒屋，可作為晚餐選擇。", code:"79 373 083*20", rating:"3.32", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1004903/", map:"旭川 居酒屋 ふくろう亭, Asahikawa, Hokkaido"},
-      {name:"別家", group:"餐廳", icon:"🍣", cuisine:"居酒屋・海鮮・壽司", intro:"提供壽司與海鮮料理的居酒屋。", code:"79 343 828*03", rating:"3.16", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1046014/", map:"別家, Asahikawa, Hokkaido"},
-      {name:"炭火居酒屋 炎 旭川買物公園通店", group:"餐廳", icon:"🔥", cuisine:"居酒屋・燒鳥・鍋物", intro:"連鎖炭火居酒屋，提供燒鳥與鍋物。", code:"79 343 619*31", rating:"3.06", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1052243/", map:"炭火居酒屋 炎 旭川買物公園通店, Asahikawa, Hokkaido"},
-      {name:"居酒屋 紅あかり", group:"餐廳", icon:"🍗", cuisine:"居酒屋・雞肉・串炸", intro:"以雞肉料理與串炸為主的居酒屋。", code:"79 317 370*00", rating:"3.13", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1043793/", map:"居酒屋 紅あかり, Asahikawa, Hokkaido"},
-      {name:"焼肉 わじま", group:"餐廳", icon:"🥩", cuisine:"燒肉・冷麵・內臟燒肉", intro:"提供燒肉、冷麵與內臟燒肉。", code:"79 343 678*73", rating:"3.30", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1075450/", map:"焼肉 わじま, Asahikawa, Hokkaido"},
-      {name:"和心洋才 睦月", group:"餐廳", icon:"🍱", cuisine:"居酒屋・海鮮・炸物", intro:"融合和風與洋風料理，提供海鮮與炸物。", code:"79 343 774*55", rating:"3.33", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1057663/", map:"和心洋才 睦月, Asahikawa, Hokkaido"},
-      {name:"蝦夷前やきとりism", group:"餐廳", icon:"🍢", cuisine:"燒鳥・居酒屋", intro:"以燒鳥為主的居酒屋。", code:"79 343 736*33", rating:"3.15", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1080121/", map:"蝦夷前やきとりism, Asahikawa, Hokkaido"},
-      {name:"Cafe ジビエ工業", group:"餐廳", icon:"☕", cuisine:"咖啡・野味料理", intro:"咖啡店風格的餐廳，提供野味料理。", code:"79 560 850*30", rating:"3.20", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1080077/", map:"Cafe ジビエ工業, Asahikawa, Hokkaido"},
-      {name:"旭川ジンギスカンと北海道和牛 肉ビストロ ユキトニクト", group:"餐廳", icon:"🥩", cuisine:"成吉思汗・北海道和牛・肉料理", intro:"以成吉思汗烤羊肉、北海道和牛與肉料理為主。", code:"79 343 794*78", rating:"3.11", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1079966/", map:"旭川ジンギスカンと北海道和牛 肉ビストロ ユキトニクト, Asahikawa, Hokkaido"},
-      {name:"やきにくのチャンプ", group:"餐廳", icon:"🥩", cuisine:"燒肉・內臟燒肉", intro:"提供燒肉與內臟燒肉。", code:"79 497 428*84", rating:"3.34", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1041554/", map:"やきにくのチャンプ, Asahikawa, Hokkaido"},
-      {name:"四季彩 別邸 旭川店", group:"餐廳", icon:"🍲", cuisine:"居酒屋・海鮮・壽喜燒", intro:"提供海鮮與壽喜燒的居酒屋。", code:"79 343 800*05", rating:"3.08", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1072842/", map:"四季彩 別邸 旭川店, Asahikawa, Hokkaido"},
-      {name:"創作和風 個室居酒屋 萬屋 旭川店", group:"餐廳", icon:"🍶", cuisine:"居酒屋・海鮮・燒鳥", intro:"創作和風料理居酒屋，設有包廂。", code:"79 343 800*05", rating:"3.08", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1059606/", map:"創作和風 個室居酒屋 萬屋 旭川店, Asahikawa, Hokkaido"},
-      {name:"髭 北海道居酒屋 酔い処", group:"餐廳", icon:"🍶", cuisine:"海鮮・居酒屋・燒鳥", intro:"提供牡蠣、海鮮燒烤與居酒屋料理。食べログ 3.16。", rating:"3.16", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%AB%AD%20%E5%8C%97%E6%B5%B7%E9%81%93%E5%B1%85%E9%85%92%E5%B1%8B%20%E9%85%94%E3%81%84%E5%87%A6", map:"髭 北海道居酒屋 酔い処, Asahikawa, Hokkaido"},
-      {name:"おいしい美術館eight", group:"餐廳", icon:"🍽️", cuisine:"義式・餐酒館・法式", intro:"以義式與法式料理為主的餐酒館。食べログ 3.04。", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E3%81%8A%E3%81%84%E3%81%97%E3%81%84%E7%BE%8E%E8%A1%93%E9%A4%A8eight", map:"おいしい美術館eight, Asahikawa, Hokkaido"},
-      {name:"鮨とつまみと朧月", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"提供壽司與當季料理，鄰近旭川車站。食べログ 3.22。", rating:"3.22", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%AE%A8%E3%81%A8%E3%81%A4%E3%81%BE%E3%81%BF%E3%81%A8%E6%9C%A7%E6%9C%88", map:"鮨とつまみと朧月, Asahikawa, Hokkaido"},
-      {name:"七輪焼肉 安安 旭川末広店", group:"餐廳", icon:"🥩", cuisine:"燒肉・內臟燒肉・成吉思汗", intro:"末廣一帶的平價燒肉店。食べログ 3.04。", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E4%B8%83%E8%BC%AA%E7%84%BC%E8%82%89%20%E5%AE%89%E5%AE%89%20%E6%97%AD%E5%B7%9D%E6%9C%AB%E5%BA%83%E5%BA%97", map:"七輪焼肉 安安 旭川末広店, Asahikawa, Hokkaido"},
-      {name:"炉端と地酒 まる文 すが原", group:"餐廳", icon:"🔥", cuisine:"居酒屋・海鮮・爐端燒", intro:"提供季節海鮮、爐端燒與日本酒。食べログ 3.30。", code:"79 343 764*27", rating:"3.30", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E7%82%89%E7%AB%AF%E3%81%A8%E5%9C%B0%E9%85%92%20%E3%81%BE%E3%82%8B%E6%96%87%20%E3%81%99%E3%81%8C%E5%8E%9F", map:"炉端と地酒 まる文 すが原, Asahikawa, Hokkaido"},
-      {name:"鰻・旬魚旬菜 柳光亭", group:"餐廳", icon:"🍱", cuisine:"鰻魚・海鮮・日本料理", intro:"以鰻魚與當季魚鮮料理為主。食べログ 3.10。", code:"79 343 822*81", rating:"3.10", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%B0%BB%20%E6%97%AC%E9%AD%9A%E6%97%AC%E8%8F%9C%20%E6%9F%B3%E5%85%89%E4%BA%AD", map:"鰻・旬魚旬菜 柳光亭, Asahikawa, Hokkaido"},
-      {name:"居酒屋 かつぎ屋", group:"餐廳", icon:"🍶", cuisine:"居酒屋・海鮮", intro:"提供炭火燒烤、生魚片與多樣居酒屋料理。食べログ 3.34。", code:"79 343 855*76", rating:"3.34", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1066040/", map:"居酒屋 かつぎ屋, Asahikawa, Hokkaido"},
-      {name:"我家", group:"餐廳", icon:"🍢", cuisine:"居酒屋・串燒・海鮮", intro:"提供串物、蒸物與海鮮料理。食べログ 3.02。", code:"79 374 188*82", rating:"3.02", tabelog:"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E6%88%91%E5%AE%B6", map:"我家, Asahikawa, Hokkaido"},
-      {name:"BELLOWS BURGER", group:"餐廳", icon:"🍔", cuisine:"漢堡", intro:"旭川的漢堡店，適合安排簡餐。", code:"79 401 727*52", rating:"3.42", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1039689/", map:"BELLOWS BURGER Asahikawa, Hokkaido"},
-      {name:"松屋 旭川大町店（松のや併設）", group:"餐廳", icon:"🍱", cuisine:"日式定食・牛丼", intro:"大町一帶的連鎖定食店，附設松のや。", code:"79 403 804*43", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1076162/", map:"松屋 旭川大町店, Hokkaido"},
-      {name:"はま寿司 旭川旭町店", group:"餐廳", icon:"🍣", cuisine:"迴轉壽司", intro:"旭町一帶的迴轉壽司店。", code:"79 403 671*20", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1040199/", map:"HAMA-ZUSHI Asahikawa Asahimachi, Hokkaido"},
-      {name:"アジア金星堂", group:"餐廳", icon:"🍛", cuisine:"咖哩", intro:"旭川的咖哩餐廳。", code:"79 436 248*67", rating:"3.54", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1001167/", map:"アジア金星堂, Asahikawa, Hokkaido"},
-      {name:"梅光軒 南店 創業店", group:"餐廳", icon:"🍜", cuisine:"旭川拉麵", intro:"梅光軒在旭川的創業店。", code:"79 316 153*76", rating:"3.04", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1000786/", map:"梅光軒 南店 創業店, Asahikawa, Hokkaido"},
-      {name:"Tenkin 居酒屋", group:"餐廳", icon:"🍶", cuisine:"居酒屋", intro:"旭川市區居酒屋。", code:"79 343 798*13", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1002688/", map:"Tenkin Izakaya, Asahikawa, Hokkaido"},
-      {name:"maze", group:"餐廳", icon:"🍶", cuisine:"居酒屋", intro:"旭川市區居酒屋", map:"maze izakaya, Asahikawa, Hokkaido"},
-      {name:"炭火と酒 金木犀", group:"餐廳", icon:"🍢", cuisine:"炭火串燒・居酒屋", intro:"旭川市區的炭火串燒與居酒屋。", map:"炭火と酒 金木犀, Asahikawa, Hokkaido"},
-      {name:"萬屋 Maiki", group:"餐廳", icon:"🍱", cuisine:"日式料理", intro:"旭川市區日式餐廳", map:"萬屋 Maiki, Asahikawa, Hokkaido"},
-      {name:"まごころ食堂", group:"餐廳", icon:"🍱", cuisine:"食堂・定食", intro:"旭川的家常食堂，提供定食料理。", map:"まごころ食堂, Asahikawa, Hokkaido"},
-      {name:"串あげ 太郎", group:"餐廳", icon:"🍢", cuisine:"串炸・居酒屋", intro:"旭川市區的串炸居酒屋。", code:"79 343 820*75", rating:"3.52", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1021795/", map:"串あげ 太郎, Asahikawa, Hokkaido"},
-      {name:"地場産ショップ", group:"購物", icon:"🎁", intro:"旭川在地特產與伴手禮商店。", code:"79 312 789*50", map:"地場産ショップ, Asahikawa, Hokkaido"},
-      {name:"ASAHI FLOW 旭川雪具租借店", group:"滑雪", icon:"🎿", intro:"旭川市區的滑雪與單板裝備租借店。", code:"79 343 461*88", map:"ASAHI FLOW 旭川雪具租借店, Asahikawa, Hokkaido"},
-      {name:"Sports Depo 旭川永山店", group:"購物", icon:"🛍️", intro:"運動用品店，可查看滑雪與戶外裝備。", code:"79 469 078*20", map:"Sports Depo Asahikawa Nagayama, Hokkaido"},
-      {name:"Spray", group:"購物", icon:"🏂", intro:"旭川的戶外與滑雪用品店。", code:"79 377 099*33", map:"Spray outdoor sports shop, Asahikawa, Hokkaido"},
-      {name:"Workman Plus 旭川旭町店", group:"購物", icon:"🧤", intro:"戶外與工作服用品店，可補充冬季衣物。", code:"79 432 517*62", map:"Workman Plus 旭川旭町店, Asahikawa, Hokkaido"},
-      {name:"PRONO 旭川本店", group:"購物", icon:"🧤", intro:"工作服與戶外用品店，可查看冬季衣物。", code:"79 349 029*02", map:"プロノ 旭川本店, Hokkaido"},
-      {name:"DON-DON!! 大町店", group:"購物", icon:"♻️", intro:"大町一帶的二手商店。", code:"79 433 025*28", map:"DON-DON!! 大町店, Asahikawa, Hokkaido"},
-      {name:"Yamada Denki Tecc LIFE SELECT 旭川店", group:"購物", icon:"🔌", intro:"旭川的家電量販店。", code:"79 400 682*42", map:"Yamada Denki Tecc LIFE SELECT Asahikawa, Hokkaido"},
-      {name:"Hard Off Asahikawa Pulp Town", group:"購物", icon:"♻️", intro:"旭川 Pulp Town 的二手用品店。", code:"79 376 617*08", map:"Hard Off Asahikawa Pulp Town, Hokkaido"},
-      {name:"Recycle Shop Bigban Asahikawa Miyamae", group:"購物", icon:"♻️", intro:"宮前一帶的二手用品店。", code:"79 315 665*81", map:"Recycle Shop Bigban Asahikawa Miyamae, Hokkaido"},
-      {name:"旭山動物園", group:"景點", icon:"🦁", intro:"旭川代表性動物園", code:"79 358 871*52", map:"旭山動物園, Asahikawa, Hokkaido"},
-      {name:"Feeeal Asahikawa", group:"購物", icon:"🏬", intro:"旭川車站周邊的購物商場。", code:"79 343 558*56", map:"Feeeal Asahikawa, Hokkaido"},
-      {name:"AEON Asahikawa Ekimae", group:"購物", icon:"🛒", intro:"旭川車站旁的購物中心，可採買日用品與補給。", code:"79 343 339*64", map:"AEON Asahikawa Ekimae, Hokkaido"},
-      {name:"永旺旭川西店", group:"購物", icon:"🛒", intro:"永旺夢樂城（AEON MALL）旭川西是北海道北部和東部地區最大的購物中心", code:"79 459 018*88", map:"AEON Asahikawa-Nishi Store, Hokkaido"},
-      {name:"SuperCenter TRIAL 神樂店", group:"購物", icon:"🛒", intro:"神樂一帶的大型折扣超市。", code:"79 283 582*82", map:"SuperCenter TRIAL KAGURA, Asahikawa, Hokkaido"},
-      {name:"MegaCenter TRIAL Asahikawa", group:"購物", icon:"🛒", intro:"旭川的大型折扣超市，可採買旅行補給。", code:"79 345 875*55", map:"MegaCenter TRIAL ASAHIKAWA, Hokkaido"},
-      {name:"Tsuruha Drug 旭川4条店", group:"購物", icon:"💊", intro:"鶴羽藥妝店 旭川4条店", code:"79 345 546*38", map:"Tsuruha Drug 旭川4条店, Asahikawa, Hokkaido"},
-
-      {name:"Alpha Asahimachi", group:"娛樂", icon:"🎰", intro:"旭川市內柏青哥店", code:"79 432 117*62", map:"Alpha Asahimachi, Asahikawa, Hokkaido"},
-      {name:"Paratoeasshuten", group:"娛樂", icon:"🎰", intro:"旭川市內柏青哥店", code:"79 343 584*72", map:"Paratoeasshuten, Asahikawa, Hokkaido"},
-      {name:"パーラートーエー3条本店", group:"娛樂", icon:"🎰", intro:"旭川市中心柏青哥店", code:"79 343 767*56", map:"パーラートーエー3条本店, Asahikawa, Hokkaido"},
-      {name:"Dynam Asahikawa Chikabumi", group:"娛樂", icon:"🎰", intro:"近文一帶柏青哥店", code:"79 400 477*04", map:"Dynam Asahikawa Chikabumi, Hokkaido"},
-
-      {name:"神居滑雪場", group:"滑雪", icon:"⛷️", intro:"旭川近郊的大型滑雪場，雪質乾爽、景色優美！", code:"655 427 297*63", map:"Kamui Ski Links, Asahikawa, Hokkaido", official:"https://www.kamui-skilinks.com/", trailMap:"https://www.kamui-skilinks.com/pdf_data/coursemap2024.pdf", coords:[43.7009,142.199], weatherKey:"kamui", skiResort:true},
-      {name:"比布滑雪場", group:"滑雪", icon:"🏂", intro:"旭川北側的滑雪場，雪場擁有寬敞且平緩的雪道，整體環境舒適、人潮相對較少，非常適合希望專心練習基本技巧的滑雪者。", code:"470 059 293*21", map:"Pippu Ski Resort, Hokkaido, Japan", official:"https://pippu.ski/", trailMap:"https://pippu.ski/course/", coords:[43.9340,142.5015], weatherKey:"pippu", skiResort:true},
-      {name:"Canmore 滑雪村", group:"滑雪", icon:"🏂", intro:"東川町一帶的滑雪地點，可與東川周邊行程一起安排。場地規模適中、雪道寬敞。\n\n天天開放夜滑，而且夜滑票價只要¥500，CP值極高", code:"389 530 303*41", map:"Canmore Ski Village, Higashikawa, Hokkaido", official:"https://www.canmore-ski.jp/", trailMap:"https://www.canmore-ski.jp/guide/", coords:[43.7303,142.5389], weatherKey:"canmore", skiResort:true},
-      {name:"聖誕禮物公園", group:"滑雪", icon:"🎿", intro:"旭川市區附近的滑雪場，適合安排短程滑雪，可以夜滑看旭川市夜景。", code:"79 336 023*21", map:"Santa Present Park, Asahikawa, Hokkaido", official:"https://www.asahikawasantapresentpark.com/", trailMap:"https://www.asahikawasantapresentpark.com/cont1/main.html", coords:[43.7584513,142.2991737], weatherKey:"santa", skiResort:true},
-
-      {name:"Super Sports Xebio 旭川永山店", group:"購物", icon:"🛍️", intro:"運動用品店，可查看滑雪與戶外用品。", code:"79 438 379*87", map:"Super Sports Xebio Asahikawa Nagayama, Hokkaido"},
-      {name:"Asahikawa Snow Force 雪具出租", group:"滑雪", icon:"🎿", intro:"旭川市區的雪具租借點，可安排取還雪具。", code:"79 342 893*38", map:"Asahikawa Snow Force, Asahikawa, Hokkaido"},
-      {name:"Shugakuso Asahikawa", group:"購物", icon:"🎒", intro:"秀岳荘 旭川店戶外用品店，適合補充滑雪或戶外活動用品。", code:"79 398 063*08", map:"Shugakuso Asahikawa, Hokkaido"},
-      {name:"mont-bell 大雪東川店", group:"購物", icon:"🏔️", intro:"東川町的戶外用品店，可順遊東川近郊。", code:"389 406 347*56", map:"mont-bell Daisetsu Higashikawa, Hokkaido"},
-      {name:"永旺旭川春光購物中心", group:"購物", icon:"🛒", intro:"旭川市區的購物中心，可採買日用品與補給。", code:"79 433 754*81", map:"永旺旭川春光購物中心, Asahikawa, Hokkaido", coords:[43.7929675,142.3559362]},
-      {name:"MEGA唐吉訶德旭川店", group:"購物", icon:"🛍️", intro:"大型折扣商店，適合集中採買日用品與旅行補給。", code:"79 465 475*34", map:"MEGA Don Quijote Asahikawa, Hokkaido", coords:[43.7984701,142.3781781]},
-
-      {name:"旭川市博物館", group:"景點", icon:"🏛️", intro:"位於大雪クリスタルホール內，展示旭川與北北海道的歷史、文化及自然。", code:"79 312 736*40", map:"旭川市博物館, Asahikawa, Hokkaido"},
-
-      {name:"金の湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂，可作為滑雪後放鬆選項。", code:"79 316 383*51", map:"金の湯, Asahikawa, Hokkaido"},
-      {name:"大黒湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂，適合安排在市區行程。", code:"79 345 281*82", map:"大黒湯, Asahikawa, Hokkaido"},
-      {name:"Yuransen Asahikawa", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的澡堂與休閒設施，錢湯大人/550円  有家族風呂 平日：大人/1,000円(60分)", code:"79 369 503*83", map:"Yuransen Asahikawa, Hokkaido"},
-      {name:"SPA & SAUNA オスパー", group:"溫泉休閒", icon:"🧖", intro:"旭川市區的溫浴與桑拿設施。80分內 980円 ", code:"79 314 838*22", map:"SPA & SAUNA オスパー, Asahikawa, Hokkaido"},
-      {name:"天然温泉かぐらの湯", group:"溫泉休閒", icon:"♨️", intro:"Premier Hotel Cabin內的天然溫泉，可安排自駕返市區前後造訪。成人（含毛巾）：1,200日圓（含稅）　，（不含毛巾）：1,000日圓（含稅）", code:"79 343 522*34", map:"天然温泉かぐらの湯, Asahikawa, Hokkaido"},
-      {name:"杜のSPA神楽", group:"溫泉休閒", icon:"♨️", intro:"神樂區的溫浴休閒設施，適合滑雪後放鬆。", code:"79 313 109*68", map:"杜のSPA神楽, Asahikawa, Hokkaido", coords:[43.7533023,142.3597985]},
-      {name:"旭川高砂台 万葉の湯", group:"溫泉休閒", icon:"♨️", intro:"高砂台一帶的溫浴休閒設施。", code:"79 367 055*25", map:"Asahikawa Takasagodai Manyonoyu, Hokkaido", coords:[43.7692995,142.3115008]},
-      {name:"Kitoushi Forest Kitoron", group:"溫泉休閒", icon:"🌲", intro:"東川町近郊的森林休閒與日歸溫泉設施。", code:"389 500 847*31", map:"Kitoushi Forest Kitoron, Higashikawa, Hokkaido"},
-
-      {name:"Grandeur 北之森", group:"住宿", icon:"🏠", intro:"旭川市區的住宿選項。", code:"79 343 751*70", map:"Night In Daiya, Asahikawa, Hokkaido"},
-      {name:"旭川 JR 站", group:"交通", icon:"🚉", intro:"旭川市區主要鐵路車站，串接 JR 北海道路線。", code:"79 343 255*87", map:"JR Asahikawa Station, Hokkaido, Japan"},
-      {name:"旭川機場", group:"交通", icon:"✈️", intro:"旭川進出與租車行程的機場位置。", code:"79 025 007*16", map:"Asahikawa Airport, Hokkaido, Japan", coords:[43.6686785,142.4513869]},
-
-      {name:"旭川神社", group:"景點", icon:"⛩️", intro:"旭川市內的神社。", code:"79 383 021*32", map:"旭川神社, Asahikawa, Hokkaido"},
-      {name:"上川神社", group:"景點", icon:"⛩️", intro:"旭川代表性的神社，可安排市區散步時造訪。", code:"79 284 876*40", map:"上川神社, Asahikawa, Hokkaido"},
-      {name:"金比羅神社", group:"景點", icon:"⛩️", intro:"旭川市內的神社。", code:"79 432 659*24", map:"金比羅神社, Asahikawa, Hokkaido"},
-      {name:"北海道護國神社", group:"景點", icon:"⛩️", intro:"旭川市內的神社。", code:"79 434 284*66", map:"北海道護國神社, Asahikawa, Hokkaido"},
-      {name:"上川神社頓宮", group:"景點", icon:"⛩️", intro:"上川神社的頓宮。", code:"79 373 676*73", map:"上川神社頓宮, Asahikawa, Hokkaido"},
-      {name:"CONEY ISLAND ASAHIKAWA / コニーアイランド 旭川", group:"購物", icon:"🛍️", intro:"旭川的時裝店。", code:"79 344 176*88", map:"CONEY ISLAND ASAHIKAWA, Hokkaido"},
-      {name:"RESTAURANT IPEAYPEA", group:"餐廳", icon:"🍽️", intro:"旭川的餐廳。", code:"79 343 208*70", rating:"3.22", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1050555/", map:"RESTAURANT IPEAYPEA, Asahikawa, Hokkaido"},
-      {name:"北海道カムイテラス ビアピリカ", group:"餐廳", icon:"🍺", intro:"旭川的季節限定啤酒花園。", code:"79 343 206*28", rating:"3.13", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1078624/", map:"北海道カムイテラス ビアピリカ, Asahikawa, Hokkaido"},
-      {name:"Hard Off Asahikawa Nishi", group:"購物", icon:"♻️", intro:"旭川西側的二手用品店。", code:"79 430 422*56", map:"Hard Off Asahikawa Nishi, Hokkaido"},
-      {name:"Gyomu Supermarket 綠町店", group:"購物", icon:"🛒", intro:"旭川綠町的平價超市。", code:"79 403 834*80", map:"Gyomu Supermarket Midorimachi, Asahikawa, Hokkaido"},
-      {name:"ゲームフィールド旭川春光店", group:"娛樂", icon:"🕹️", intro:"旭川春光地區的遊戲機中心。", code:"79 433 754*81", map:"ゲームフィールド旭川春光店, Hokkaido"},
-      {name:"GiGO メガセンタートライアル旭川", group:"娛樂", icon:"🕹️", intro:"旭川的遊戲機中心。", code:"79 345 844*42", map:"GiGO メガセンタートライアル旭川, Hokkaido"},
-      {name:"SOYU GAME FIELD 旭川站前店", group:"娛樂", icon:"🕹️", intro:"旭川站前的遊戲機中心。", code:"79 343 372*87", map:"SOYU GAME FIELD 旭川駅前店, Hokkaido"},
-      {name:"日產租車 旭川機場店", group:"交通", icon:"🚗", intro:"旭川機場附近的租車選項。", code:"389 280 883*51", map:"日産レンタカー 旭川空港店, Hokkaido"},
-      {name:"日產租車 旭川車站前店", group:"交通", icon:"🚗", intro:"旭川站前的租車選項。", code:"79 343 468*76", map:"日産レンタカー 旭川駅前店, Hokkaido"},
-      {name:"DCM", group:"購物", icon:"🛠️", intro:"旭川的大型家居與工具用品店。", code:"79 285 811*04", map:"DCM, Asahikawa, Hokkaido"},
-      {name:"アッシュA.s.h", group:"購物", icon:"🏪", intro:"旭川市內的店家。", code:"79 343 556*33", map:"アッシュA.s.h, Asahikawa, Hokkaido"},
-      {name:"Workman Colors イオンモール旭川西店", group:"購物", icon:"🧤", intro:"永旺旭川西店內的服飾與戶外用品店。", code:"79 429 864*54", map:"Workman Colors イオンモール旭川西店, Hokkaido"},
-      {name:"Workman plus", group:"購物", icon:"🧤", intro:"旭川的工作服與戶外用品店。", code:"79 376 072*38", map:"Workman plus, Asahikawa, Hokkaido"},
-      {name:"Workman Plus 旭川豊岡店", group:"購物", icon:"🧤", intro:"旭川豊岡地區的工作服與戶外用品店。", code:"79 432 517*62", map:"Workman Plus Asahikawa Toko, Hokkaido"},
-      {name:"Workman Plus", group:"購物", icon:"🧤", intro:"旭川的工作服與戶外用品店。", code:"79 376 072*20", map:"Workman Plus 10 N Okyakusama Parking Lot, Asahikawa, Hokkaido"},
-      {name:"FUJIYA Asahikawa Taisetsudori Store", group:"餐廳", icon:"🍰", intro:"旭川大雪通的甜點店。", code:"79 376 890*76", map:"FUJIYA Asahikawa Taisetsudori Store, Hokkaido"},
-      {name:"炭火兜 成吉思汗羊肉", group:"餐廳", icon:"🥩", cuisine:"成吉思汗烤羊肉", intro:"旭川的成吉思汗烤羊肉餐廳。", map:"炭火兜 成吉思汗羊肉, Asahikawa, Hokkaido"},
-      {name:"鮨の福長", group:"餐廳", icon:"🍣", cuisine:"壽司", intro:"旭川的壽司店。", map:"鮨の福長, Asahikawa, Hokkaido"},
-      {name:"GELATERIA La Giostra", group:"餐廳", icon:"🍨", cuisine:"義式冰淇淋", intro:"旭川的義式冰淇淋店。", map:"GELATERIA La Giostra, Asahikawa, Hokkaido"},
-      {name:"菊水湯", group:"溫泉休閒", icon:"♨️", intro:"旭川市內的公共澡堂。", code:"79 371 797*50", map:"菊水湯, Asahikawa, Hokkaido"},
-      {name:"KONA", group:"購物", icon:"🛍️", intro:"旭川的滑雪板用品店。", code:"79 373 145*84", map:"KONA, Asahikawa, Hokkaido"},
-      {name:"Hitsujiya", group:"餐廳", icon:"🥩", cuisine:"成吉思汗・燒肉", intro:"旭川的成吉思汗與燒肉餐廳。", code:"79 343 884*07", rating:"3.46", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1054053/", map:"Hitsujiya, Asahikawa, Hokkaido"},
-      {name:"Asahikawa Isen 2-jo Store", group:"餐廳", icon:"🍱", cuisine:"日式炸豬排", intro:"旭川二條通的日式炸豬排餐廳。", code:"79 343 615*22", rating:"3.46", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1073068/", map:"Asahikawa Isen 2-jo Store, Hokkaido"},
-      {name:"燒肉King 旭川永山店", group:"餐廳", icon:"🥩", cuisine:"燒肉", intro:"旭川永山地區的燒肉店。", code:"79 470 364*24", rating:"3.03", tabelog:"https://tabelog.com/hokkaido/A0104/A010401/1054509/", map:"燒肉King 旭川永山店, Hokkaido"},
-      {name:"Korokoro 橡子 麵包店", group:"餐廳", icon:"🍞", cuisine:"麵包", intro:"位於平和通買物公園ONE SEVEN的商場。札幌知名麵包店「橡子(どんぐり)」最受歡迎的是在竹輪中放入鮪魚沙拉的「竹輪麵包(ちくわパン)」，\n旭川分店還推出許多限定商品：「奶油爆漿鹽麵包（じゅわっと塩パン）」、「醬油炸雞麵包（醤油ザンギ）」、「咖哩魚肉腸麵包（カリーソーセージ）」，另外波蘿麵包、奶油麵包也好吃，更和旭川烤雞老店「銀貓(ぎんねこ)」聯名推出放入二大塊沾了銀貓特色醬汁炸雞", code:"79 343 495*24", map:"https://maps.app.goo.gl/kT51ikbN312eqZdN7"},
-      {name:"富良野滑雪場", group:"滑雪", icon:"⛷️", intro:"富良野的滑雪場，可安排一日行程。", map:"富良野滑雪場, Hokkaido", official:"https://www.princehotels.co.jp/ski/furano/winter/", trailMap:"https://www.princehotels.co.jp/ski/furano/winter/coursemap/", coords:[43.3167,142.3833], weatherKey:"furano", skiResort:true},
-      {name:"Daiichi", group:"購物", icon:"🛒", intro:"旭川的超級市場。", code:"79 381 341*30", map:"Daiichi, Asahikawa, Hokkaido"},
-      {name:"独酌 三四郎", group:"餐廳", icon:"🍶", code:"79 343 787*24", rating:"3.56", tabelog:"https://tabelog.com/tw/hokkaido/A0104/A010401/1014057/", map:"https://www.google.com/maps/place/%E7%8B%AC%E9%85%8C+%E4%B8%89%E5%9B%9B%E9%83%8E/@43.7681378,142.3550842,19z/data=!3m1!5s0x5f0ce60e6db3905f:0x9ea313d2472f0d84!4m6!3m5!1s0x5f0ce60e6dad38e7:0x8a7108752f677b9!8m2!3d43.7681884!4d142.356459!16s%2Fg%2F1v3kmw8n?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D"}
+      {"name":"小樽なると屋 旭川永山店","group":"餐廳","icon":"🍗","cuisine":"日式炸雞・若雞半身揚","intro":"主打日式炸雞・若雞半身揚，評價較分歧；以炸雞與半身揚為主，招牌是酥脆外皮與多汁雞肉。","code":"79 438 589*38","rating":"3.03","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1058395/","map":"小樽なると屋 旭川永山店, Asahikawa, Hokkaido"},
+      {"name":"KINGBEAR 旭川さんろく店","group":"餐廳","icon":"🍛","cuisine":"湯咖哩","intro":"主打湯咖哩，評價不錯；旭川市區的湯咖哩店，可作為市中心用餐選擇。","code":"79 343 820*32","rating":"3.26","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1077682/","map":"KINGBEAR 旭川さんろく店, Asahikawa, Hokkaido"},
+      {"name":"金花郎 一条店","group":"餐廳","icon":"🥩","cuisine":"炭火燒肉","intro":"主打炭火燒肉，評價不錯；炭火燒肉店，適合安排晚餐或多人聚餐。","code":"79 342 719*18","rating":"3.31","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1021896/","map":"炭火焼き肉 金花郎 一条店, Asahikawa, Hokkaido"},
+      {"name":"ほろ酔い処 味介","group":"餐廳","icon":"🐟","cuisine":"海鮮居酒屋","intro":"主打海鮮居酒屋，評價較分歧；以海鮮料理為主的居酒屋，適合晚餐時段前往。","code":"79 343 820*01","rating":"3.11","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1073493/","map":"ほろ酔い処 味介, Asahikawa, Hokkaido"},
+      {"name":"回転寿司ちょいす 神楽店","group":"餐廳","icon":"🍣","cuisine":"迴轉壽司","intro":"主打迴轉壽司，評價較分歧；神樂區的迴轉壽司店，方便自駕途中用餐。","code":"79 312 295*30","rating":"3.13","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1024329/","map":"回転寿司ちょいす 神楽店, Asahikawa, Hokkaido"},
+      {"name":"SUSHI HOUSE 鮨六","group":"餐廳","icon":"🍣","cuisine":"壽司・居酒屋","intro":"主打壽司・居酒屋，評價不錯；位於旭川市中心的壽司店，也提供居酒屋餐點。","code":"79 343 766*26","rating":"3.26","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1004584/","map":"SUSHI HOUSE 鮨六, Asahikawa, Hokkaido"},
+      {"name":"回転寿しトリトン 旭神店","group":"餐廳","icon":"🍣","cuisine":"迴轉壽司","intro":"主打迴轉壽司，整體口碑穩定；旭神區的迴轉壽司店，適合自駕安排用餐。","code":"79 227 784*70","rating":"3.53","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1000798/","map":"回転寿しトリトン 旭神店, Asahikawa, Hokkaido","coords":[43.7346199,142.3891095]},
+      {"name":"焼鳥専門 ぎんねこ","group":"餐廳","icon":"🍢","cuisine":"炭火串燒・居酒屋","intro":"主打炭火串燒・居酒屋，整體口碑穩定；旭川市中心的串燒店，可品嚐雞肉與居酒屋料理。","code":"79 373 141*73","rating":"3.52","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1006681/","map":"焼鳥専門 ぎんねこ, Asahikawa, Hokkaido"},
+      {"name":"味特 本店","group":"餐廳","icon":"🍜","cuisine":"旭川拉麵","intro":"主打旭川拉麵，整體口碑穩定；旭川市中心的拉麵店，提供醬油、鹽味與味噌等口味。","code":"79 343 736*42","rating":"3.59","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1004362/","map":"味特 本店, Asahikawa, Hokkaido"},
+      {"name":"生姜ラーメン みづの","group":"餐廳","icon":"🍜","cuisine":"生薑拉麵","intro":"主打生薑拉麵，整體口碑穩定；以生薑風味拉麵為招牌，適合在市區散步時順道造訪。","code":"79 373 686*18","rating":"3.60","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1003673/","map":"生姜ラーメン みづの, Asahikawa, Hokkaido","coords":[43.775316,142.361885]},
+      {"name":"蜂屋 五条創業店","group":"餐廳","icon":"🍜","cuisine":"拉麵・餃子","intro":"主打拉麵・餃子，整體口碑穩定；旭川老字號拉麵店，菜單以拉麵與餃子為主。","code":"79 373 112*64","rating":"3.63","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1000269/","map":"蜂屋 五条創業店, Asahikawa, Hokkaido"},
+      {"name":"ピッツェリア ヨー","group":"餐廳","icon":"🍕","cuisine":"義式・披薩","intro":"主打義式・披薩，評價較分歧；旭川市中心的休閒義式餐飲酒吧，可吃披薩與義式料理。","code":"79 343 851*32","rating":"3.05","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1058528/","map":"ピッツェリア ヨー, Asahikawa, Hokkaido"},
+      {"name":"成吉思汗 大黒屋 五丁目店","group":"餐廳","icon":"🔥","cuisine":"成吉思汗烤羊肉","intro":"主打成吉思汗烤羊肉，整體口碑穩定；以羊肉成吉思汗燒烤為主，是旭川市中心的晚餐選項。","code":"79 373 040*80","rating":"3.63","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1027848/","map":"成吉思汗 大黒屋 五丁目店, Asahikawa, Hokkaido"},
+      {"name":"小西鮨","group":"餐廳","icon":"🍣","cuisine":"壽司・海鮮","intro":"主打壽司・海鮮，整體口碑穩定；旭川市中心的壽司店，提供壽司、海鮮與居酒屋料理。","code":"79 343 823*86","rating":"3.62","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1004739/","map":"小西鮨, Asahikawa, Hokkaido"},
+      {"name":"らーめんや天金 四条店","group":"餐廳","icon":"🍜","cuisine":"旭川拉麵・餃子","intro":"主打旭川拉麵・餃子，整體口碑穩定；旭川市中心的老字號拉麵店，醬油拉麵是代表菜色。","code":"79 344 751*18","rating":"3.67","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1000090/","map":"らーめんや天金 四条店, Asahikawa, Hokkaido","coords":[43.7678111,142.3632329]},
+      {"name":"鮨みなと","group":"餐廳","icon":"🍣","cuisine":"壽司","intro":"主打壽司，整體口碑穩定；旭川的壽司店，提供以北海道海鮮為主的握壽司料理。","code":"79 343 879*07","rating":"4.27","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1001719/","map":"鮨みなと, Asahikawa, Hokkaido"},
+      {"name":"居酒屋 天売","group":"餐廳","icon":"🍶","cuisine":"海鮮居酒屋","intro":"主打海鮮居酒屋，整體口碑穩定；旭川市中心的居酒屋，以海鮮料理與酒類為主。","code":"79 343 859*41","rating":"3.63","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1015055/","map":"居酒屋 天売, Asahikawa, Hokkaido"},
+      {"name":"山頭火 旭川本店","group":"餐廳","icon":"🍜","cuisine":"旭川拉麵","intro":"主打旭川拉麵，評價不錯；旭川拉麵名店，位於旭川市中心。","code":"79 343 470*56","rating":"3.32","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1065091/","map":"山頭火 旭川本店, Asahikawa, Hokkaido"},
+      {"name":"Tsutamori","group":"餐廳","icon":"🍱","cuisine":"日式料理","intro":"主打日式料理，可從料理特色入門；旭川的日式料理店。","code":"79 403 840*60","map":"Tsutamori, Asahikawa, Hokkaido"},
+      {"name":"Onoki","group":"餐廳","icon":"🍗","cuisine":"雞肉料理","intro":"主打雞肉料理，可從料理特色入門；旭川的雞肉料理店。","code":"79 383 200*62","map":"Onoki, Asahikawa, Hokkaido"},
+      {"name":"そば源 本店","group":"餐廳","icon":"🍜","cuisine":"蕎麥麵","intro":"主打蕎麥麵，評價不錯；旭川在地蕎麥麵店。","code":"79 371 275*58","rating":"3.31","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1014580/","map":"そば源 本店, Asahikawa, Hokkaido"},
+      {"name":"七輪焼肉 安安 旭川川端店","group":"餐廳","icon":"🥩","cuisine":"燒肉・內臟燒肉・成吉思汗","intro":"主打燒肉・內臟燒肉・成吉思汗，評價較分歧；川端一帶的平價燒肉店。","code":"79 401 512*33","rating":"3.04","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1071178/","map":"Shichirinyakiniku Anan Asahikawa Kawabataten, Hokkaido"},
+      {"name":"たま 買物公園通り店","group":"餐廳","icon":"🍢","cuisine":"居酒屋・燒鳥・串炸","intro":"主打居酒屋・燒鳥・串炸，評價較分歧；買物公園通附近的居酒屋，提供燒鳥與串炸料理。","code":"79 343 741*56","rating":"3.08","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1070293/","map":"たま 買物公園通り店, Asahikawa, Hokkaido"},
+      {"name":"一途屋","group":"餐廳","icon":"🍶","cuisine":"居酒屋・餐酒館・海鮮","intro":"主打居酒屋・餐酒館・海鮮，評價不錯；提供海鮮料理的居酒屋與餐酒館。","code":"79 373 055*35","rating":"3.20","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1008155/","map":"一途屋, Asahikawa, Hokkaido"},
+      {"name":"北海道さかな一途 直営魚問屋","group":"餐廳","icon":"🐟","cuisine":"居酒屋・海鮮・鍋物","intro":"主打居酒屋・海鮮・鍋物，評價不錯；以北海道海鮮與魚料理為主，亦有鍋物。","code":"79 343 858*80","rating":"3.43","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1053508/","map":"北海道さかな一途 直営魚問屋, Asahikawa, Hokkaido"},
+      {"name":"ぎんざ貴舟","group":"餐廳","icon":"🍱","cuisine":"日本料理・海鮮","intro":"主打日本料理・海鮮，評價較分歧；提供日本料理與海鮮料理。","code":"79 343 736*24","rating":"3.04","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1085791/","map":"ぎんざ貴舟, Asahikawa, Hokkaido"},
+      {"name":"炭焼あぶりや 一期一会","group":"餐廳","icon":"🔥","cuisine":"居酒屋・海鮮・爐端燒","intro":"主打居酒屋・海鮮・爐端燒，評價較分歧；炭火炙燒與海鮮料理為主的居酒屋。","code":"79 343 852*04","rating":"3.17","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1042610/","map":"炭焼あぶりや 一期一会, Asahikawa, Hokkaido"},
+      {"name":"北の酔り処","group":"餐廳","icon":"🍶","cuisine":"居酒屋・海鮮・成吉思汗","intro":"主打居酒屋・海鮮・成吉思汗，評價較分歧；提供海鮮與成吉思汗烤羊肉的居酒屋。","code":"79 373 140*10","rating":"3.19","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1029764/","map":"北の酔り処, Asahikawa, Hokkaido"},
+      {"name":"旭川 居酒屋 ふくろう亭","group":"餐廳","icon":"🍶","cuisine":"居酒屋","intro":"主打居酒屋，評價不錯；旭川市區居酒屋，可作為晚餐選擇。","code":"79 373 083*20","rating":"3.32","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1004903/","map":"旭川 居酒屋 ふくろう亭, Asahikawa, Hokkaido"},
+      {"name":"別家","group":"餐廳","icon":"🍣","cuisine":"居酒屋・海鮮・壽司","intro":"主打居酒屋・海鮮・壽司，評價較分歧；提供壽司與海鮮料理的居酒屋。","code":"79 343 828*03","rating":"3.16","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1046014/","map":"別家, Asahikawa, Hokkaido"},
+      {"name":"炭火居酒屋 炎 旭川買物公園通店","group":"餐廳","icon":"🔥","cuisine":"居酒屋・燒鳥・鍋物","intro":"主打居酒屋・燒鳥・鍋物，評價較分歧；連鎖炭火居酒屋，提供燒鳥與鍋物。","code":"79 343 619*31","rating":"3.06","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1052243/","map":"炭火居酒屋 炎 旭川買物公園通店, Asahikawa, Hokkaido"},
+      {"name":"居酒屋 紅あかり","group":"餐廳","icon":"🍗","cuisine":"居酒屋・雞肉・串炸","intro":"主打居酒屋・雞肉・串炸，評價較分歧；以雞肉料理與串炸為主的居酒屋。","code":"79 317 370*00","rating":"3.13","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1043793/","map":"居酒屋 紅あかり, Asahikawa, Hokkaido"},
+      {"name":"焼肉 わじま","group":"餐廳","icon":"🥩","cuisine":"燒肉・冷麵・內臟燒肉","intro":"主打燒肉・冷麵・內臟燒肉，評價不錯；提供燒肉、冷麵與內臟燒肉。","code":"79 343 678*73","rating":"3.30","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1075450/","map":"焼肉 わじま, Asahikawa, Hokkaido"},
+      {"name":"和心洋才 睦月","group":"餐廳","icon":"🍱","cuisine":"居酒屋・海鮮・炸物","intro":"主打居酒屋・海鮮・炸物，評價不錯；融合和風與洋風料理，提供海鮮與炸物。","code":"79 343 774*55","rating":"3.33","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1057663/","map":"和心洋才 睦月, Asahikawa, Hokkaido"},
+      {"name":"蝦夷前やきとりism","group":"餐廳","icon":"🍢","cuisine":"燒鳥・居酒屋","intro":"主打燒鳥・居酒屋，評價較分歧；以燒鳥為主的居酒屋。","code":"79 343 736*33","rating":"3.15","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1080121/","map":"蝦夷前やきとりism, Asahikawa, Hokkaido"},
+      {"name":"Cafe ジビエ工業","group":"餐廳","icon":"☕","cuisine":"咖啡・野味料理","intro":"主打咖啡・野味料理，評價不錯；咖啡店風格的餐廳，提供野味料理。","code":"79 560 850*30","rating":"3.20","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1080077/","map":"Cafe ジビエ工業, Asahikawa, Hokkaido"},
+      {"name":"旭川ジンギスカンと北海道和牛 肉ビストロ ユキトニクト","group":"餐廳","icon":"🥩","cuisine":"成吉思汗・北海道和牛・肉料理","intro":"主打成吉思汗・北海道和牛・肉料理，評價較分歧；以成吉思汗烤羊肉、北海道和牛與肉料理為主。","code":"79 343 794*78","rating":"3.11","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1079966/","map":"旭川ジンギスカンと北海道和牛 肉ビストロ ユキトニクト, Asahikawa, Hokkaido"},
+      {"name":"やきにくのチャンプ","group":"餐廳","icon":"🥩","cuisine":"燒肉・內臟燒肉","intro":"主打燒肉・內臟燒肉，評價不錯；提供燒肉與內臟燒肉。","code":"79 497 428*84","rating":"3.34","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1041554/","map":"やきにくのチャンプ, Asahikawa, Hokkaido"},
+      {"name":"四季彩 別邸 旭川店","group":"餐廳","icon":"🍲","cuisine":"居酒屋・海鮮・壽喜燒","intro":"主打居酒屋・海鮮・壽喜燒，評價較分歧；提供海鮮與壽喜燒的居酒屋。","code":"79 343 800*05","rating":"3.08","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1072842/","map":"四季彩 別邸 旭川店, Asahikawa, Hokkaido"},
+      {"name":"創作和風 個室居酒屋 萬屋 旭川店","group":"餐廳","icon":"🍶","cuisine":"居酒屋・海鮮・燒鳥","intro":"主打居酒屋・海鮮・燒鳥，評價較分歧；創作和風料理居酒屋，設有包廂。","code":"79 343 800*05","rating":"3.08","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1059606/","map":"創作和風 個室居酒屋 萬屋 旭川店, Asahikawa, Hokkaido"},
+      {"name":"炉端と地酒 まる文 すが原","group":"餐廳","icon":"🔥","cuisine":"居酒屋・海鮮・爐端燒","intro":"主打居酒屋・海鮮・爐端燒，評價不錯；提供季節海鮮、爐端燒與日本酒。","code":"79 343 764*27","rating":"3.30","tabelog":"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E7%82%89%E7%AB%AF%E3%81%A8%E5%9C%B0%E9%85%92%20%E3%81%BE%E3%82%8B%E6%96%87%20%E3%81%99%E3%81%8C%E5%8E%9F","map":"炉端と地酒 まる文 すが原, Asahikawa, Hokkaido"},
+      {"name":"鰻・旬魚旬菜 柳光亭","group":"餐廳","icon":"🍱","cuisine":"鰻魚・海鮮・日本料理","intro":"主打鰻魚・海鮮・日本料理，評價較分歧；以鰻魚與當季魚鮮料理為主。","code":"79 343 822*81","rating":"3.10","tabelog":"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E9%B0%BB%20%E6%97%AC%E9%AD%9A%E6%97%AC%E8%8F%9C%20%E6%9F%B3%E5%85%89%E4%BA%AD","map":"鰻・旬魚旬菜 柳光亭, Asahikawa, Hokkaido"},
+      {"name":"居酒屋 かつぎ屋","group":"餐廳","icon":"🍶","cuisine":"居酒屋・海鮮","intro":"主打居酒屋・海鮮，評價不錯；提供炭火燒烤、生魚片與多樣居酒屋料理。","code":"79 343 855*76","rating":"3.34","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1066040/","map":"居酒屋 かつぎ屋, Asahikawa, Hokkaido"},
+      {"name":"我家","group":"餐廳","icon":"🍢","cuisine":"居酒屋・串燒・海鮮","intro":"主打居酒屋・串燒・海鮮，評價較分歧；提供串物、蒸物與海鮮料理。","code":"79 374 188*82","rating":"3.02","tabelog":"https://tabelog.com/hokkaido/C1204/rstLst/?sk=%E6%88%91%E5%AE%B6","map":"我家, Asahikawa, Hokkaido"},
+      {"name":"BELLOWS BURGER","group":"餐廳","icon":"🍔","cuisine":"漢堡","intro":"主打漢堡，評價不錯；旭川的漢堡店，適合安排簡餐。","code":"79 401 727*52","rating":"3.42","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1039689/","map":"BELLOWS BURGER Asahikawa, Hokkaido"},
+      {"name":"松屋 旭川大町店（松のや併設）","group":"餐廳","icon":"🍱","cuisine":"日式定食・牛丼","intro":"主打日式定食・牛丼，評價較分歧；大町一帶的連鎖定食店，附設松のや。","code":"79 403 804*43","rating":"3.04","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1076162/","map":"松屋 旭川大町店, Hokkaido"},
+      {"name":"はま寿司 旭川旭町店","group":"餐廳","icon":"🍣","cuisine":"迴轉壽司","intro":"主打迴轉壽司，評價較分歧；旭町一帶的迴轉壽司店。","code":"79 403 671*20","rating":"3.04","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1040199/","map":"HAMA-ZUSHI Asahikawa Asahimachi, Hokkaido"},
+      {"name":"アジア金星堂","group":"餐廳","icon":"🍛","cuisine":"咖哩","intro":"主打咖哩，整體口碑穩定；旭川的咖哩餐廳。","code":"79 436 248*67","rating":"3.54","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1001167/","map":"アジア金星堂, Asahikawa, Hokkaido"},
+      {"name":"梅光軒 南店 創業店","group":"餐廳","icon":"🍜","cuisine":"旭川拉麵","intro":"主打旭川拉麵，評價較分歧；梅光軒在旭川的創業店。","code":"79 316 153*76","rating":"3.04","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1000786/","map":"梅光軒 南店 創業店, Asahikawa, Hokkaido"},
+      {"name":"Tenkin 居酒屋","group":"餐廳","icon":"🍶","cuisine":"居酒屋","intro":"主打居酒屋，整體口碑穩定；旭川市區居酒屋。","code":"79 343 798*13","rating":"3.52","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1002688/","map":"Tenkin Izakaya, Asahikawa, Hokkaido"},
+      {"name":"串あげ 太郎","group":"餐廳","icon":"🍢","cuisine":"串炸・居酒屋","intro":"主打串炸・居酒屋，整體口碑穩定；旭川市區的串炸居酒屋。","code":"79 343 820*75","rating":"3.52","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1021795/","map":"串あげ 太郎, Asahikawa, Hokkaido"},
+      {"name":"地場産ショップ","group":"購物","icon":"🎁","intro":"旭川在地特產與伴手禮商店；建議依營業時間與採買需求安排。","code":"79 312 789*50","map":"地場産ショップ, Asahikawa, Hokkaido"},
+      {"name":"ASAHI FLOW 旭川雪具租借店","group":"滑雪","icon":"🎿","intro":"旭川市區的滑雪與單板裝備租借店；可依雪況、雪道難度與交通安排選擇。","code":"79 343 461*88","map":"ASAHI FLOW 旭川雪具租借店, Asahikawa, Hokkaido"},
+      {"name":"Sports Depo 旭川永山店","group":"購物","icon":"🛍️","intro":"運動用品店，可查看滑雪與戶外裝備；建議依營業時間與採買需求安排。","code":"79 469 078*20","map":"Sports Depo Asahikawa Nagayama, Hokkaido"},
+      {"name":"Spray","group":"購物","icon":"🏂","intro":"旭川的戶外與滑雪用品店；建議依營業時間與採買需求安排。","code":"79 377 099*33","map":"Spray outdoor sports shop, Asahikawa, Hokkaido"},
+      {"name":"Workman Plus 旭川旭町店","group":"購物","icon":"🧤","intro":"戶外與工作服用品店，可補充冬季衣物；建議依營業時間與採買需求安排。","code":"79 432 517*62","map":"Workman Plus 旭川旭町店, Asahikawa, Hokkaido"},
+      {"name":"PRONO 旭川本店","group":"購物","icon":"🧤","intro":"工作服與戶外用品店，可查看冬季衣物；建議依營業時間與採買需求安排。","code":"79 349 029*02","map":"プロノ 旭川本店, Hokkaido"},
+      {"name":"DON-DON!! 大町店","group":"購物","icon":"♻️","intro":"大町一帶的二手商店；建議依營業時間與採買需求安排。","code":"79 433 025*28","map":"DON-DON!! 大町店, Asahikawa, Hokkaido"},
+      {"name":"Yamada Denki Tecc LIFE SELECT 旭川店","group":"購物","icon":"🔌","intro":"旭川的家電量販店；建議依營業時間與採買需求安排。","code":"79 400 682*42","map":"Yamada Denki Tecc LIFE SELECT Asahikawa, Hokkaido"},
+      {"name":"Hard Off Asahikawa Pulp Town","group":"購物","icon":"♻️","intro":"旭川 Pulp Town 的二手用品店；建議依營業時間與採買需求安排。","code":"79 376 617*08","map":"Hard Off Asahikawa Pulp Town, Hokkaido"},
+      {"name":"Recycle Shop Bigban Asahikawa Miyamae","group":"購物","icon":"♻️","intro":"宮前一帶的二手用品店；建議依營業時間與採買需求安排。","code":"79 315 665*81","map":"Recycle Shop Bigban Asahikawa Miyamae, Hokkaido"},
+      {"name":"旭山動物園","group":"景點","icon":"🦁","intro":"旭川代表性動物園；建議搭配停留時間與季節安排。","code":"79 358 871*52","map":"旭山動物園, Asahikawa, Hokkaido"},
+      {"name":"Feeeal Asahikawa","group":"購物","icon":"🏬","intro":"旭川車站周邊的購物商場；建議依營業時間與採買需求安排。","code":"79 343 558*56","map":"Feeeal Asahikawa, Hokkaido"},
+      {"name":"AEON Asahikawa Ekimae","group":"購物","icon":"🛒","intro":"旭川車站旁的購物中心，可採買日用品與補給；建議依營業時間與採買需求安排。","code":"79 343 339*64","map":"AEON Asahikawa Ekimae, Hokkaido"},
+      {"name":"永旺旭川西店","group":"購物","icon":"🛒","intro":"永旺夢樂城（AEON MALL）旭川西是北海道北部和東部地區最大的購物中心；建議依營業時間與採買需求安排。","code":"79 459 018*88","map":"AEON Asahikawa-Nishi Store, Hokkaido"},
+      {"name":"SuperCenter TRIAL 神樂店","group":"購物","icon":"🛒","intro":"神樂一帶的大型折扣超市；建議依營業時間與採買需求安排。","code":"79 283 582*82","map":"SuperCenter TRIAL KAGURA, Asahikawa, Hokkaido"},
+      {"name":"MegaCenter TRIAL Asahikawa","group":"購物","icon":"🛒","intro":"旭川的大型折扣超市，可採買旅行補給；建議依營業時間與採買需求安排。","code":"79 345 875*55","map":"MegaCenter TRIAL ASAHIKAWA, Hokkaido"},
+      {"name":"Tsuruha Drug 旭川4条店","group":"購物","icon":"💊","intro":"鶴羽藥妝店 旭川4条店；建議依營業時間與採買需求安排。","code":"79 345 546*38","map":"Tsuruha Drug 旭川4条店, Asahikawa, Hokkaido"},
+      {"name":"Alpha Asahimachi","group":"娛樂","icon":"🎰","intro":"旭川市內柏青哥店；可依營業時間和同行成員安排。","code":"79 432 117*62","map":"Alpha Asahimachi, Asahikawa, Hokkaido"},
+      {"name":"Paratoeasshuten","group":"娛樂","icon":"🎰","intro":"旭川市內柏青哥店；可依營業時間和同行成員安排。","code":"79 343 584*72","map":"Paratoeasshuten, Asahikawa, Hokkaido"},
+      {"name":"パーラートーエー3条本店","group":"娛樂","icon":"🎰","intro":"旭川市中心柏青哥店；可依營業時間和同行成員安排。","code":"79 343 767*56","map":"パーラートーエー3条本店, Asahikawa, Hokkaido"},
+      {"name":"Dynam Asahikawa Chikabumi","group":"娛樂","icon":"🎰","intro":"近文一帶柏青哥店；可依營業時間和同行成員安排。","code":"79 400 477*04","map":"Dynam Asahikawa Chikabumi, Hokkaido"},
+      {"name":"神居滑雪場","group":"滑雪","icon":"⛷️","intro":"旭川近郊的大型滑雪場，雪質乾爽、景色優美！；可依雪況、雪道難度與交通安排選擇。","code":"655 427 297*63","map":"Kamui Ski Links, Asahikawa, Hokkaido","official":"https://www.kamui-skilinks.com/","trailMap":"https://www.kamui-skilinks.com/pdf_data/coursemap2024.pdf","coords":[43.7009,142.199],"weatherKey":"kamui","skiResort":true},
+      {"name":"比布滑雪場","group":"滑雪","icon":"🏂","intro":"旭川北側的滑雪場，雪場擁有寬敞且平緩的雪道，整體環境舒適、人潮相對較少，非常適合希望專心練習基本技巧的滑雪者；可依雪況、雪道難度與交通安排選擇。","code":"470 059 293*21","map":"Pippu Ski Resort, Hokkaido, Japan","official":"https://pippu.ski/","trailMap":"https://pippu.ski/course/","coords":[43.934,142.5015],"weatherKey":"pippu","skiResort":true},
+      {"name":"Canmore 滑雪村","group":"滑雪","icon":"🏂","intro":"東川町一帶的滑雪地點，可與東川周邊行程一起安排。場地規模適中、雪道寬敞。 天天開放夜滑，而且夜滑票價只要¥500，CP值極高；可依雪況、雪道難度與交通安排選擇。","code":"389 530 303*41","map":"Canmore Ski Village, Higashikawa, Hokkaido","official":"https://www.canmore-ski.jp/","trailMap":"https://www.canmore-ski.jp/guide/","coords":[43.7303,142.5389],"weatherKey":"canmore","skiResort":true},
+      {"name":"聖誕禮物公園","group":"滑雪","icon":"🎿","intro":"旭川市區附近的滑雪場，適合安排短程滑雪，可以夜滑看旭川市夜景；可依雪況、雪道難度與交通安排選擇。","code":"79 336 023*21","map":"Santa Present Park, Asahikawa, Hokkaido","official":"https://www.asahikawasantapresentpark.com/","trailMap":"https://www.asahikawasantapresentpark.com/cont1/main.html","coords":[43.7584513,142.2991737],"weatherKey":"santa","skiResort":true},
+      {"name":"Super Sports Xebio 旭川永山店","group":"購物","icon":"🛍️","intro":"運動用品店，可查看滑雪與戶外用品；建議依營業時間與採買需求安排。","code":"79 438 379*87","map":"Super Sports Xebio Asahikawa Nagayama, Hokkaido"},
+      {"name":"Asahikawa Snow Force 雪具出租","group":"滑雪","icon":"🎿","intro":"旭川市區的雪具租借點，可安排取還雪具；可依雪況、雪道難度與交通安排選擇。","code":"79 342 893*38","map":"Asahikawa Snow Force, Asahikawa, Hokkaido"},
+      {"name":"Shugakuso Asahikawa","group":"購物","icon":"🎒","intro":"秀岳荘 旭川店戶外用品店，適合補充滑雪或戶外活動用品；建議依營業時間與採買需求安排。","code":"79 398 063*08","map":"Shugakuso Asahikawa, Hokkaido"},
+      {"name":"mont-bell 大雪東川店","group":"購物","icon":"🏔️","intro":"東川町的戶外用品店，可順遊東川近郊；建議依營業時間與採買需求安排。","code":"389 406 347*56","map":"mont-bell Daisetsu Higashikawa, Hokkaido"},
+      {"name":"永旺旭川春光購物中心","group":"購物","icon":"🛒","intro":"旭川市區的購物中心，可採買日用品與補給；建議依營業時間與採買需求安排。","code":"79 433 754*81","map":"永旺旭川春光購物中心, Asahikawa, Hokkaido","coords":[43.7929675,142.3559362]},
+      {"name":"MEGA唐吉訶德旭川店","group":"購物","icon":"🛍️","intro":"大型折扣商店，適合集中採買日用品與旅行補給；建議依營業時間與採買需求安排。","code":"79 465 475*34","map":"MEGA Don Quijote Asahikawa, Hokkaido","coords":[43.7984701,142.3781781]},
+      {"name":"旭川市博物館","group":"景點","icon":"🏛️","intro":"位於大雪クリスタルホール內，展示旭川與北北海道的歷史、文化及自然；建議搭配停留時間與季節安排。","code":"79 312 736*40","map":"旭川市博物館, Asahikawa, Hokkaido"},
+      {"name":"金の湯","group":"溫泉休閒","icon":"♨️","intro":"旭川市內的公共澡堂，可作為滑雪後放鬆選項；可先確認泉質、費用與當日開放時段。","code":"79 316 383*51","map":"金の湯, Asahikawa, Hokkaido"},
+      {"name":"大黒湯","group":"溫泉休閒","icon":"♨️","intro":"旭川市內的公共澡堂，可查詢最新營業時間與費用；可先確認泉質、費用與當日開放時段。","code":"79 345 281*82","map":"大黒湯, Asahikawa, Hokkaido"},
+      {"name":"Yuransen Asahikawa","group":"溫泉休閒","icon":"♨️","intro":"旭川市內的澡堂與休閒設施，錢湯大人/550円 有家族風呂 平日：大人/1,000円(60分)；可先確認泉質、費用與當日開放時段。","code":"79 369 503*83","map":"Yuransen Asahikawa, Hokkaido"},
+      {"name":"SPA & SAUNA オスパー","group":"溫泉休閒","icon":"🧖","intro":"旭川市區的溫浴與桑拿設施。80分內 980円；可先確認泉質、費用與當日開放時段。","code":"79 314 838*22","map":"SPA & SAUNA オスパー, Asahikawa, Hokkaido"},
+      {"name":"天然温泉かぐらの湯","group":"溫泉休閒","icon":"♨️","intro":"Premier Hotel Cabin內的天然溫泉，可安排自駕返市區前後造訪。成人（含毛巾）：1,200日圓（含稅） ，（不含毛巾）：1,000日圓（含稅）；…","code":"79 343 522*34","map":"天然温泉かぐらの湯, Asahikawa, Hokkaido"},
+      {"name":"杜のSPA神楽","group":"溫泉休閒","icon":"♨️","intro":"神樂區的溫浴休閒設施，適合滑雪後放鬆；可先確認泉質、費用與當日開放時段。","code":"79 313 109*68","map":"杜のSPA神楽, Asahikawa, Hokkaido","coords":[43.7533023,142.3597985]},
+      {"name":"旭川高砂台 万葉の湯","group":"溫泉休閒","icon":"♨️","intro":"高砂台一帶的溫浴休閒設施；可先確認泉質、費用與當日開放時段。","code":"79 367 055*25","map":"Asahikawa Takasagodai Manyonoyu, Hokkaido","coords":[43.7692995,142.3115008]},
+      {"name":"Kitoushi Forest Kitoron","group":"溫泉休閒","icon":"🌲","intro":"東川町近郊的森林休閒與日歸溫泉設施；可先確認泉質、費用與當日開放時段。","code":"389 500 847*31","map":"Kitoushi Forest Kitoron, Higashikawa, Hokkaido"},
+      {"name":"Grandeur 北之森","group":"住宿","icon":"🏠","intro":"旭川市區的住宿選項；可留意交通、房型與入住時間。","code":"79 343 751*70","map":"Night In Daiya, Asahikawa, Hokkaido"},
+      {"name":"旭川 JR 站","group":"交通","icon":"🚉","intro":"旭川市區主要鐵路車站，串接 JR 北海道路線；出發前確認班次與轉乘時間。","code":"79 343 255*87","map":"JR Asahikawa Station, Hokkaido, Japan"},
+      {"name":"旭川機場","group":"交通","icon":"✈️","intro":"旭川進出與租車行程的機場位置；出發前確認班次與轉乘時間。","code":"79 025 007*16","map":"Asahikawa Airport, Hokkaido, Japan","coords":[43.6686785,142.4513869]},
+      {"name":"旭川神社","group":"景點","icon":"⛩️","intro":"旭川市內的神社；建議搭配停留時間與季節安排。","code":"79 383 021*32","map":"旭川神社, Asahikawa, Hokkaido"},
+      {"name":"上川神社","group":"景點","icon":"⛩️","intro":"旭川代表性的神社，可安排市區散步時造訪；建議搭配停留時間與季節安排。","code":"79 284 876*40","map":"上川神社, Asahikawa, Hokkaido"},
+      {"name":"金比羅神社","group":"景點","icon":"⛩️","intro":"旭川市內的神社；建議搭配停留時間與季節安排。","code":"79 432 659*24","map":"金比羅神社, Asahikawa, Hokkaido"},
+      {"name":"北海道護國神社","group":"景點","icon":"⛩️","intro":"旭川市內的神社；建議搭配停留時間與季節安排。","code":"79 434 284*66","map":"北海道護國神社, Asahikawa, Hokkaido"},
+      {"name":"上川神社頓宮","group":"景點","icon":"⛩️","intro":"上川神社的頓宮；建議搭配停留時間與季節安排。","code":"79 373 676*73","map":"上川神社頓宮, Asahikawa, Hokkaido"},
+      {"name":"CONEY ISLAND ASAHIKAWA / コニーアイランド 旭川","group":"購物","icon":"🛍️","intro":"旭川的時裝店；建議依營業時間與採買需求安排。","code":"79 344 176*88","map":"CONEY ISLAND ASAHIKAWA, Hokkaido"},
+      {"name":"RESTAURANT IPEAYPEA","group":"餐廳","icon":"🍽️","intro":"以店內料理為主，評價不錯；旭川的餐廳。","code":"79 343 208*70","rating":"3.22","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1050555/","map":"RESTAURANT IPEAYPEA, Asahikawa, Hokkaido"},
+      {"name":"北海道カムイテラス ビアピリカ","group":"餐廳","icon":"🍺","intro":"以店內料理為主，評價較分歧；旭川的季節限定啤酒花園。","code":"79 343 206*28","rating":"3.13","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1078624/","map":"北海道カムイテラス ビアピリカ, Asahikawa, Hokkaido"},
+      {"name":"Hard Off Asahikawa Nishi","group":"購物","icon":"♻️","intro":"旭川西側的二手用品店；建議依營業時間與採買需求安排。","code":"79 430 422*56","map":"Hard Off Asahikawa Nishi, Hokkaido"},
+      {"name":"Gyomu Supermarket 綠町店","group":"購物","icon":"🛒","intro":"旭川綠町的平價超市；建議依營業時間與採買需求安排。","code":"79 403 834*80","map":"Gyomu Supermarket Midorimachi, Asahikawa, Hokkaido"},
+      {"name":"ゲームフィールド旭川春光店","group":"娛樂","icon":"🕹️","intro":"旭川春光地區的遊戲機中心；可依營業時間和同行成員安排。","code":"79 433 754*81","map":"ゲームフィールド旭川春光店, Hokkaido"},
+      {"name":"GiGO メガセンタートライアル旭川","group":"娛樂","icon":"🕹️","intro":"旭川的遊戲機中心；可依營業時間和同行成員安排。","code":"79 345 844*42","map":"GiGO メガセンタートライアル旭川, Hokkaido"},
+      {"name":"SOYU GAME FIELD 旭川站前店","group":"娛樂","icon":"🕹️","intro":"旭川站前的遊戲機中心；可依營業時間和同行成員安排。","code":"79 343 372*87","map":"SOYU GAME FIELD 旭川駅前店, Hokkaido"},
+      {"name":"日產租車 旭川機場店","group":"交通","icon":"🚗","intro":"旭川機場附近的租車選項；出發前確認班次與轉乘時間。","code":"389 280 883*51","map":"日産レンタカー 旭川空港店, Hokkaido"},
+      {"name":"日產租車 旭川車站前店","group":"交通","icon":"🚗","intro":"旭川站前的租車選項；出發前確認班次與轉乘時間。","code":"79 343 468*76","map":"日産レンタカー 旭川駅前店, Hokkaido"},
+      {"name":"DCM","group":"購物","icon":"🛠️","intro":"旭川的大型家居與工具用品店；建議依營業時間與採買需求安排。","code":"79 285 811*04","map":"DCM, Asahikawa, Hokkaido"},
+      {"name":"アッシュA.s.h","group":"購物","icon":"🏪","intro":"旭川市內的店家；建議依營業時間與採買需求安排。","code":"79 343 556*33","map":"アッシュA.s.h, Asahikawa, Hokkaido"},
+      {"name":"Workman Colors イオンモール旭川西店","group":"購物","icon":"🧤","intro":"永旺旭川西店內的服飾與戶外用品店；建議依營業時間與採買需求安排。","code":"79 429 864*54","map":"Workman Colors イオンモール旭川西店, Hokkaido"},
+      {"name":"Workman plus","group":"購物","icon":"🧤","intro":"旭川的工作服與戶外用品店；建議依營業時間與採買需求安排。","code":"79 376 072*38","map":"Workman plus, Asahikawa, Hokkaido"},
+      {"name":"Workman Plus 旭川豊岡店","group":"購物","icon":"🧤","intro":"旭川豊岡地區的工作服與戶外用品店；建議依營業時間與採買需求安排。","code":"79 432 517*62","map":"Workman Plus Asahikawa Toko, Hokkaido"},
+      {"name":"Workman Plus","group":"購物","icon":"🧤","intro":"旭川的工作服與戶外用品店；建議依營業時間與採買需求安排。","code":"79 376 072*20","map":"Workman Plus 10 N Okyakusama Parking Lot, Asahikawa, Hokkaido"},
+      {"name":"FUJIYA Asahikawa Taisetsudori Store","group":"餐廳","icon":"🍰","intro":"以店內料理為主，可從料理特色入門；旭川大雪通的甜點店。","code":"79 376 890*76","map":"FUJIYA Asahikawa Taisetsudori Store, Hokkaido"},
+      {"name":"菊水湯","group":"溫泉休閒","icon":"♨️","intro":"旭川市內的公共澡堂；可先確認泉質、費用與當日開放時段。","code":"79 371 797*50","map":"菊水湯, Asahikawa, Hokkaido"},
+      {"name":"KONA","group":"購物","icon":"🛍️","intro":"旭川的滑雪板用品店；建議依營業時間與採買需求安排。","code":"79 373 145*84","map":"KONA, Asahikawa, Hokkaido"},
+      {"name":"Hitsujiya","group":"餐廳","icon":"🥩","cuisine":"成吉思汗・燒肉","intro":"主打成吉思汗・燒肉，評價不錯；旭川的成吉思汗與燒肉餐廳。","code":"79 343 884*07","rating":"3.46","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1054053/","map":"Hitsujiya, Asahikawa, Hokkaido"},
+      {"name":"Asahikawa Isen 2-jo Store","group":"餐廳","icon":"🍱","cuisine":"日式炸豬排","intro":"主打日式炸豬排，評價不錯；旭川二條通的日式炸豬排餐廳。","code":"79 343 615*22","rating":"3.46","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1073068/","map":"Asahikawa Isen 2-jo Store, Hokkaido"},
+      {"name":"燒肉King 旭川永山店","group":"餐廳","icon":"🥩","cuisine":"燒肉","intro":"主打燒肉，評價較分歧；旭川永山地區的燒肉店。","code":"79 470 364*24","rating":"3.03","tabelog":"https://tabelog.com/hokkaido/A0104/A010401/1054509/","map":"燒肉King 旭川永山店, Hokkaido"},
+      {"name":"Korokoro 橡子 麵包店","group":"餐廳","icon":"🍞","cuisine":"麵包","intro":"主打麵包，可從料理特色入門；位於平和通買物公園ONE SEVEN的商場。札幌知名麵包店「橡子(どんぐり)」最受歡迎的是在竹輪中放入鮪魚沙拉的「竹輪麵包(ちくわ…","code":"79 343 495*24","map":"https://maps.app.goo.gl/kT51ikbN312eqZdN7"},
+      {"name":"Daiichi","group":"購物","icon":"🛒","intro":"旭川的超級市場；建議依營業時間與採買需求安排。","code":"79 381 341*30","map":"Daiichi, Asahikawa, Hokkaido"},
+      {"name":"独酌 三四郎","group":"餐廳","icon":"🍶","code":"79 343 787*24","rating":"3.56","tabelog":"https://tabelog.com/tw/hokkaido/A0104/A010401/1014057/","map":"https://www.google.com/maps/place/%E7%8B%AC%E9%85%8C+%E4%B8%89%E5%9B%9B%E9%83%8E/@43.7681378,142.3550842,19z/data=!3m1!5s0x5f0ce60e6db3905f:0x9ea313d2472f0d84!4m6!3m5!1s0x5f0ce60e6dad38e7:0x8a7108752f677b9!8m2!3d43.7681884!4d142.356459!16s%2Fg%2F1v3kmw8n?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D","intro":"以店內料理為主，整體口碑穩定；可留意店內人氣料理與用餐時段。"}
     ];
 
     const mapUrlOverrides = {
@@ -484,7 +465,8 @@
     };
     places.find(p => p.name === "Korokoro 橡子 麵包店").map = "Korokoro Neighborhood Bakery";
     places.find(p => p.name === "独酌 三四郎").map = "独酌 三四郎, Asahikawa, Hokkaido";
-    const categories = ["全部", "我的收藏", "餐廳", "景點", "滑雪", "娛樂", "購物", "溫泉休閒", "住宿", "交通"];
+    const categories = ["全部", "我的收藏", "滑雪", "餐廳", "住宿", "交通", "購物", "溫泉休閒", "娛樂", "景點"];
+    const categoryLabels = {"溫泉休閒":"溫泉"};
     const placeGroups = categories.slice(2);
     const iconPaths = {"餐廳":"assets/category-illustrations/restaurant-sticker.png", "景點":"assets/category-illustrations/attractions-sticker.png", "滑雪":"assets/category-illustrations/snowboard-sticker.png", "娛樂":"assets/category-illustrations/entertainment-sticker.png", "購物":"assets/category-illustrations/shopping-sticker.png", "溫泉休閒":"assets/category-illustrations/onsen-sticker.png", "住宿":"assets/category-illustrations/lodging-sticker.png", "交通":"assets/category-illustrations/transport-sticker.png"};
     const stickerShapes = {"餐廳":"food", "景點":"sight", "滑雪":"snow", "娛樂":"play", "購物":"shop", "溫泉休閒":"onsen", "住宿":"stay", "交通":"move"};
@@ -538,18 +520,15 @@
     }
     function cardIntro(place) {
       const base = String(place.intro || "").replace(/\s+/g, " ").trim();
-      const additions = {
-        "餐廳": "適合安排在旭川行程中用餐。",
-        "購物": "適合補充旅途中用品與伴手禮。",
-        "滑雪": "出發前可依雪況與程度確認安排。",
-        "溫泉休閒": "適合滑雪或市區行程後放鬆。",
-        "景點": "適合安排在市區或近郊半日行程。",
-        "娛樂": "可依當天行程與營業時間安排。",
-        "住宿": "適合作為旭川行程中的住宿據點。",
-        "交通": "可作為旭川自駕與移動的交通節點。"
-      };
       let text = base || `${place.name}是旭川行程中的${place.group || "推薦地點"}。`;
-      if (text.length < 20) text = `${text}${additions[place.group] || "可依行程安排造訪。"}`;
+      if (text.length < 20) {
+        const detail = place.group === "餐廳"
+          ? (place.cuisine ? `主打${place.cuisine}，可留意店內招牌菜。` : "可留意店內招牌菜與用餐時段。")
+          : place.group === "滑雪" ? "可依當日雪況選擇雪道。"
+          : place.group === "溫泉休閒" ? "可先確認當日開放時段。"
+          : "可依營業時間彈性安排。";
+        text = `${text}${detail}`;
+      }
       return text.length > 40 ? `${text.slice(0, 39)}…` : text;
     }
     function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;"}[char])); }
@@ -660,7 +639,7 @@
     function drawFilters() {
       filters.innerHTML = categories.map(c => {
         const favorite = c === "我的收藏";
-        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? icons.heart : c}</button>`;
+        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? icons.heart : (categoryLabels[c] || c)}</button>`;
       }).join("");
       filters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
         selected = button.dataset.category;
@@ -701,7 +680,7 @@
         <article class="card sticker-${stickerShapes[p.group] || "sight"}" style="${categoryStyles[p.group]}">
           <img class="category-icon" src="${iconPaths[p.group]}" alt="" aria-hidden="true">
           <div class="card-top">
-            <div class="category">${escapeHtml(p.group)}</div><h3 class="title">${escapeHtml(p.name)}</h3>
+            <div class="category">${escapeHtml(categoryLabels[p.group] || p.group)}</div><h3 class="title">${escapeHtml(p.name)}</h3>
           </div>
           ${(p.builtIn ? "" : `<div class="card-flags"><span class="card-flag">自訂地點</span></div>`)}
           ${tags.length ? `<div class="card-flags">${tags.map(tag => `<span class="card-flag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
@@ -752,7 +731,7 @@
     }
     function openPlaceDialog(placeId) {
       const select = placeForm.elements.group;
-      select.innerHTML = placeGroups.map(group => `<option value="${group}">${group}</option>`).join("");
+      select.innerHTML = placeGroups.map(group => `<option value="${group}">${categoryLabels[group] || group}</option>`).join("");
       editingPlaceId = placeId || null;
       const place = placeId ? customPlaces.find(item => item.id === placeId) : null;
       document.querySelector("#place-dialog-title").textContent = place ? "編輯自訂地點" : "新增地點";

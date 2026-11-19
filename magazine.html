@@ -148,7 +148,7 @@
     .theme-magazine .results-head { margin-top:26px; padding-bottom:13px; border-bottom:2px solid #2e5553; }
     .theme-magazine .results-head h2 { font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:23px; letter-spacing:.08em; }
     .theme-magazine .grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-    .theme-magazine .card { --sticker-paper:#dfe9b2; position:relative; padding:18px; border:1px solid #d7d0c2 !important; border-radius:0; background-color:#fffdf7 !important; background-image:repeating-linear-gradient(0deg,rgba(76,66,46,.025) 0,rgba(76,66,46,.025) 1px,transparent 1px,transparent 4px) !important; box-shadow:3px 4px 0 rgba(75,83,65,.08); }
+    .theme-magazine .card { --sticker-paper:#dfe9b2; position:relative; height:540px; overflow:hidden; padding:18px; border:1px solid #d7d0c2 !important; border-radius:0; background-color:#fffdf7 !important; background-image:repeating-linear-gradient(0deg,rgba(76,66,46,.025) 0,rgba(76,66,46,.025) 1px,transparent 1px,transparent 4px) !important; box-shadow:3px 4px 0 rgba(75,83,65,.08); }
     .theme-magazine .card.sticker-food { --sticker-paper:#f6c76d; background-color:#fff5dd !important; }
     .theme-magazine .card.sticker-sight { --sticker-paper:#b9b6e8; background-color:#f4f2ff !important; }
     .theme-magazine .card.sticker-snow { --sticker-paper:#9ed8ef; background-color:#eaf7fc !important; }
@@ -157,10 +157,11 @@
     .theme-magazine .card.sticker-onsen { --sticker-paper:#8ed7c5; background-color:#eaf9f4 !important; }
     .theme-magazine .card.sticker-stay { --sticker-paper:#ddb68b; background-color:#fff5e9 !important; }
     .theme-magazine .card.sticker-move { --sticker-paper:#9bc8ef; background-color:#eef7ff !important; }
-    .theme-magazine .card::before { display:block; margin-bottom:12px; color:#6b8877; content:"ASAHIKAWA GUIDE"; font-family:Georgia,serif; font-size:9px; letter-spacing:.18em; }
+    .theme-magazine .card:not(.sticker-snow) { height:390px; }
     .theme-magazine .card::after { position:absolute; right:11px; bottom:11px; width:11px; height:11px; border-right:1px solid #a5b6aa; border-bottom:1px solid #a5b6aa; content:""; }
     .theme-magazine .category { color:#54756b; font-family:"Noto Serif TC","Source Han Serif TC",serif; letter-spacing:.12em; }
-    .theme-magazine .title { color:#243f43; font-family:"Noto Serif TC","Source Han Serif TC",serif; font-size:18px; line-height:1.45; }
+    .theme-magazine .title { display:-webkit-box; overflow:hidden; color:#243f43; font-family:"Noto Serif TC","Noto Serif JP","Source Han Serif TC","Source Han Serif",serif; font-size:18px; line-height:1.45; -webkit-box-orient:vertical; -webkit-line-clamp:3; }
+    .theme-magazine .card:not(.sticker-snow) .title { -webkit-line-clamp:2; }
     .theme-magazine .category-icon { width:108px; height:108px; margin:0 0 10px 14px; border:0; border-radius:0; background:#fffdf7; box-shadow:none; filter:drop-shadow(3px 5px 2px rgba(49,70,58,.18)); mix-blend-mode:normal; opacity:1; }
     .theme-magazine .sticker-food .category-icon { clip-path:polygon(11% 22%,25% 8%,70% 5%,91% 22%,95% 64%,78% 89%,30% 96%,7% 74%); }
     .theme-magazine .sticker-sight .category-icon { clip-path:polygon(16% 11%,55% 3%,86% 20%,97% 55%,79% 88%,42% 97%,10% 79%,3% 39%); }
@@ -183,7 +184,8 @@
     .theme-magazine .sticker-move .category-icon { clip-path:polygon(10% 24%,49% 6%,90% 21%,97% 58%,76% 91%,25% 94%,3% 63%); }
     .theme-magazine .cuisine-tag, .theme-magazine .card-flag { border-color:#c6d4c9; border-radius:7px; background:#eef4ee; color:#3d6257; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
     .theme-magazine .road-summary { border-radius:11px; }
-    .theme-magazine .desc { color:#5d6e67; font-size:12px; line-height:1.8; }
+    .theme-magazine .desc { display:-webkit-box; overflow:hidden; color:#5d6e67; font-size:12px; line-height:1.8; -webkit-box-orient:vertical; -webkit-line-clamp:4; }
+    .theme-magazine .card:not(.sticker-snow) .desc { -webkit-line-clamp:4; }
     .theme-magazine .weather-box { border-color:#cbdacf; border-radius:0; background:#f2f7f1; }
     .theme-magazine .weather-item { color:#687c72; }
     .theme-magazine .weather-value { color:#325b54; font-family:"Noto Serif TC","Source Han Serif TC",serif; }
@@ -195,6 +197,15 @@
     .theme-magazine .quick-actions .save-btn.is-saved { background:#f2a0a7; color:#fffdf7; }
     .theme-magazine .quick-actions .tag-btn { width:40px; min-height:40px; border:1px solid rgba(49,89,81,.16); border-radius:10px; background:var(--sticker-paper); color:#315951; box-shadow:2px 3px 0 rgba(69,89,73,.12); }
     .theme-magazine .quick-actions .tag-btn .action-icon { width:18px; height:18px; stroke-width:1.65; }
+    .theme-magazine .actions { position:absolute; right:18px; bottom:18px; left:18px; margin-top:0; }
+    .theme-magazine .card-tools { position:absolute; right:18px; bottom:18px; left:18px; margin-top:0; }
+    .theme-magazine .card:has(.card-tools) .actions { bottom:65px; }
+    .theme-magazine .card:not(.sticker-snow) .code-row { position:absolute; right:18px; bottom:68px; left:18px; margin:0; }
+    .theme-magazine .card:not(.sticker-snow) .rating-row { position:absolute; right:18px; bottom:110px; left:18px; margin:0; }
+    .theme-magazine .sticker-snow .code-row { position:absolute; right:18px; bottom:159px; left:18px; margin:0; }
+    .theme-magazine .sticker-snow .weather-box { position:absolute; right:18px; bottom:204px; left:18px; margin:0; }
+    .theme-magazine .card:has(.card-tools) .code-row { bottom:115px; }
+    .theme-magazine .card:has(.card-tools) .rating-row { bottom:157px; }
     .theme-magazine .note, .theme-magazine .footer { color:#697b73; }
     .toast.show { transform: translate(-50%,0); opacity: 1; }
     dialog { width: min(calc(100% - 28px), 520px); border: 0; border-radius: 20px; padding: 0; color: var(--ink); box-shadow: 0 24px 70px rgba(10,34,47,.28); }
@@ -230,7 +241,17 @@
       .theme-magazine .shell { padding:14px 14px 42px; }
       .theme-magazine .hero { border-radius:22px; }
       .theme-magazine .grid { grid-template-columns:1fr; gap:12px; }
-      .theme-magazine .card { padding:16px; }
+      .theme-magazine .card { height:520px; padding:16px; }
+      .theme-magazine .card:not(.sticker-snow) { height:370px; }
+      .theme-magazine .actions { right:16px; bottom:16px; left:16px; }
+      .theme-magazine .card-tools { right:16px; bottom:16px; left:16px; }
+      .theme-magazine .card:has(.card-tools) .actions { bottom:63px; }
+      .theme-magazine .card:not(.sticker-snow) .code-row { right:16px; bottom:66px; left:16px; }
+      .theme-magazine .card:not(.sticker-snow) .rating-row { right:16px; bottom:108px; left:16px; }
+      .theme-magazine .sticker-snow .code-row { right:16px; bottom:154px; left:16px; }
+      .theme-magazine .sticker-snow .weather-box { right:16px; bottom:199px; left:16px; }
+      .theme-magazine .card:has(.card-tools) .code-row { bottom:113px; }
+      .theme-magazine .card:has(.card-tools) .rating-row { bottom:155px; }
       .theme-magazine .sticker-snow .category-icon,
       .theme-magazine .sticker-food .category-icon, .theme-magazine .sticker-sight .category-icon,
       .theme-magazine .sticker-play .category-icon, .theme-magazine .sticker-shop .category-icon,
@@ -479,7 +500,8 @@
     };
     places.find(p => p.name === "Korokoro 橡子 麵包店").map = "Korokoro Neighborhood Bakery";
     places.find(p => p.name === "独酌 三四郎").map = "独酌 三四郎, Asahikawa, Hokkaido";
-    const categories = ["全部", "我的收藏", "餐廳", "景點", "滑雪", "娛樂", "購物", "溫泉休閒", "住宿", "交通"];
+    const categories = ["全部", "我的收藏", "滑雪", "餐廳", "住宿", "交通", "購物", "溫泉休閒", "娛樂", "景點"];
+    const categoryLabels = {"溫泉休閒":"溫泉"};
     const placeGroups = categories.slice(2);
     const iconPaths = {"餐廳":"assets/category-illustrations/restaurant-sticker.png", "景點":"assets/category-illustrations/attractions-sticker.png", "滑雪":"assets/category-illustrations/snowboard-sticker.png", "娛樂":"assets/category-illustrations/entertainment-sticker.png", "購物":"assets/category-illustrations/shopping-sticker.png", "溫泉休閒":"assets/category-illustrations/onsen-sticker.png", "住宿":"assets/category-illustrations/lodging-sticker.png", "交通":"assets/category-illustrations/transport-sticker.png"};
     const stickerShapes = {"餐廳":"food", "景點":"sight", "滑雪":"snow", "娛樂":"play", "購物":"shop", "溫泉休閒":"onsen", "住宿":"stay", "交通":"move"};
@@ -655,7 +677,7 @@
     function drawFilters() {
       filters.innerHTML = categories.map(c => {
         const favorite = c === "我的收藏";
-        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? icons.heart : c}</button>`;
+        return `<button class="filter${favorite ? " favorite-filter" : ""}" type="button" aria-pressed="${selected === c}" data-category="${c}"${favorite ? ' aria-label="我的收藏" title="我的收藏"' : ""}>${favorite ? icons.heart : (categoryLabels[c] || c)}</button>`;
       }).join("");
       filters.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
         selected = button.dataset.category;
@@ -696,7 +718,7 @@
         <article class="card sticker-${stickerShapes[p.group] || "sight"}" style="${categoryStyles[p.group]}">
           <img class="category-icon" src="${iconPaths[p.group]}" alt="" aria-hidden="true">
           <div class="card-top">
-            <div class="category">${escapeHtml(p.group)}</div><h3 class="title">${escapeHtml(p.name)}</h3>
+            <h3 class="title">${escapeHtml(p.name)}</h3>
           </div>
           ${(p.builtIn ? "" : `<div class="card-flags"><span class="card-flag">自訂地點</span></div>`)}
           ${tags.length ? `<div class="card-flags">${tags.map(tag => `<span class="card-flag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
@@ -747,7 +769,7 @@
     }
     function openPlaceDialog(placeId) {
       const select = placeForm.elements.group;
-      select.innerHTML = placeGroups.map(group => `<option value="${group}">${group}</option>`).join("");
+      select.innerHTML = placeGroups.map(group => `<option value="${group}">${categoryLabels[group] || group}</option>`).join("");
       editingPlaceId = placeId || null;
       const place = placeId ? customPlaces.find(item => item.id === placeId) : null;
       document.querySelector("#place-dialog-title").textContent = place ? "編輯自訂地點" : "新增地點";
