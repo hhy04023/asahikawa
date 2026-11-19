@@ -1,28 +1,19 @@
 {
   "source_name": "國土交通省 道路情報提供系統",
   "source_url": "https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTukokisei_81_1.html?page=10&zoom=9&ido=43.770&keido=142.365",
-  "fetched_at": "2026-11-19T07:14:45.359Z",
-  "official_updated_at": "2026年11月19日16時10分更新",
+  "fetched_at": "2026-11-19T08:36:13.479Z",
+  "official_updated_at": "2026年11月19日17時35分更新",
   "meshes": [
     "6542"
   ],
   "status": {
     "label": "通行止資訊あり",
     "summary": "旭川周邊目前有 17 件通行止資訊，出發前請開啟官方地圖確認區間。",
-    "restrictions": 18,
+    "restrictions": 17,
     "closures": 17,
     "chains": 0
   },
   "items": [
-    {
-      "id": "24390c2a85d1f100",
-      "type": "片側交互通行",
-      "road": "国道275号",
-      "from": "雨竜郡幌加内町下幌加内",
-      "to": "雨竜郡幌加内町下幌加内",
-      "starts_at": "2026-10-13 07:30:00",
-      "icon": "icon_kisei_katagawa.png"
-    },
     {
       "id": "2439832fe7a8bd56",
       "type": "通行止",
