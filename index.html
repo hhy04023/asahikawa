@@ -66,6 +66,7 @@
     .road-summary-mark { display:grid; width:30px; height:30px; place-items:center; border:1px solid rgba(49,89,81,.14); border-radius:8px; background:#d8e0ad; color:#37554a; font-size:14px; }
     .road-summary strong { display:block; color:#315951; font-size:12px; }
     .road-summary span { display:block; margin-top:2px; color:#687c72; font-size:10px; line-height:1.55; }
+    .road-source-link { display:inline-block; margin-top:5px; color:#315951; font-size:11px; font-weight:800; text-decoration:underline; text-underline-offset:2px; }
     .location-note { margin:10px 1px 0; color:#657b85; font-size:10px; }
     .intro { margin: 17px 3px 16px; color: #536a77; font-size: 14px; }
     .controls { position: sticky; top: 0; z-index: 5; padding: 8px 0 11px; background: rgba(241,245,243,.94); backdrop-filter: blur(12px); }
@@ -274,7 +275,7 @@
       </div>
       <div class="road-summary" aria-live="polite">
         <div class="road-summary-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M7 3 5 21M17 3l2 18M12 5v3M12 12v3M12 19v2"/></svg></div>
-        <div><strong id="road-summary-title">旭川地區道路摘要・尚未同步</strong><span id="road-summary-detail">目前尚未串接可公開自動彙整的官方即時通行管制資料，因此不顯示推測的壅塞、事故或封閉資訊。</span></div>
+        <div><strong id="road-summary-title">旭川地區道路摘要・讀取中</strong><span id="road-summary-detail">正在讀取由 GitHub Actions 定時更新的官方道路管制資料。</span><a id="road-source-link" class="road-source-link" href="https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTukokisei_81_1.html?page=10&amp;zoom=9&amp;ido=43.770&amp;keido=142.365" target="_blank" rel="noopener noreferrer">查看國土交通省官方完整地圖</a></div>
       </div>
       <p id="location-note" class="location-note">位置只用於本次查詢，不會儲存在網站。定位功能需使用 HTTPS 網址並由瀏覽器授權。</p>
     </section>
@@ -505,7 +506,25 @@
     const locationDetail = document.querySelector("#location-detail");
     const locationWeather = document.querySelector("#location-weather");
     const locationNote = document.querySelector("#location-note");
+    const roadSummaryTitle = document.querySelector("#road-summary-title");
+    const roadSummaryDetail = document.querySelector("#road-summary-detail");
+    const roadSourceLink = document.querySelector("#road-source-link");
     let currentLocationCoords = null;
+
+    async function loadRoadSummary() {
+      try {
+        const response = await fetch("data/road-status.json", {cache:"no-store"});
+        if (!response.ok) throw new Error("road status request failed");
+        const road = await response.json();
+        roadSummaryTitle.textContent = `旭川地區道路摘要・${road.status?.label || "官方資料"}`;
+        const updated = road.official_updated_at ? ` 官方資料更新：${road.official_updated_at}。` : "";
+        roadSummaryDetail.textContent = `${road.status?.summary || "目前無法產生道路摘要，請查看官方完整地圖。"}${updated}`;
+        if (road.source_url) roadSourceLink.href = road.source_url;
+      } catch {
+        roadSummaryTitle.textContent = "旭川地區道路摘要・資料暫時無法取得";
+        roadSummaryDetail.textContent = "目前無法讀取定時更新的官方道路資料，請直接查看官方完整地圖。";
+      }
+    }
 
     function readStorage(key, fallback) {
       try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
@@ -817,6 +836,7 @@
     placeForm.addEventListener("submit", savePlace);
     tagForm.addEventListener("submit", saveTag);
     document.querySelectorAll("[data-close-dialog]").forEach(button => button.addEventListener("click", () => button.closest("dialog").close()));
+    loadRoadSummary();
     drawFilters();
     drawTagFilters();
     drawPlaces();
