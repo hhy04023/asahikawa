@@ -1,8 +1,8 @@
 {
   "source_name": "國土交通省 道路情報提供系統",
   "source_url": "https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTukokisei_81_1.html?page=10&zoom=9&ido=43.770&keido=142.365",
-  "fetched_at": "2026-11-22T12:12:05.187Z",
-  "official_updated_at": "2026年11月22日21時10分更新",
+  "fetched_at": "2026-11-22T13:13:50.604Z",
+  "official_updated_at": "2026年11月22日22時10分更新",
   "meshes": [
     "6542"
   ],
