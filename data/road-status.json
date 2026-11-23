@@ -1,19 +1,46 @@
 {
   "source_name": "國土交通省 道路情報提供系統",
   "source_url": "https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTukokisei_81_1.html?page=10&zoom=9&ido=43.770&keido=142.365",
-  "fetched_at": "2026-11-23T22:20:01.860Z",
-  "official_updated_at": "2026年11月24日07時15分更新",
+  "fetched_at": "2026-11-23T23:22:40.787Z",
+  "official_updated_at": "2026年11月24日08時20分更新",
   "meshes": [
     "6542"
   ],
   "status": {
     "label": "通行止資訊あり",
     "summary": "旭川周邊目前有 17 件通行止資訊，出發前請開啟官方地圖確認區間。",
-    "restrictions": 17,
+    "restrictions": 20,
     "closures": 17,
     "chains": 0
   },
   "items": [
+    {
+      "id": "24325e5467bada67",
+      "type": "移動規制",
+      "road": "国道40号",
+      "from": "旭川市末広１条４丁目",
+      "to": "旭川市末広東１条１２丁目",
+      "starts_at": "2026-09-28 08:00:00",
+      "icon": "icon_kisei_idou.png"
+    },
+    {
+      "id": "243295502e87a072",
+      "type": "移動規制",
+      "road": "国道40号",
+      "from": "旭川市東鷹栖東１線１０号",
+      "to": "旭川市東鷹栖東１条４丁目",
+      "starts_at": "2026-09-28 08:00:00",
+      "icon": "icon_kisei_idou.png"
+    },
+    {
+      "id": "24390c2a85d1f100",
+      "type": "片側交互通行",
+      "road": "国道275号",
+      "from": "雨竜郡幌加内町下幌加内",
+      "to": "雨竜郡幌加内町下幌加内",
+      "starts_at": "2026-10-13 07:30:00",
+      "icon": "icon_kisei_katagawa.png"
+    },
     {
       "id": "2439832fe7a8bd56",
       "type": "通行止",
