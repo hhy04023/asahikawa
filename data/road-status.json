@@ -1,8 +1,8 @@
 {
   "source_name": "國土交通省 道路情報提供系統",
   "source_url": "https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTukokisei_81_1.html?page=10&zoom=9&ido=43.770&keido=142.365",
-  "fetched_at": "2026-11-24T04:59:31.199Z",
-  "official_updated_at": "2026年11月24日13時55分更新",
+  "fetched_at": "2026-11-24T05:59:57.630Z",
+  "official_updated_at": "2026年11月24日14時55分更新",
   "meshes": [
     "6542"
   ],
@@ -15,7 +15,7 @@
   },
   "items": [
     {
-      "id": "24325e5467bada67",
+      "id": "243cfddaf44982de",
       "type": "移動規制",
       "road": "国道40号",
       "from": "旭川市末広１条４丁目",
@@ -24,7 +24,7 @@
       "icon": "icon_kisei_idou.png"
     },
     {
-      "id": "243295502e87a072",
+      "id": "243cfddaf44982df",
       "type": "移動規制",
       "road": "国道40号",
       "from": "旭川市東鷹栖東１線１０号",
@@ -33,7 +33,7 @@
       "icon": "icon_kisei_idou.png"
     },
     {
-      "id": "24390c2a85d1f100",
+      "id": "243cfddaf449831d",
       "type": "片側交互通行",
       "road": "国道275号",
       "from": "雨竜郡幌加内町下幌加内",
@@ -42,7 +42,7 @@
       "icon": "icon_kisei_katagawa.png"
     },
     {
-      "id": "2439832fe7a8bd56",
+      "id": "243cfddaf449a571",
       "type": "通行止",
       "road": "道道140号 愛別当麻旭川線",
       "from": "上川郡当麻町４条東４丁目（豊田当麻線交点",
@@ -51,7 +51,7 @@
       "icon": "icon_stop.png"
     },
     {
-      "id": "243610d4ed8070fd",
+      "id": "243cfddaf449a516",
       "type": "冬期通行止",
       "road": "道道70号 芦別美瑛線",
       "from": "芦別市野花南３５２林班",
@@ -60,7 +60,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "243610d4ed8070fc",
+      "id": "243cfddaf449a515",
       "type": "冬期通行止",
       "road": "道道115号 芦別砂川線",
       "from": "芦別市西芦別１１６－１１",
@@ -69,7 +69,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24391e5fcad3af2b",
+      "id": "243cfddaf449a562",
       "type": "冬期通行止",
       "road": "道道126号 小平幌加内線",
       "from": "幌加内町字長留内国有林２０１林班",
@@ -78,7 +78,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "243610d3c37a7efc",
+      "id": "243cfddaf449a51a",
       "type": "冬期通行止",
       "road": "道道135号 美唄富良野線",
       "from": "美唄市東美唄町常盤（美唄ダム管理所前）",
@@ -87,7 +87,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "2438deb47bab5d29",
+      "id": "243cfddaf449a55f",
       "type": "冬期通行止",
       "road": "道道223号 愛山渓上川線",
       "from": "上川町愛山渓（愛山渓温泉）",
@@ -96,7 +96,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "2439672cb89e3133",
+      "id": "243cfddaf449a56c",
       "type": "冬期通行止",
       "road": "道道251号 雨竜旭川線",
       "from": "上川郡和寒町字福原（福原ゲート）",
@@ -105,7 +105,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24391e6a4509312d",
+      "id": "243cfddaf449a564",
       "type": "冬期通行止",
       "road": "道道579号 新開西神楽停車場線",
       "from": "旭川市新開２７９",
@@ -114,7 +114,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24391e6b6f0f2330",
+      "id": "243cfddaf449a567",
       "type": "冬期通行止",
       "road": "道道611号 瑞穂東川線",
       "from": "旭川市東旭川町瑞穂５５１－２（瑞穂ゲート",
@@ -123,7 +123,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "243c50eb5f1fef4a",
+      "id": "243cfddaf449a577",
       "type": "冬期通行止",
       "road": "道道611号 瑞穂東川線",
       "from": "東川町倉沼９４６（倉沼第２ゲート）",
@@ -132,7 +132,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "243610d4ed807100",
+      "id": "243cfddaf449a519",
       "type": "冬期通行止",
       "road": "道道691号 赤平歌志内線",
       "from": "赤平市美園町地先",
@@ -141,7 +141,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24391e6b6f0f232e",
+      "id": "243cfddaf449a565",
       "type": "冬期通行止",
       "road": "道道718号 忠別清水線",
       "from": "美瑛町字俵真布（俵真布ゲート）",
@@ -150,7 +150,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "243942ba087a8325",
+      "id": "243cfddaf449a561",
       "type": "冬期通行止",
       "road": "道道966号 十勝岳温泉美瑛線",
       "from": "上富良野町国有林（白銀ゲート）",
@@ -159,7 +159,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24391e6b6f0f2332",
+      "id": "243cfddaf449a569",
       "type": "冬期通行止",
       "road": "道道1116号 富良野上川線",
       "from": "東川町８０６－４３（チョボチナイゲート）",
@@ -168,7 +168,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24391e6c99151533",
+      "id": "243cfddaf449a56a",
       "type": "冬期通行止",
       "road": "道道1116号 富良野上川線",
       "from": "美瑛町字俵真布８１７６－２（第３ゲート）",
@@ -177,7 +177,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "243c50eb5f1fef4b",
+      "id": "243cfddaf449a579",
       "type": "冬期通行止",
       "road": "道道1116号 富良野上川線",
       "from": "美瑛町字上宇莫別原野",
@@ -186,7 +186,7 @@
       "icon": "icon_stop_winter.png"
     },
     {
-      "id": "24361041148d631b",
+      "id": "243cfddaf449a55e",
       "type": "冬期通行止",
       "road": "道道1162号 銀泉台線",
       "from": "上川郡上川町国有林３２３林班",
