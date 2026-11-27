@@ -1,28 +1,19 @@
 {
   "source_name": "國土交通省 道路情報提供系統",
   "source_url": "https://www.road-info-prvs.mlit.go.jp/roadinfo/sp/spTukokisei_81_1.html?page=10&zoom=9&ido=43.770&keido=142.365",
-  "fetched_at": "2026-11-27T08:41:10.180Z",
-  "official_updated_at": "2026年11月27日17時40分更新",
+  "fetched_at": "2026-11-27T09:48:11.925Z",
+  "official_updated_at": "2026年11月27日18時45分更新",
   "meshes": [
     "6542"
   ],
   "status": {
     "label": "通行止資訊あり",
     "summary": "旭川周邊目前有 17 件通行止資訊，出發前請開啟官方地圖確認區間。",
-    "restrictions": 18,
+    "restrictions": 17,
     "closures": 17,
     "chains": 0
   },
   "items": [
-    {
-      "id": "243cfddaf44e1751",
-      "type": "片側交互通行",
-      "road": "国道40号",
-      "from": "上川郡比布町北１０線",
-      "to": "上川郡比布町北１１線",
-      "starts_at": "2026-11-16 08:00:00",
-      "icon": "icon_kisei_katagawa.png"
-    },
     {
       "id": "243cfddaf449a571",
       "type": "通行止",
